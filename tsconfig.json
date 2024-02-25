@@ -3,7 +3,7 @@
   "compilerOptions": {
     
     "strict": true,
-  
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
