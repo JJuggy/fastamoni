@@ -129,7 +129,7 @@ const Onboarding = () => {
             }}
             onPress={() => {
               dispatch(setDidOnboard(true));
-              dispatch(setIsGuest());
+              // dispatch(setIsGuest());
               // navigate('AuthNavigator', {
               //   screen: 'SignIn',
               // });

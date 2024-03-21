@@ -7,7 +7,7 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import Back from '@assets/svgs/back.svg';
 import {useNavigation} from '@react-navigation/native';
 import {nav} from 'src/types';
-import {HomeScreenParam} from 'src/navigators/dashboard/screens';
+import {HomeScreenParam} from 'src/navigators/main/screens';
 import colors from '@utility/colors';
 
 interface Props {

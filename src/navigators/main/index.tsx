@@ -40,21 +40,20 @@ const CustomTabBarButton = ({children, onPress}: any) => (
       borderRadius: 35,
       backgroundColor: colors.secondary,
       ...styles.shadow,
-      // borderWidth:12,
       borderColor: colors.white,
     }}
     onPress={onPress}>
     <View>{children}</View>
   </TouchableOpacity>
 );
-const DashboardNavigator = () => {
+const UserLoggedIn = () => {
   return (
     <SafeAreaProvider>
       <Tab.Navigator
         screenOptions={({route}) => ({
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: colors.white,
+            backgroundColor: 'transparent',
             height: 90,
             position: 'absolute',
             bottom: 25,
@@ -135,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DashboardNavigator;
+export default UserLoggedIn;

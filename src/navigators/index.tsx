@@ -8,7 +8,7 @@ import Onboarding from '@screens/onboarding';
 import {setCredential, setDidOnboard} from '@store/auth';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
-import DashboardNavigator from './dashboard';
+import UserLoggedIn from './main';
 
 const {Screen, Navigator} = createNativeStackNavigator<RootScreenList>();
 
@@ -51,20 +51,20 @@ const RootNavigator: React.FC = () => {
       screenOptions={{
         animation: 'fade',
       }}
-      initialRouteName="DashboardNavigator">
+      initialRouteName="UserLoggedIn">
       {/* when checking if user has signed in  render splash screen*/}
 
-      {user && (
+      {!user && (
         <Screen
-          name="DashboardNavigator"
-          component={DashboardNavigator}
+          name="UserLoggedIn"
+          component={UserLoggedIn}
           options={{
             headerShown: false,
           }}
         />
       )}
 
-      {!didOnboard && (
+      {/* {!didOnboard && (
         <Screen
           name="onboarding"
           component={Onboarding}
@@ -84,7 +84,7 @@ const RootNavigator: React.FC = () => {
             animationTypeForReplace: !user ? 'pop' : 'push',
           }}
         />
-      )}
+      )} */}
     </Navigator>
   );
 };

@@ -3,8 +3,6 @@ import React from 'react';
 import {Platform, View} from 'react-native';
 import {ViewContainer} from '@components/view';
 import {Paragraph} from '@components/text/text';
-import colors from '@utility/colors';
-
 import Header from '@components/header';
 import {ShoppingCartSimple} from 'phosphor-react-native';
 const HomeScreen: React.FC = ({}) => {

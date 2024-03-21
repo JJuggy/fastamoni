@@ -1,3 +1,3 @@
 export type HomeScreenParam = {
-  Dashboard: undefined;
+  UserLoggedIn: undefined;
 };
