@@ -11,44 +11,44 @@ import {HomeScreenParam} from 'src/navigators/dashboard/screens';
 import colors from '@utility/colors';
 
 interface Props {
-  title: string;
-  hasRightItems?: boolean;
-  hasBorder?: boolean;
+  leftItem?: React.ReactNode;
+  rightItem?: React.ReactNode;
+  centerItem?: React.ReactNode;
 }
 
-const Header = ({title, hasBorder = true, hasRightItems = true}: Props) => {
+const Header = ({leftItem, rightItem, centerItem}: Props) => {
   const {goBack} = useNavigation<nav<HomeScreenParam>>();
   return (
     <View
       style={[
         styles.container,
-        {borderBottomWidth: hasBorder ? 2 : undefined},
+        {
+          width: '100%',
+          backgroundColor: 'transparent',
+          // justifyContent: 'space-evenly',
+        },
       ]}>
-      <FlexedView justifyContent="space-between">
-        <Pressable onPress={goBack}>
-          <FlexedView>
-            <Back />
-
-            <Paragraph fontSize={16} lineHeight={21} fontWeight="500">
-              {title}
-            </Paragraph>
-          </FlexedView>
-        </Pressable>
-        {hasRightItems && (
-          <FlexedView>
-            <Paragraph>save</Paragraph>
-          </FlexedView>
-        )}
-      </FlexedView>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Pressable onPress={goBack}>{leftItem}</Pressable>
+        <Paragraph fontSize={16} lineHeight={21} fontWeight="600">
+          {centerItem}
+        </Paragraph>
+        <View>{rightItem}</View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: widthPixel(20),
-    paddingBottom: heightPixel(15),
+    paddingVertical: heightPixel(15),
     borderBottomColor: colors.border,
+    border: 0,
   },
 });
 
