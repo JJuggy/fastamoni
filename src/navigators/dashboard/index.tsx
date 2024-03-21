@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React from 'react';
+import React, {ReactElement} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import HomeScreen from '@screens/home/index';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -13,6 +13,21 @@ import {Paragraph} from '@components/text/text';
 import {House, Storefront, Bag, User, Plus} from 'phosphor-react-native';
 import PlaceOrder from '@screens/place-order';
 const Tab = createBottomTabNavigator();
+const IconWrapper = ({children, iconName, focused}: any) => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 8,
+      }}>
+      {children}
+      <Paragraph color={focused ? colors.text_color : colors.in_active}>
+        {iconName}
+      </Paragraph>
+    </View>
+  );
+};
 
 const CustomTabBarButton = ({children, onPress}: any) => (
   <TouchableOpacity
@@ -36,7 +51,7 @@ const DashboardNavigator = () => {
   return (
     <SafeAreaProvider>
       <Tab.Navigator
-        screenOptions={{
+        screenOptions={({route}) => ({
           tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: colors.white,
@@ -46,52 +61,53 @@ const DashboardNavigator = () => {
             elevation: 0,
           },
           headerShown: false,
-        }}>
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({focused}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top: 10,
-                }}>
-                <House
-                  color={focused ? colors.secondary : colors.border}
-                  size={32}
-                />
-                <Paragraph color={focused ? colors.secondary : colors.border}>
-                  Home
-                </Paragraph>
-              </View>
-            ),
-          }}
-          name="HomeScreen"
-          component={HomeScreen}
-        />
-
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({focused}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top: 10,
-                }}>
-                <Storefront
-                  color={focused ? colors.secondary : colors.border}
-                  size={32}
-                />
-                <Paragraph color={focused ? colors.secondary : colors.border}>
-                  Stores
-                </Paragraph>
-              </View>
-            ),
-          }}
-          name="StoresScreen"
-          component={StoresScreen}
-        />
+          tabBarIcon: ({
+            focused,
+          }: {
+            focused: boolean;
+            color: string;
+            size: number;
+          }) => {
+            let icon_map = {
+              HomeScreen: (
+                <IconWrapper focused={focused} iconName="Home">
+                  <House
+                    color={focused ? colors.text_color : colors.in_active}
+                    size={32}
+                  />
+                </IconWrapper>
+              ),
+              OrdersScreen: (
+                <IconWrapper focused={focused} iconName="Orders">
+                  <Storefront
+                    color={focused ? colors.text_color : colors.in_active}
+                    size={32}
+                  />
+                </IconWrapper>
+              ),
+              ProfileScreen: (
+                <IconWrapper focused={focused} iconName="Profile">
+                  <User
+                    color={focused ? colors.text_color : colors.in_active}
+                    size={32}
+                  />
+                </IconWrapper>
+              ),
+              StoresScreen: (
+                <IconWrapper focused={focused} iconName="Stores">
+                  <Storefront
+                    color={focused ? colors.text_color : colors.in_active}
+                    size={32}
+                  />
+                </IconWrapper>
+              ),
+            };
+            //@ts-ignore
+            return icon_map[route.name];
+          },
+        })}>
+        <Tab.Screen name="HomeScreen" component={HomeScreen} />
+        <Tab.Screen name="StoresScreen" component={StoresScreen} />
         <Tab.Screen
           options={{
             tabBarIcon: ({focused}) => <Plus size={50} color={colors.white} />,
@@ -100,50 +116,8 @@ const DashboardNavigator = () => {
           name="PlaceOrderScreen"
           component={PlaceOrder}
         />
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({focused}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top: 10,
-                }}>
-                <Bag
-                  color={focused ? colors.secondary : colors.border}
-                  size={32}
-                />
-                <Paragraph color={focused ? colors.secondary : colors.border}>
-                  Orders
-                </Paragraph>
-              </View>
-            ),
-          }}
-          name="OrdersScreen"
-          component={OrdersScreen}
-        />
-        <Tab.Screen
-          options={{
-            tabBarIcon: ({focused}) => (
-              <View
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  top: 10,
-                }}>
-                <User
-                  color={focused ? colors.secondary : colors.border}
-                  size={32}
-                />
-                <Paragraph color={focused ? colors.secondary : colors.border}>
-                  Profile
-                </Paragraph>
-              </View>
-            ),
-          }}
-          name="ProfileScreen"
-          component={ProfileScreen}
-        />
+        <Tab.Screen name="OrdersScreen" component={OrdersScreen} />
+        <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
       </Tab.Navigator>
     </SafeAreaProvider>
   );
