@@ -1,3 +1,6 @@
+import {NavigatorScreenParams} from '@react-navigation/native';
+import {BottomTabParams} from '../bottomTabs/screens';
+
 export type HomeScreenParam = {
-  UserLoggedIn: undefined;
+  HomeScreen: NavigatorScreenParams<BottomTabParams>;
 };

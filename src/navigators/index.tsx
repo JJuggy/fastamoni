@@ -54,7 +54,7 @@ const RootNavigator: React.FC = () => {
       initialRouteName="UserLoggedIn">
       {/* when checking if user has signed in  render splash screen*/}
 
-      {!user && (
+      {user && (
         <Screen
           name="UserLoggedIn"
           component={UserLoggedIn}
@@ -64,7 +64,7 @@ const RootNavigator: React.FC = () => {
         />
       )}
 
-      {/* {!didOnboard && (
+      {!didOnboard && (
         <Screen
           name="onboarding"
           component={Onboarding}
@@ -84,7 +84,7 @@ const RootNavigator: React.FC = () => {
             animationTypeForReplace: !user ? 'pop' : 'push',
           }}
         />
-      )} */}
+      )}
     </Navigator>
   );
 };

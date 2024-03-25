@@ -1,8 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
 import {ReactElement, useState} from 'react';
 import {
-  Text,
   TextInputProps,
   View,
   TextInput,
@@ -12,6 +10,7 @@ import {
 } from 'react-native';
 import colors from '../../utility/colors';
 import {heightPixel, widthPixel} from '../../utility/pxToDpConvert';
+import {Paragraph} from '@components/text/text';
 
 interface IProps extends TextInputProps {
   label?: string;
@@ -33,10 +32,8 @@ export const AppTextInput = ({
   return (
     <View style={[styles.body, {...containerStyle}]}>
       {label && (
-        <View>
-          <Text>
-            <label htmlFor="" />
-          </Text>
+        <View style={{marginBottom: 10}}>
+          <Paragraph>{label}</Paragraph>
         </View>
       )}
       <View

@@ -59,6 +59,7 @@ export const AppButton: React.FC<ButtonProps> = ({
           borderRadius: widthPixel(15),
           alignItems: 'center',
           justifyContent: 'center',
+          opacity: disabled ? 0.4 : 1,
         },
         style,
       ]}>

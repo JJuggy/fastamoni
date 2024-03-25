@@ -6,7 +6,6 @@ import {
   StyleProp,
   View,
   ViewStyle,
-  SafeAreaView,
 } from 'react-native';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
 
@@ -54,13 +53,13 @@ export const BaseView = ({
   background = '#fff',
 }: {background?: string} & PropsWithChildren) => {
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: background}}>
+    <View style={{flex: 1, backgroundColor: background}}>
       <KeyboardAvoidingView
-        style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 10 : 50}}
+        style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 70 : 100}}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         {children}
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 };
 

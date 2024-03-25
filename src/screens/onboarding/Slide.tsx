@@ -9,40 +9,44 @@ import {
   ImageBackground,
 } from 'react-native';
 import {Slide} from './data';
+import {Paragraph} from '@components/text/text';
+import {Spacer} from '@components/view';
+import colors from '@utility/colors';
+import {heightPixel} from '@utility/pxToDpConvert';
 
 interface Iprops {
   data: Slide;
   index: number;
 }
 
-const Slider: React.FC<Iprops> = ({
-  data: {image, id, text, title, redTitle, thirdText},
-  index,
-}) => {
+const Slider: React.FC<Iprops> = ({data: {image, id, text, title}, index}) => {
   const {width, height} = useWindowDimensions();
 
   return (
-    <ImageBackground style={{height, width, zIndex: -100}} source={image} />
+    <View style={[styles.swipeV, {width}]}>
+      <Image source={image} style={[styles.img, {height: height * 0.4}]} />
+      <Spacer />
+      <Paragraph color={colors.primary} fontWeight="700" fontSize={18}>
+        {title}
+      </Paragraph>
+      <Spacer />
+      <Paragraph textAlign="center" fontSize={16}>
+        {text}
+      </Paragraph>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  skipView: {
-    alignItems: 'flex-end',
-    paddingHorizontal: 15,
-  },
-  image_view: {
-    // flex:0.9,
-    // borderWidth:1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  texts_view: {
-    // flex: 0.4,
-    alignItems: 'center',
-    width: '100%',
-    marginTop: 15,
+  swipeV: {
     paddingHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: heightPixel(25),
+  },
+  img: {
+    width: '100%',
+    borderRadius: 15,
   },
 });
 

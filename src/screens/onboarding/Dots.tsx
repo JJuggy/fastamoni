@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 
-import React, {useRef} from 'react';
+import React from 'react';
 import {View, StyleSheet, useWindowDimensions, Animated} from 'react-native';
 import {Slide} from './data';
 import colors from '@utility/colors';
@@ -12,11 +12,10 @@ interface Iprops {
 }
 
 const Dots: React.FC<Iprops> = ({slides, index, scrollX}) => {
-  const animated = useRef(new Animated.Value(index)).current;
-  const {height, width} = useWindowDimensions();
+  const {width} = useWindowDimensions();
 
   return (
-    <View style={[styles.container, {bottom: height / 3}]}>
+    <View style={[styles.container]}>
       {slides.map((ob, i) => {
         const getWidth = scrollX?.interpolate({
           inputRange: [(i - 1) * width, i * width, (i + 1) * width],
@@ -31,7 +30,7 @@ const Dots: React.FC<Iprops> = ({slides, index, scrollX}) => {
               height: 10,
               borderRadius: 5,
               marginRight: 5,
-              backgroundColor: i === index ? colors.primary : colors.white,
+              backgroundColor: i === index ? colors.black : colors.gray,
               // transform: [{scaleX: getWidth()}],
             }}
             key={ob.id}
@@ -49,9 +48,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
     marginTop: 10,
-    position: 'absolute',
-    left: 0,
-    right: 0,
   },
   dots: {
     width: 10,
