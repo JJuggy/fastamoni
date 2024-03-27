@@ -1,6 +1,7 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
 import {ReactElement, useState} from 'react';
 import {
+  Text,
   TextInputProps,
   View,
   TextInput,
@@ -10,7 +11,7 @@ import {
 } from 'react-native';
 import colors from '../../utility/colors';
 import {heightPixel, widthPixel} from '../../utility/pxToDpConvert';
-import {Paragraph} from '@components/text/text';
+import React from 'react';
 
 interface IProps extends TextInputProps {
   label?: string;
@@ -18,6 +19,7 @@ interface IProps extends TextInputProps {
   leftIcon?: ReactElement;
   containerStyle?: ViewStyle;
   inputStyle?: ViewStyle;
+  multiline?: boolean;
 }
 
 export const AppTextInput = ({
@@ -26,24 +28,29 @@ export const AppTextInput = ({
   leftIcon,
   containerStyle,
   inputStyle,
+  multiline = false,
   ...props
 }: IProps) => {
   const [height, setHeight] = useState(0);
   return (
     <View style={[styles.body, {...containerStyle}]}>
       {label && (
-        <View style={{marginBottom: 10}}>
-          <Paragraph>{label}</Paragraph>
+        <View style={{marginBottom: 5}}>
+          <Text>{label}</Text>
         </View>
       )}
       <View
         style={[
           styles.inputContaner,
           {...inputStyle},
-          {height: Math.max(60, height)},
+          {
+            height: Math.max(multiline ? 100 : 60, height),
+            marginTop: multiline ? 5 : 0,
+          },
         ]}>
         {leftIcon && leftIcon}
         <TextInput
+          multiline={multiline}
           onContentSizeChange={event => {
             setHeight(event.nativeEvent.contentSize.height);
           }}
@@ -72,7 +79,6 @@ const styles = StyleSheet.create({
       ios: heightPixel(10),
       android: 0,
     }),
-    height: heightPixel(60),
   },
   input: {
     paddingHorizontal: widthPixel(15),
