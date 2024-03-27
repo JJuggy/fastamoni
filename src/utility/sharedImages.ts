@@ -16,5 +16,9 @@ export default {
     starfilled: require('../assets/icons/starfilled.png'),
     stargray: require('../assets/icons/stargray.png'),
     person_round: require('../assets/icons/person-round.png'),
+    cart: require('../assets/icons/cart.png'),
+    search: require('../assets/icons/search.png'),
+    filter: require('../assets/icons/filter.png'),
+    clock: require('../assets/icons/clock.png'),
   },
 };

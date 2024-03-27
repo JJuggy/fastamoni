@@ -4,6 +4,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleProp,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
@@ -22,6 +23,9 @@ export const ViewContainer = ({children, style}: ViewProps) => {
 export const Spacer = ({height}: {height?: number}) => {
   return <View style={{height: heightPixel(height ?? 20)}} />;
 };
+interface PressableViewProps extends PropsWithChildren {
+  style: StyleProp<ViewStyle>;
+}
 
 interface FlexProps extends PropsWithChildren {
   justifyContent?: ViewStyle['justifyContent'];
@@ -37,6 +41,17 @@ export const FlexedView = ({children, justifyContent, style}: FlexProps) => {
       ]}>
       {children}
     </View>
+  );
+};
+export const PressableView = ({children, style}: PressableViewProps) => {
+  return (
+    <TouchableOpacity
+      style={[
+        {flexDirection: 'row', alignItems: 'center', justifyContent: 'center'},
+        style,
+      ]}>
+      {children}
+    </TouchableOpacity>
   );
 };
 
