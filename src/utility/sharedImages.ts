@@ -28,5 +28,13 @@ export default {
     naira: require('../assets/icons/naira.png'),
     arrowRight: require('../assets/icons/arrow-right.png'),
     arrowDown: require('../assets/icons/arrow-down.png'),
+    message: require('../assets/icons/message.png'),
+    messageQuestion: require('../assets/icons/message-question.png'),
+    receipt: require('../assets/icons/receipt.png'),
+    terms: require('../assets/icons/terms.png'),
+    wallet: require('../assets/icons/wallet.png'),
+    chevron_right: require('../assets/icons/chevron-right.png'),
+    person_round_black: require('../assets/icons/person_round_black.png'),
+    search_black: require('../assets/icons/search_black.png'),
   },
 };
