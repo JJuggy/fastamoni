@@ -7,4 +7,5 @@ export type HomeScreenParam = {
   CreateStore: undefined;
   StoreScreen: undefined;
   FilterScreen: undefined;
+  DealsOfTheDayScreen: undefined;
 };

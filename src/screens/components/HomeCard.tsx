@@ -10,16 +10,10 @@ export interface homeCardProps {
   price: string;
   location: string;
 }
-const HomeCard = ({
-  dealName,
-  storeName,
-  price,
-  location,
-  key,
-}: homeCardProps) => {
+const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
   return (
     <PressableView
-      key={key}
+      onPress={() => null}
       style={{
         backgroundColor: colors.white,
         height: 190,
@@ -72,7 +66,7 @@ const HomeCard = ({
               style={{
                 marginVertical: 5,
               }}>
-              <PressableView
+              <View
                 style={{
                   backgroundColor: '#BADEFB',
                   padding: 4,
@@ -85,8 +79,8 @@ const HomeCard = ({
                   }}>
                   Used
                 </Paragraph>
-              </PressableView>
-              <PressableView
+              </View>
+              <View
                 style={{
                   backgroundColor: '#BADEFB',
                   padding: 4,
@@ -100,7 +94,7 @@ const HomeCard = ({
                   }}>
                   Servicing Required
                 </Paragraph>
-              </PressableView>
+              </View>
             </FlexedView>
             <FlexedView
               style={{
@@ -140,6 +134,7 @@ const HomeCard = ({
                 paddingRight: 4,
               }}>
               <PressableView
+                onPress={() => null}
                 style={{
                   backgroundColor: 'white',
                   padding: 3,
@@ -163,6 +158,7 @@ const HomeCard = ({
                 </Paragraph>
               </PressableView>
               <PressableView
+                onPress={() => null}
                 style={{
                   backgroundColor: '#4DABF5',
                   padding: 4,

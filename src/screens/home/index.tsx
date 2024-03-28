@@ -28,22 +28,14 @@ import HomeCard from '@screens/components/HomeCard';
 import Dots from '@screens/onboarding/Dots';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {HomeNavigatorParams} from 'src/types';
 
 const HomeScreen: React.FC = ({}) => {
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
-  type RootStackParamList = {
-    HomeScreen: undefined;
-    FilterScreen: undefined;
-  };
-  type FilterScreenNavigationProp = StackNavigationProp<
-    RootStackParamList,
-    'FilterScreen'
-  >;
-
-  const navigation: FilterScreenNavigationProp = useNavigation();
+  const navigation: HomeNavigatorParams = useNavigation();
   const onViewableItemsChanged = React.useRef(
     (info: {viewableItems: ViewToken[]; changed: ViewToken[]}) => {
       const newIndex = info.viewableItems[0].index;
@@ -100,6 +92,10 @@ const HomeScreen: React.FC = ({}) => {
                 <Image
                   source={sharedImages.icons.search}
                   tintColor={colors.primary}
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
                 />
               }
               inputStyle={{
@@ -183,7 +179,7 @@ const HomeScreen: React.FC = ({}) => {
               </FlexedView>
             </View>
             <PressableView
-              onPress={() => null}
+              onPress={() => navigation.navigate('DealsOfTheDayScreen')}
               style={{
                 borderWidth: 1,
                 borderColor: colors.white,
