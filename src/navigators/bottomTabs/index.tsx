@@ -19,6 +19,7 @@ import {HomeScreenParam} from '../main/screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '@screens/home';
 import CreateStore from '@screens/stores/CreateStore';
+import FilterScreen from '@screens/filter';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -27,6 +28,7 @@ interface BottomTabProps extends PropsWithChildren {
 
 const Tab = createBottomTabNavigator<BottomTabParams>();
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
+const Stack = createStackNavigator();
 
 const IconWrapper = ({children, name, focused}: BottomTabProps) => {
   return (
@@ -62,7 +64,7 @@ const CustomTabBarButton = ({children, onPress, focused}: any) => (
   </TouchableOpacity>
 );
 
-const BottomTabNavigator = () => {
+const HomeTabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -165,6 +167,22 @@ const StoreNavigator = () => {
   );
 };
 
+const AppBottomBarNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="UserHome"
+        component={HomeTabs}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FilterScreen"
+        component={FilterScreen}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
 const styles = StyleSheet.create({
   shadow: {
     shadowColor: colors.primary,
@@ -178,4 +196,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomTabNavigator;
+export default AppBottomBarNavigation;

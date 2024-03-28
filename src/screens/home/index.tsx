@@ -26,10 +26,12 @@ import data from '../../data';
 import HomeCard from '@screens/components/HomeCard';
 import Dots from '@screens/onboarding/Dots';
 import {Slides} from '@screens/onboarding/data';
+import {useNavigation} from '@react-navigation/native';
 const HomeScreen: React.FC = ({}) => {
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
   const scrollX = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={{flex: 1}}>
       <ViewContainer>
@@ -92,8 +94,7 @@ const HomeScreen: React.FC = ({}) => {
                 width: '70%',
               }}
             />
-
-            <FlexedView
+            <Pressable
               style={{
                 borderRadius: 10,
                 backgroundColor: 'white',
@@ -102,18 +103,23 @@ const HomeScreen: React.FC = ({}) => {
                 height: 60,
                 alignItems: 'center',
                 justifyContent: 'center',
+              }}
+              onPress={() => {
+                navigation.navigate('FilterScreen');
               }}>
-              <Paragraph
-                style={{
-                  color: colors.gray,
-                }}>
-                Filter
-              </Paragraph>
-              <Image
-                source={sharedImages.icons.filter}
-                tintColor={colors.primary}
-              />
-            </FlexedView>
+              <FlexedView style={{}}>
+                <Paragraph
+                  style={{
+                    color: colors.gray,
+                  }}>
+                  Filter
+                </Paragraph>
+                <Image
+                  source={sharedImages.icons.filter}
+                  tintColor={colors.primary}
+                />
+              </FlexedView>
+            </Pressable>
           </FlexedView>
 
           <FlexedView

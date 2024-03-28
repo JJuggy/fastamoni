@@ -24,5 +24,6 @@ export default {
     clock: require('../assets/icons/clock.png'),
     naira: require('../assets/icons/naira.png'),
     arrowRight: require('../assets/icons/arrow-right.png'),
+    arrowDown: require('../assets/icons/arrow-down.png'),
   },
 };

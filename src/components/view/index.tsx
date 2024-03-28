@@ -25,6 +25,7 @@ export const Spacer = ({height}: {height?: number}) => {
 };
 interface PressableViewProps extends PropsWithChildren {
   style: StyleProp<ViewStyle>;
+  onPress: () => void;
 }
 
 interface FlexProps extends PropsWithChildren {
@@ -43,9 +44,14 @@ export const FlexedView = ({children, justifyContent, style}: FlexProps) => {
     </View>
   );
 };
-export const PressableView = ({children, style}: PressableViewProps) => {
+export const PressableView = ({
+  children,
+  style,
+  onPress,
+}: PressableViewProps) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         {flexDirection: 'row', alignItems: 'center', justifyContent: 'center'},
         style,
