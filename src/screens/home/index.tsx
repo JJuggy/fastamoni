@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -9,6 +9,7 @@ import {
   StyleSheet,
   View,
   Animated,
+  ViewToken,
 } from 'react-native';
 import {
   FlexedView,
@@ -30,8 +31,15 @@ import {useNavigation} from '@react-navigation/native';
 const HomeScreen: React.FC = ({}) => {
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
+  const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
+  const onViewableItemsChanged = React.useRef(
+    (info: {viewableItems: ViewToken[]; changed: ViewToken[]}) => {
+      const newIndex = info.viewableItems[0].index;
+      setCurrentIndex(newIndex as number);
+    },
+  ).current;
   return (
     <SafeAreaView style={{flex: 1}}>
       <ViewContainer>
@@ -188,11 +196,18 @@ const HomeScreen: React.FC = ({}) => {
               />
             </PressableView>
           </FlexedView>
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-            {homeTopDeals.map((item, index) => (
-              <DealCard key={index} {...item} />
-            ))}
-          </ScrollView>
+          <FlatList
+            data={homeTopDeals}
+            renderItem={({item}) => <DealCard {...item} />}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal
+            onViewableItemsChanged={onViewableItemsChanged}
+            showsHorizontalScrollIndicator={false}
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {x: scrollX}}}],
+              {useNativeDriver: false},
+            )}
+          />
           <View
             style={{
               width: '100%',
@@ -201,8 +216,9 @@ const HomeScreen: React.FC = ({}) => {
               // backgroundColor: 'red',
             }}>
             <Dots
+              customColor={colors.primary}
               slides={homeTopDeals}
-              // index={currentIndex}
+              index={currentIndex}
               scrollX={scrollX}
             />
           </View>
