@@ -1,7 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreenParam} from './screens';
-import AppBottomBarNavigation from '../bottomTabs';
+import BottomTabNavigator from '../bottomTabs';
+import FilterScreen from '@screens/filter';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
@@ -12,7 +13,8 @@ const UserLoggedIn = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Screen name="Tab" component={AppBottomBarNavigation} />
+      <Screen name="Tab" component={BottomTabNavigator} />
+      <Screen name="FilterScreen" component={FilterScreen} />
     </Navigator>
   );
 };

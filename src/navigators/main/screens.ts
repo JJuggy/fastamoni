@@ -6,4 +6,5 @@ export type HomeScreenParam = {
   HomeScreen: undefined;
   CreateStore: undefined;
   StoreScreen: undefined;
+  FilterScreen: undefined;
 };

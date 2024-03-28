@@ -26,14 +26,24 @@ import DealCard from '@components/dealCard';
 import data from '../../data';
 import HomeCard from '@screens/components/HomeCard';
 import Dots from '@screens/onboarding/Dots';
-import {Slides} from '@screens/onboarding/data';
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+
 const HomeScreen: React.FC = ({}) => {
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
-  const navigation = useNavigation();
+  type RootStackParamList = {
+    HomeScreen: undefined;
+    FilterScreen: undefined;
+  };
+  type FilterScreenNavigationProp = StackNavigationProp<
+    RootStackParamList,
+    'FilterScreen'
+  >;
+
+  const navigation: FilterScreenNavigationProp = useNavigation();
   const onViewableItemsChanged = React.useRef(
     (info: {viewableItems: ViewToken[]; changed: ViewToken[]}) => {
       const newIndex = info.viewableItems[0].index;
@@ -173,6 +183,7 @@ const HomeScreen: React.FC = ({}) => {
               </FlexedView>
             </View>
             <PressableView
+              onPress={() => null}
               style={{
                 borderWidth: 1,
                 borderColor: colors.white,
@@ -213,11 +224,10 @@ const HomeScreen: React.FC = ({}) => {
               width: '100%',
               alignItems: 'center',
               justifyContent: 'center',
-              // backgroundColor: 'red',
             }}>
             <Dots
               customColor={colors.primary}
-              slides={homeTopDeals}
+              slides={homeTopDeals as any}
               index={currentIndex}
               scrollX={scrollX}
             />

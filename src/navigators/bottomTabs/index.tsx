@@ -3,7 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, {PropsWithChildren, ReactElement} from 'react';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import HomeScreen from '@screens/home/index';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import StoresScreen from '@screens/stores';
 import OrdersScreen from '@screens/orders';
@@ -15,11 +16,6 @@ import {House, Storefront, Bag, User, Plus} from 'phosphor-react-native';
 import PlaceOrder from '@screens/place-order';
 import {BottomTabParams} from './screens';
 import sharedImages from '@utility/sharedImages';
-import {HomeScreenParam} from '../main/screens';
-import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '@screens/home';
-import CreateStore from '@screens/stores/CreateStore';
-import FilterScreen from '@screens/filter';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -27,8 +23,6 @@ interface BottomTabProps extends PropsWithChildren {
 }
 
 const Tab = createBottomTabNavigator<BottomTabParams>();
-const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
-const Stack = createStackNavigator();
 
 const IconWrapper = ({children, name, focused}: BottomTabProps) => {
   return (
@@ -64,17 +58,17 @@ const CustomTabBarButton = ({children, onPress, focused}: any) => (
   </TouchableOpacity>
 );
 
-const HomeTabs = () => {
+const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({route}) => ({
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: colors.white,
+          backgroundColor: 'transparent',
           height: 90,
           position: 'absolute',
-          bottom: 0,
+          bottom: 25,
           elevation: 0,
         },
         headerShown: false,
@@ -123,8 +117,8 @@ const HomeTabs = () => {
           return icon_map[route.name];
         },
       })}>
-      <Tab.Screen name="Home" component={HomeNavigator} />
-      <Tab.Screen name="Stores" component={StoreNavigator} />
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Stores" component={StoresScreen} />
       <Tab.Screen
         options={{
           tabBarButton: props => (
@@ -141,48 +135,6 @@ const HomeTabs = () => {
     </Tab.Navigator>
   );
 };
-
-const HomeNavigator = () => {
-  return (
-    <Navigator
-      initialRouteName="HomeScreen"
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Screen name="HomeScreen" component={HomeScreen} />
-    </Navigator>
-  );
-};
-
-const StoreNavigator = () => {
-  return (
-    <Navigator
-      initialRouteName="StoreScreen"
-      screenOptions={{
-        headerShown: false,
-      }}>
-      <Screen name="StoreScreen" component={StoresScreen} />
-      <Screen name="CreateStore" component={CreateStore} />
-    </Navigator>
-  );
-};
-
-const AppBottomBarNavigation = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="UserHome"
-        component={HomeTabs}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="FilterScreen"
-        component={FilterScreen}
-        options={{headerShown: false}}
-      />
-    </Stack.Navigator>
-  );
-};
 const styles = StyleSheet.create({
   shadow: {
     shadowColor: colors.primary,
@@ -196,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppBottomBarNavigation;
+export default BottomTabNavigator;
