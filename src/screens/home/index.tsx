@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useRef, useState} from 'react';
 import {
   FlatList,
@@ -106,6 +107,7 @@ const HomeScreen: React.FC = ({}) => {
               placeholderTextColor={colors.gray}
               containerStyle={{
                 width: '70%',
+                marginBottom: 0,
               }}
             />
             <Pressable

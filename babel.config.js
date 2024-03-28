@@ -12,6 +12,7 @@ module.exports = {
           '@store': './src/store',
           '@utility': './src/utility',
           '@providers': './src/providers',
+          '@navigators': './src/navigators',
         },
       },
     ],
