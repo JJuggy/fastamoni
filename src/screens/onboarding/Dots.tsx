@@ -9,9 +9,19 @@ interface Iprops {
   slides: Slide[];
   index: number;
   scrollX: any;
+  customColor?: boolean;
+  inActiveColor: string;
+  activeColor: string;
 }
 
-const Dots: React.FC<Iprops> = ({slides, index, scrollX}) => {
+const Dots: React.FC<Iprops> = ({
+  slides,
+  index,
+  scrollX,
+  customColor,
+  inActiveColor,
+  activeColor,
+}) => {
   const {width} = useWindowDimensions();
 
   return (
@@ -30,7 +40,15 @@ const Dots: React.FC<Iprops> = ({slides, index, scrollX}) => {
               height: 10,
               borderRadius: 5,
               marginRight: 5,
-              backgroundColor: i === index ? colors.black : colors.gray,
+              backgroundColor:
+                i === index
+                  ? customColor === undefined
+                    ? colors.black
+                    : activeColor
+                  : customColor === undefined
+                  ? colors.gray
+                  : inActiveColor,
+
               // transform: [{scaleX: getWidth()}],
             }}
             key={ob.id}
