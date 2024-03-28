@@ -36,5 +36,17 @@ export default {
       dealDescription: 'Best deals on Household and Electronics ',
       verified: true,
     },
+    {
+      _id: '2',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+    {
+      _id: '2',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
   ],
 };

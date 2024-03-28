@@ -195,7 +195,7 @@ const HomeScreen: React.FC = ({}) => {
               // backgroundColor: 'red',
             }}>
             <Dots
-              slides={Slides}
+              slides={homeTopDeals}
               // index={currentIndex}
               scrollX={scrollX}
             />
