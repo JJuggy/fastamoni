@@ -226,7 +226,9 @@ const HomeScreen: React.FC = ({}) => {
               justifyContent: 'center',
             }}>
             <Dots
-              customColor={colors.primary}
+              customColor={true}
+              inActiveColor="#BADEFB"
+              activeColor={colors.primary}
               slides={homeTopDeals as any}
               index={currentIndex}
               scrollX={scrollX}
