@@ -11,4 +11,6 @@ export default {
   in_active: '#424242',
   text_color: '#4DABF5',
   gray: 'rgba(112, 112, 112, 1)',
+  dark_blue: 'rgba(14, 63, 102, 1)',
+  app_bg: 'rgba(246, 247, 249, 1)',
 };

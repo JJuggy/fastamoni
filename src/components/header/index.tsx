@@ -1,54 +1,59 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Paragraph} from '@components/text/text';
 import {FlexedView} from '@components/view';
-import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
-import React from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
-import Back from '@assets/svgs/back.svg';
+import {widthPixel} from '@utility/pxToDpConvert';
+import React, {ReactNode} from 'react';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {nav} from 'src/types';
-import {HomeScreenParam} from 'src/navigators/main/screens';
 import colors from '@utility/colors';
+import {HomeScreenParam} from 'src/navigators/main/screens';
+import {nav} from 'src/types';
+import sharedImages from '@utility/sharedImages';
 
 interface Props {
-  leftItem?: React.ReactNode;
-  rightItem?: React.ReactNode;
-  centerItem?: React.ReactNode;
+  title?: string;
+  backAction?: () => void;
+  rightItem?: ReactNode;
+  leftItem?: ReactNode;
 }
 
-const Header = ({leftItem, rightItem, centerItem}: Props) => {
+const Header = ({title, backAction, rightItem, leftItem}: Props) => {
   const {goBack} = useNavigation<nav<HomeScreenParam>>();
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          width: '100%',
-          backgroundColor: 'transparent',
-          // justifyContent: 'space-evenly',
-        },
-      ]}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <Pressable onPress={goBack}>{leftItem}</Pressable>
-        <Paragraph fontSize={16} lineHeight={21} fontWeight="600">
-          {centerItem}
-        </Paragraph>
-        <View>{rightItem}</View>
-      </View>
+    <View style={[styles.container]}>
+      <FlexedView justifyContent="space-between">
+        {leftItem ? (
+          leftItem
+        ) : (
+          <Pressable
+            onPress={() => {
+              backAction ? backAction() : goBack();
+            }}>
+            <Image source={sharedImages.icons.back} />
+          </Pressable>
+        )}
+        {title ? (
+          <Paragraph fontSize={16} lineHeight={21} fontWeight="500">
+            {title}
+          </Paragraph>
+        ) : null}
+        {rightItem ? rightItem : <View />}
+      </FlexedView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: heightPixel(15),
-    borderBottomColor: colors.border,
-    border: 0,
+    // borderWidth: 1,
+  },
+  circle: {
+    width: widthPixel(35),
+    height: widthPixel(35),
+    borderRadius: widthPixel(35) / 2,
+    backgroundColor: colors.border,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

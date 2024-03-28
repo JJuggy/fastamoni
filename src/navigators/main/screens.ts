@@ -2,5 +2,11 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 import {BottomTabParams} from '../bottomTabs/screens';
 
 export type HomeScreenParam = {
-  HomeScreen: NavigatorScreenParams<BottomTabParams>;
+  Tab: NavigatorScreenParams<BottomTabParams>;
+  HomeScreen: undefined;
+  CreateStore: undefined;
+  StoreScreen: undefined;
+  StoreDetailsScreen: {productId: string | number};
+  FilterScreen: undefined;
+  DealsOfTheDayScreen: undefined;
 };

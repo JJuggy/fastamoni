@@ -2,21 +2,22 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreenParam} from './screens';
 import BottomTabNavigator from '../bottomTabs';
-import {BaseView} from '@components/view';
+import FilterScreen from '@screens/filter';
+import DealsOfTheDayScreen from '@screens/deals-of-the-day';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
 const UserLoggedIn = () => {
   return (
-    <BaseView>
-      <Navigator
-        initialRouteName="HomeScreen"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Screen name="HomeScreen" component={BottomTabNavigator} />
-      </Navigator>
-    </BaseView>
+    <Navigator
+      initialRouteName="Tab"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Screen name="Tab" component={BottomTabNavigator} />
+      <Screen name="FilterScreen" component={FilterScreen} />
+     
+    </Navigator>
   );
 };
 

@@ -1,17 +1,86 @@
-export const clothes = [
-  {
-    id: '1',
-    label: 'T-Shirt',
-    price: 200,
-  },
-  {
-    id: '2',
-    label: 'Jacket',
-    price: 400,
-  },
-  {
-    id: '3',
-    label: 'Short',
-    price: 350,
-  },
-];
+export default {
+  stores: [
+    {
+      name: 'Juggy Barz',
+      verified: true,
+      rating: 4.5,
+      location: '4, abule oja shina street',
+      category: 'Electronic and GAdget',
+    },
+    {
+      name: 'Hamed Sapa store',
+      verified: false,
+      rating: 4.5,
+      location: '4, adesina street olota captain',
+      category: 'HouseHold and Offices',
+    },
+  ],
+  homeScreenDeals: [
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+  ],
+  homeTopDeals: [
+    {
+      _id: '1',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+    {
+      _id: '2',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+    {
+      _id: '2',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+    {
+      _id: '2',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+  ],
+  AllDealsOfTheDay: [
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      grade: 'A',
+      location: 'Abule oja,Yaba Lagos',
+      discountedPrice: '150000',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      grade: 'A',
+      location: 'Abule oja,Yaba Lagos',
+      discountedPrice: '150000',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      grade: 'A',
+      location: 'Abule oja,Yaba Lagos',
+      discountedPrice: '150000',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      grade: 'A',
+      location: 'Abule oja,Yaba Lagos',
+      discountedPrice: '150000',
+    },
+  ],
+};

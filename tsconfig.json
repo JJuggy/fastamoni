@@ -12,7 +12,8 @@
       "@services/*": ["./src/services/*"],
       "@store/*": ["./src/store/*"],
       "@utility/*": ["./src/utility/*"],
-      "@providers/*": ["./src/providers/*"]
+      "@providers/*": ["./src/providers/*"],
+      "@navigators/*": ["./src/navigators/*"],
     }
   },
 }
