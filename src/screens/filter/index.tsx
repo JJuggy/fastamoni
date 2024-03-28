@@ -6,13 +6,18 @@ import colors from '@utility/colors';
 import {widthPixel} from '@utility/pxToDpConvert';
 import DropDown from '@components/dropDown';
 import {Paragraph} from '@components/text/text';
+import {useNavigation} from '@react-navigation/native';
 
 const FilterScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedPeriod, setSelectedPeriod] = useState('');
   const [selectedMinPrice, setSelectedMinPrice] = useState('');
   const [selectedMaxPrice, setSelectedMaxPrice] = useState('');
-
+  const navigation = useNavigation();
+  const handleApplyFilter = () => {
+    //check if all fields are not empty
+    navigation.goBack();
+  };
   return (
     <BaseView>
       <View style={[styles.container]}>
@@ -54,7 +59,7 @@ const FilterScreen = () => {
         </View>
         <PressableView
           onPress={() => {
-            console.warn('Apply filter');
+            handleApplyFilter();
           }}
           style={{
             backgroundColor: colors.primary,
