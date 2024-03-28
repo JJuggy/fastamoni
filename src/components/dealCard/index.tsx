@@ -1,11 +1,17 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {FlexedView} from '@components/view';
 import colors from '@utility/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {Paragraph} from '@components/text/text';
+import sharedImages from '@utility/sharedImages';
 
-const DealCard = () => {
+interface Props {
+  storeName: string;
+  dealDescription: string;
+  verified: boolean;
+}
+const DealCard = ({storeName, dealDescription, verified}: Props) => {
   return (
     <LinearGradient
       colors={['#FF9A6C', '#D7A22B']}
@@ -17,20 +23,74 @@ const DealCard = () => {
         width: 400,
         marginRight: 12,
       }}>
-      <FlexedView style={{padding: 20}}>
-        <Paragraph
-          fontWeight="400"
-          fontSize={15}
+      <View
+        style={{
+          padding: 20,
+          flexDirection: 'row',
+          height: '100%',
+        }}>
+        <View
           style={{
-            color: colors.white,
+            width: '50%',
           }}>
-          Top Seller
-        </Paragraph>
-      </FlexedView>
+          <FlexedView>
+            <Image
+              style={styles.icons}
+              source={sharedImages.icons.shop}
+              tintColor={colors.white}
+            />
+            <Paragraph
+              fontWeight="400"
+              fontSize={15}
+              style={{
+                color: colors.white,
+              }}>
+              Top Seller
+            </Paragraph>
+          </FlexedView>
+          <View
+            style={{
+              flexDirection: 'column',
+              marginVertical: 12,
+            }}>
+            <Paragraph fontSize={20} fontWeight="700" color={colors.white}>
+              {storeName}
+            </Paragraph>
+            <Paragraph
+              style={{
+                marginVertical: 5,
+              }}
+              color={colors.white}>
+              {dealDescription}
+            </Paragraph>
+          </View>
+          <FlexedView>
+            <Image style={styles.icons} source={sharedImages.icons.verify} />
+            <Paragraph
+              style={{
+                color: colors.white,
+              }}>
+              {verified ? 'Verified' : 'UnVerified'}
+            </Paragraph>
+          </FlexedView>
+        </View>
+        <View style={{width: '50%', position: 'absolute', top: 10, right: 35}}>
+          <Image
+            source={sharedImages.topDealImg}
+            style={{
+              width: 170,
+              height: 170,
+              borderRadius: 15,
+            }}
+          />
+        </View>
+      </View>
     </LinearGradient>
   );
 };
 
 export default DealCard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  icons: {width: 20, height: 20, marginRight: 5},
+});

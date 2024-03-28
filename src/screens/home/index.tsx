@@ -1,15 +1,35 @@
-import React from 'react';
-import {Image, SafeAreaView, ScrollView, StatusBar, View} from 'react-native';
-import {FlexedView, PressableView, ViewContainer} from '@components/view';
+import React, {useRef} from 'react';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+  Animated,
+} from 'react-native';
+import {
+  FlexedView,
+  PressableView,
+  Spacer,
+  ViewContainer,
+} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import Header from '@components/header';
 import {AppTextInput} from '@components/TextInput';
 import sharedImages from '@utility/sharedImages';
 import colors from '@utility/colors';
 import DealCard from '@components/dealCard';
-import ProductCard from '@components/productCard';
-
+import data from '../../data';
+import HomeCard from '@screens/components/HomeCard';
+import Dots from '@screens/onboarding/Dots';
+import {Slides} from '@screens/onboarding/data';
 const HomeScreen: React.FC = ({}) => {
+  const {homeTopDeals} = data;
+  const {homeScreenDeals} = data;
+  const scrollX = useRef(new Animated.Value(0)).current;
   return (
     <SafeAreaView style={{flex: 1}}>
       <ViewContainer>
@@ -38,6 +58,10 @@ const HomeScreen: React.FC = ({}) => {
               <Image
                 source={sharedImages.icons.cart}
                 tintColor={colors.primary}
+                style={{
+                  width: 26,
+                  height: 26,
+                }}
               />
             </View>
           }
@@ -118,7 +142,11 @@ const HomeScreen: React.FC = ({}) => {
                 }}>
                 <Image
                   source={sharedImages.icons.clock}
-                  tintColor={colors.primary}
+                  tintColor={colors.white}
+                  style={{
+                    width: 20,
+                    height: 20,
+                  }}
                 />
                 <Paragraph
                   fontWeight="400"
@@ -141,18 +169,48 @@ const HomeScreen: React.FC = ({}) => {
                 fontWeight="600"
                 style={{
                   color: colors.white,
-                  paddingHorizontal: 6,
                 }}>
                 View all
               </Paragraph>
+              <Image
+                source={sharedImages.icons.arrowRight}
+                tintColor={colors.white}
+                style={{
+                  width: 15,
+                  height: 15,
+                }}
+              />
             </PressableView>
           </FlexedView>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-            <DealCard />
-            <DealCard />
-            <DealCard />
+            {homeTopDeals.map((item, index) => (
+              <DealCard key={index} {...item} />
+            ))}
           </ScrollView>
-          <ProductCard />
+          <View
+            style={{
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              // backgroundColor: 'red',
+            }}>
+            <Dots
+              slides={Slides}
+              // index={currentIndex}
+              scrollX={scrollX}
+            />
+          </View>
+          <View style={{}}>
+            <Spacer />
+            <ScrollView>
+              {homeScreenDeals.map((item, index) => (
+                <Pressable key={index} style={{flex: 1}}>
+                  <HomeCard {...item} />
+                </Pressable>
+              ))}
+            </ScrollView>
+          </View>
+          {/* </BaseView> */}
         </ScrollView>
       </ViewContainer>
     </SafeAreaView>

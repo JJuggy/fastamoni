@@ -15,4 +15,26 @@ export default {
       category: 'HouseHold and Offices',
     },
   ],
+  homeScreenDeals: [
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+  ],
+  homeTopDeals: [
+    {
+      _id: '1',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+    {
+      _id: '2',
+      storeName: 'OJB Declutter',
+      dealDescription: 'Best deals on Household and Electronics ',
+      verified: true,
+    },
+  ],
 };

@@ -2,6 +2,8 @@ export default {
   // settings images
   mail: require('../assets/img/email.png'),
   storeImg: require('../assets/img/storeImage.png'),
+  homeScreenDealImg: require('../assets/img/homeDeal.png'),
+  topDealImg: require('../assets/img/topDeal.png'),
   icons: {
     home: require('../assets/icons/home.png'),
     orders: require('../assets/icons/orders.png'),
@@ -20,5 +22,7 @@ export default {
     search: require('../assets/icons/search.png'),
     filter: require('../assets/icons/filter.png'),
     clock: require('../assets/icons/clock.png'),
+    naira: require('../assets/icons/naira.png'),
+    arrowRight: require('../assets/icons/arrow-right.png'),
   },
 };
