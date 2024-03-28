@@ -1,6 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {BaseView, FlexedView, PressableView, Spacer} from '@components/view';
+import {
+  BaseView,
+  FlexedView,
+  PressableView,
+  Spacer,
+  ViewContainer,
+} from '@components/view';
 import Header from '@components/header';
 import colors from '@utility/colors';
 import {widthPixel} from '@utility/pxToDpConvert';
@@ -20,7 +26,7 @@ const FilterScreen = () => {
   };
   return (
     <BaseView>
-      <View style={[styles.container]}>
+      <ViewContainer style={[styles.container]}>
         <Header title="Filter" />
         <View style={{marginTop: 35}}>
           <DropDown
@@ -71,7 +77,7 @@ const FilterScreen = () => {
           }}>
           <Text style={{color: colors.white}}>Apply Filter</Text>
         </PressableView>
-      </View>
+      </ViewContainer>
     </BaseView>
   );
 };
