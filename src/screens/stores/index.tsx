@@ -18,7 +18,7 @@ const StoresScreen = () => {
       <View style={styles.container}>
         <Header
           title="Store"
-          rightIcon={
+          rightItem={
             <Pressable
               onPress={() => navigate('CreateStore')}
               style={[styles.addIcon, styles.shadow]}>
@@ -32,9 +32,12 @@ const StoresScreen = () => {
           numColumns={2}
           keyExtractor={(_, ind) => ind.toString()}
           renderItem={({item}) => (
-            <Pressable style={{flex: 1}}>
-              <StoreCard {...item} />
-            </Pressable>
+            <StoreCard
+              item={item}
+              onPress={() =>
+                navigate('StoreDetailsScreen', {productId: item.name})
+              }
+            />
           )}
         />
       </View>

@@ -14,7 +14,7 @@ interface Props {
   title?: string;
   backAction?: () => void;
   rightItem?: ReactNode;
-  leftItem?: boolean;
+  leftItem?: ReactNode;
 }
 
 const Header = ({title, backAction, rightItem, leftItem}: Props) => {
@@ -22,7 +22,7 @@ const Header = ({title, backAction, rightItem, leftItem}: Props) => {
   return (
     <View style={[styles.container]}>
       <FlexedView justifyContent="space-between">
-        {rightItem ? (
+        {leftItem ? (
           leftItem
         ) : (
           <Pressable

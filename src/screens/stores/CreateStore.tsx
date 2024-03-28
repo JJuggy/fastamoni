@@ -45,6 +45,7 @@ const CreateStore = () => {
       });
     }
   };
+
   return (
     <BaseView background="rgba(246, 247, 249, 1)">
       <View style={styles.container}>
