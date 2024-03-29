@@ -6,6 +6,7 @@ export type HomeScreenParam = {
   HomeScreen: undefined;
   CreateStore: undefined;
   StoreScreen: undefined;
+  StoreDetailsScreen: {productId: string | number};
   FilterScreen: undefined;
   DealsOfTheDayScreen: undefined;
   Orders: undefined;

@@ -1,3 +1,4 @@
+import {Dimensions} from 'react-native';
 import {
   launchCamera,
   launchImageLibrary,
@@ -5,6 +6,9 @@ import {
   ImagePickerResponse,
 } from 'react-native-image-picker';
 
+const dimesion = Dimensions.get('window');
+export const windowHeight = dimesion.height;
+export const windowWidth = dimesion.width;
 export const isUpperCase = (string: string) => /[A-Z]/.test(string);
 export const isLowerCase = (string: string) => /[a-z]/.test(string);
 export const hasNumber = (string: string) => /[0-9]/.test(string);

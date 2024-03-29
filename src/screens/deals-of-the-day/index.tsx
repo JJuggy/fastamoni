@@ -5,22 +5,13 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
-  View,
 } from 'react-native';
 import React from 'react';
-import {
-  BaseView,
-  FlexedView,
-  PressableView,
-  Spacer,
-  ViewContainer,
-} from '@components/view';
+import {FlexedView, Spacer, ViewContainer} from '@components/view';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
 import data from '../../data';
 import colors from '@utility/colors';
-import {Paragraph} from '@components/text/text';
 import {useNavigation} from '@react-navigation/native';
 import ProductCard from '@components/ProductCard';
 const DealsOfTheDayScreen = () => {
@@ -43,12 +34,12 @@ const DealsOfTheDayScreen = () => {
             <FlexedView>
               <Image
                 style={styles.icon}
-                source={sharedImages.icons['search']}
+                source={sharedImages.icons.search}
                 tintColor={'#9E9E9E'}
               />
               <Image
                 style={styles.icon}
-                source={sharedImages.icons['cart']}
+                source={sharedImages.icons.cart}
                 tintColor={'#9E9E9E'}
               />
             </FlexedView>

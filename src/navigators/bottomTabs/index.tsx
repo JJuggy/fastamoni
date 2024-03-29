@@ -19,6 +19,7 @@ import {HomeScreenParam} from '../main/screens';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '@screens/home';
 import CreateStore from '@screens/stores/CreateStore';
+import StoreDetailsScreen from '@screens/stores/StoreDetailsScreen';
 import DealsOfTheDayScreen from '@screens/deals-of-the-day';
 
 interface BottomTabProps extends PropsWithChildren {
@@ -162,6 +163,7 @@ const StoreNavigator = () => {
       }}>
       <Screen name="StoreScreen" component={StoresScreen} />
       <Screen name="CreateStore" component={CreateStore} />
+      <Screen name="StoreDetailsScreen" component={StoreDetailsScreen} />
     </Navigator>
   );
 };

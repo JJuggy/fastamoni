@@ -1,4 +1,10 @@
-import {Image, StyleSheet, View, useWindowDimensions} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import React from 'react';
 import {FlexedView} from '@components/view';
 import {Paragraph} from '@components/text/text';
@@ -8,17 +14,25 @@ import {widthPixel} from '@utility/pxToDpConvert';
 import {Rating} from 'react-native-rating-element';
 
 interface CardProps {
-  name: string;
-  rating: number;
-  category: string;
-  verified: boolean;
-  location: string;
+  item: {
+    name: string;
+    rating: number;
+    category: string;
+    verified: boolean;
+    location: string;
+  };
+  onPress: () => void;
 }
 
-const StoreCard = ({name, category, location, rating, verified}: CardProps) => {
+const StoreCard = ({
+  item: {category, verified, rating, location, name},
+  onPress,
+}: CardProps) => {
   const {width} = useWindowDimensions();
   return (
-    <View style={[styles.container, {width: width * 0.43}]}>
+    <Pressable
+      onPress={onPress}
+      style={[styles.container, {width: width * 0.43}]}>
       <Image source={sharedImages.storeImg} style={styles.storeBanner} />
       <View style={styles.catV}>
         <Paragraph fontSize={14} textAlign="center">
@@ -52,7 +66,7 @@ const StoreCard = ({name, category, location, rating, verified}: CardProps) => {
           <Paragraph>{location}</Paragraph>
         </FlexedView>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
