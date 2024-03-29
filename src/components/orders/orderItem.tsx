@@ -4,11 +4,11 @@ import {Paragraph} from '@components/text/text';
 import {FlexedView} from '@components/view';
 import sharedImages from '@utility/sharedImages';
 import {AppButton} from '@components/button';
-import { IOrderProps } from 'src/types';
+import {IOrder, IOrderProps} from 'src/types';
 
 const OrderItem = ({orders}: IOrderProps) => {
   const [numberOfOrders, setNumberOfOrders] = React.useState(1);
-  return orders?.map((order, index: number) => {
+  return orders?.map((order: IOrder, index: number) => {
     return (
       <View key={index}>
         <View style={styles.container}>

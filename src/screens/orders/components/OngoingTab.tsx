@@ -14,10 +14,11 @@ import colors from '@utility/colors';
 import sharedImages from '@utility/sharedImages';
 import OrderItem from '@components/orders/orderItem';
 import data from '../../../data';
+import {IOrder, IOrderProps} from 'src/types';
 
 const OngoingTab = () => {
   const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
-  const {orders} = data;
+  const {orders}: any = data;
   return (
     <SafeAreaView>
       <ScrollView style={{height: '100%'}}>
@@ -70,7 +71,7 @@ const OngoingTab = () => {
               <Paragraph
                 style={{
                   marginLeft: 'auto',
-                  color: 'red',
+                  color: '#DE3D31',
                 }}>
                 Cancel Order
               </Paragraph>
