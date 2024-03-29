@@ -23,7 +23,7 @@ interface ButtonProps {
   disabled?: boolean;
   icon?: React.ReactElement;
   height?: number;
-  variant: Variant;
+  variant?: Variant;
 }
 
 const buttonStyle: Record<Variant, StyleProp<ViewStyle>> = {

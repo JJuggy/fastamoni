@@ -5,6 +5,7 @@ export default {
   storeBanner: require('../assets/img/onboard2.png'),
   homeScreenDealImg: require('../assets/img/homeDeal.png'),
   topDealImg: require('../assets/img/topDeal.png'),
+  noDealImg: require('../assets/img/noDeal.png'),
   icons: {
     home: require('../assets/icons/home.png'),
     orders: require('../assets/icons/orders.png'),
@@ -28,5 +29,9 @@ export default {
     naira: require('../assets/icons/naira.png'),
     arrowRight: require('../assets/icons/arrow-right.png'),
     arrowDown: require('../assets/icons/arrow-down.png'),
+    minus: require('../assets/icons/minus.png'),
+    add: require('../assets/icons/add.png'),
+    circleCancel: require('../assets/icons/circle-cancel.png'),
+    recent: require('../assets/icons/recent.png'),
   },
 };
