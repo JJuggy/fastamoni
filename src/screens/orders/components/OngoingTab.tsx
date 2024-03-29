@@ -1,11 +1,17 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {Paragraph} from '@components/text/text';
+import {Spacer} from '@components/view';
 
 const OngoingTab = () => {
   return (
-    <View>
-      <Text>OngoingTab</Text>
-    </View>
+    <SafeAreaView>
+      <Spacer />
+      <Paragraph>
+        Provide the Seller with the code after inspection and your satisfied
+        with the item, to finalize purchase
+      </Paragraph>
+    </SafeAreaView>
   );
 };
 
