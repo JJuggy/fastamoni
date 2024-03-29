@@ -4,6 +4,9 @@ import {FlexedView, PressableView} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import colors from '@utility/colors';
 import sharedImages from '@utility/sharedImages';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '@react-navigation/native';
+
 export interface homeCardProps {
   dealName: string;
   storeName: string;
@@ -11,9 +14,31 @@ export interface homeCardProps {
   location: string;
 }
 const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
+  type HomeCardRouteParams = {
+    ProductDetails: {
+      details: {
+        dealName: string;
+        storeName: string;
+        price: string;
+        location: string;
+      };
+    };
+  };
+  type YourNavigationType = NavigationProp<HomeCardRouteParams>;
+  const navigation: YourNavigationType = useNavigation();
+
   return (
     <PressableView
-      onPress={() => null}
+      onPress={() =>
+        navigation.navigate('ProductDetails', {
+          details: {
+            dealName,
+            storeName,
+            price,
+            location,
+          },
+        })
+      }
       style={{
         backgroundColor: colors.white,
         height: 190,

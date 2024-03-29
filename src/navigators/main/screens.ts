@@ -11,4 +11,5 @@ export type HomeScreenParam = {
   DealsOfTheDayScreen: undefined;
   Orders: undefined;
   SearchScreen: undefined;
+  ProductDetails: undefined;
 };
