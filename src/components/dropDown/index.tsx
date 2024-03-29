@@ -111,6 +111,7 @@ const DropDown = ({
               }}>
               {dropDownOptions?.map((option, index) => (
                 <Pressable
+                  key={index}
                   onPress={() => {
                     handleSelectOption(option);
                   }}>

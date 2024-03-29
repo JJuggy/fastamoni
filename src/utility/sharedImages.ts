@@ -31,5 +31,7 @@ export default {
     arrowDown: require('../assets/icons/arrow-down.png'),
     minus: require('../assets/icons/minus.png'),
     add: require('../assets/icons/add.png'),
+    circleCancel: require('../assets/icons/circle-cancel.png'),
+    recent: require('../assets/icons/recent.png'),
   },
 };

@@ -92,6 +92,9 @@ const HomeScreen: React.FC = ({}) => {
             }}
             justifyContent="center">
             <AppTextInput
+              onPressIn={() => {
+                navigation.navigate('SearchScreen');
+              }}
               leftIcon={
                 <Image
                   source={sharedImages.icons.search}
