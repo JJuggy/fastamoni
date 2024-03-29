@@ -40,7 +40,7 @@ const CompletedTab = () => {
           paddingVertical: 16,
         }}>
         <View style={{flexDirection: 'column'}}>
-          <Paragraph style={{color: '#737373'}} fontSize={15} fontWeight="600">
+          <Paragraph style={{color: '#737373'}} fontSize={15} fontWeight="700">
             {details.storeName}
           </Paragraph>
           <Spacer />
@@ -54,7 +54,7 @@ const CompletedTab = () => {
             alignItems: 'flex-end',
           }}>
           {details.cancelled ? (
-            <Paragraph color="#FF0000" fontSize={13} fontWeight="300">
+            <Paragraph color="#F28F77" fontSize={13} fontWeight="300">
               Cancelled
             </Paragraph>
           ) : (

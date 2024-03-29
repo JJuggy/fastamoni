@@ -16,7 +16,7 @@ import OrderItem from '@components/orders/orderItem';
 import data from '../../../data';
 
 const OngoingTab = () => {
-  const [code, setCode] = React.useState<string[]>(['1', '2', '3', '4']);
+  const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
   const {orders} = data;
   return (
     <SafeAreaView>
@@ -28,7 +28,7 @@ const OngoingTab = () => {
         </Paragraph>
         <Spacer />
         <FlexedView
-          style={{paddingHorizontal: 20}}
+          style={{paddingHorizontal: 35}}
           justifyContent="space-between">
           {code.map(cd => (
             <View
@@ -79,6 +79,7 @@ const OngoingTab = () => {
           <View
             style={{
               flexDirection: 'column',
+              marginTop: 5,
             }}>
             <Paragraph fontSize={16} fontWeight="600">
               Pickup Details
@@ -88,6 +89,7 @@ const OngoingTab = () => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
+                marginTop: 4,
               }}>
               <Image
                 source={sharedImages.icons.location}
