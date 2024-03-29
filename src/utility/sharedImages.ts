@@ -4,6 +4,7 @@ export default {
   storeImg: require('../assets/img/storeImage.png'),
   homeScreenDealImg: require('../assets/img/homeDeal.png'),
   topDealImg: require('../assets/img/topDeal.png'),
+  noDealImg: require('../assets/img/noDeal.png'),
   icons: {
     home: require('../assets/icons/home.png'),
     orders: require('../assets/icons/orders.png'),

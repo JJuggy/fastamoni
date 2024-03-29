@@ -149,7 +149,6 @@ const HomeNavigator = () => {
         headerShown: false,
       }}>
       <Screen name="HomeScreen" component={HomeScreen} />
-      <Screen name="DealsOfTheDayScreen" component={DealsOfTheDayScreen} />
     </Navigator>
   );
 };

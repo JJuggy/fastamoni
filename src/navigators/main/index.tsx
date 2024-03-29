@@ -16,7 +16,7 @@ const UserLoggedIn = () => {
       }}>
       <Screen name="Tab" component={BottomTabNavigator} />
       <Screen name="FilterScreen" component={FilterScreen} />
-     
+      <Screen name="DealsOfTheDayScreen" component={DealsOfTheDayScreen} />
     </Navigator>
   );
 };
