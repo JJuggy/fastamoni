@@ -2,6 +2,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {FlexedView, Spacer} from '@components/view';
 import {Paragraph} from '@components/text/text';
+import data from '../../../data';
 
 interface ICompleteOrder {
   orderNumber: string;
@@ -12,27 +13,12 @@ interface ICompleteOrder {
   cancelled: boolean;
 }
 const CompletedTab = () => {
-  const completedOrders: ICompleteOrder[] = [
-    {
-      orderNumber: '32453',
-      orderItems: ['1', '2', '3'],
-      orderDate: '27th August 2021, 12:00',
-      orderStatus: 'completed',
-      storeName: 'OJB Declutter',
-      cancelled: false,
-    },
-    {
-      orderNumber: '32453',
-      orderItems: ['1', '2', '3'],
-      orderDate: '27th August 2021, 12:00',
-      orderStatus: 'completed',
-      storeName: 'OJB Declutter',
-      cancelled: true,
-    },
-  ];
-  const completeView = (details: ICompleteOrder) => {
+  const {completedOrders} = data;
+
+  const completeView = (details: ICompleteOrder, index: number) => {
     return (
       <FlexedView
+        key={index}
         justifyContent="space-between"
         style={{
           borderBottomWidth: 0.5,
@@ -72,8 +58,8 @@ const CompletedTab = () => {
   };
   return (
     <ScrollView style={{height: '100%'}}>
-      {completedOrders.map(completedOrder => {
-        return completeView(completedOrder);
+      {completedOrders.map((completedOrder: ICompleteOrder, index: number) => {
+        return completeView(completedOrder, index);
       })}
     </ScrollView>
   );

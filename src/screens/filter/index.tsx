@@ -30,6 +30,7 @@ const FilterScreen = () => {
         <Header title="Filter" />
         <View style={{marginTop: 35}}>
           <DropDown
+          
             placeholder="Select location"
             label="Location"
             width={'100%'}

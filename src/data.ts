@@ -106,4 +106,22 @@ export default {
       price: '150000',
     },
   ],
+  completedOrders: [
+    {
+      orderNumber: '32453',
+      orderItems: ['1', '2', '3'],
+      orderDate: '27th August 2021, 12:00',
+      orderStatus: 'completed',
+      storeName: 'OJB Declutter',
+      cancelled: false,
+    },
+    {
+      orderNumber: '32453',
+      orderItems: ['1', '2', '3'],
+      orderDate: '27th August 2021, 12:00',
+      orderStatus: 'completed',
+      storeName: 'OJB Declutter',
+      cancelled: true,
+    },
+  ],
 };

@@ -14,9 +14,9 @@ import data from '../../../data';
 import colors from '@utility/colors';
 import OrderItem from '@components/orders/orderItem';
 import {AppButton} from '@components/button';
+import {IOrder, IOrderProps} from 'src/types';
 const CartTab = () => {
-  const {orders} = data;
-  const [numberOfOrders, setNumberOfOrders] = useState(1);
+  const {orders}: IOrderProps['orders'] = data;
   return (
     <ScrollView
       style={{

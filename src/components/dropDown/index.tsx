@@ -11,7 +11,7 @@ interface IDropDownProp {
   placeholder?: string;
   setSelectedOption?: (option: string) => void;
   selectedOption?: string;
-  dropDownOptions: string[];
+  dropDownOptions?: string[];
 }
 
 const DropDown = ({
