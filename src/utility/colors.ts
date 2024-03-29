@@ -1,5 +1,5 @@
 export default {
-  primary: 'rgba(30, 137, 221, 1)',
+  primary: '#4DABF5',
   secondary: '#00A5C6',
   accent: '#D8D4E5',
   white: '#fff',

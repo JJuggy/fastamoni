@@ -99,4 +99,11 @@ export default {
       discountedPrice: '150000',
     },
   ],
+  orders: [
+    {
+      storeName: 'OJB Declutter',
+      productName: '3kva Elepaq Gen',
+      price: '150000',
+    },
+  ],
 };

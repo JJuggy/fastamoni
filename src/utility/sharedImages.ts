@@ -26,5 +26,7 @@ export default {
     naira: require('../assets/icons/naira.png'),
     arrowRight: require('../assets/icons/arrow-right.png'),
     arrowDown: require('../assets/icons/arrow-down.png'),
+    minus: require('../assets/icons/minus.png'),
+    add: require('../assets/icons/add.png'),
   },
 };

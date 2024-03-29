@@ -137,7 +137,7 @@ const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
                 onPress={() => null}
                 style={{
                   backgroundColor: 'white',
-                  padding: 3,
+                  padding: 4,
                   borderRadius: 9,
                   borderWidth: 1,
                   borderColor: '#4DABF5',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     height: 190,
     resizeMode: 'cover',
   },
-  icons: {width: 18, height: 18, marginRight: 5, marginLeft: 3},
+  icons: {width: 10, height: 15, marginRight: 5, marginLeft: 3},
   nairaIconStyle: {
     width: 12,
     height: 12,
