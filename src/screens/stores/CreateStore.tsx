@@ -126,6 +126,8 @@ const CreateStore = () => {
                 />
               )}
             </View>
+            <Spacer height={35} />
+            <AppButton variant="primary" text="Create Store" />
           </ScrollView>
         </View>
       </View>

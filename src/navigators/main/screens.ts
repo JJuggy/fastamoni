@@ -9,4 +9,11 @@ export type HomeScreenParam = {
   StoreDetailsScreen: {productId: string | number};
   FilterScreen: undefined;
   DealsOfTheDayScreen: undefined;
+  Orders: undefined;
+  SearchScreen: undefined;
+  ProductDetails: undefined;
+  TransactionHistory: undefined;
+  ProfileScreen: undefined;
+  RecentlyViewed: undefined;
+  MyStore: undefined;
 };

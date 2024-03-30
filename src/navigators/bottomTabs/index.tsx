@@ -21,6 +21,9 @@ import HomeScreen from '@screens/home';
 import CreateStore from '@screens/stores/CreateStore';
 import StoreDetailsScreen from '@screens/stores/StoreDetailsScreen';
 import DealsOfTheDayScreen from '@screens/deals-of-the-day';
+import TransactionHistory from '@screens/profile/TransactionHistory';
+import RecentlyViewed from '@screens/profile/RecentlyViewed';
+import MyStore from '@screens/profile/MyStore';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -137,8 +140,23 @@ const BottomTabNavigator = () => {
         component={PlaceOrder}
       />
       <Tab.Screen name="Orders" component={OrdersScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
+  );
+};
+
+const ProfileStack = () => {
+  return (
+    <Navigator
+      initialRouteName="ProfileScreen"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Screen name="ProfileScreen" component={ProfileScreen} />
+      <Screen name="TransactionHistory" component={TransactionHistory} />
+      <Screen name="RecentlyViewed" component={RecentlyViewed} />
+      <Screen name="MyStore" component={MyStore} />
+    </Navigator>
   );
 };
 
@@ -150,7 +168,6 @@ const HomeNavigator = () => {
         headerShown: false,
       }}>
       <Screen name="HomeScreen" component={HomeScreen} />
-      <Screen name="DealsOfTheDayScreen" component={DealsOfTheDayScreen} />
     </Navigator>
   );
 };

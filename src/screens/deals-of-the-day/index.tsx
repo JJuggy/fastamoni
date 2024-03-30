@@ -3,6 +3,7 @@ import {
   Image,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
 } from 'react-native';
 import React from 'react';
@@ -45,19 +46,76 @@ const DealsOfTheDayScreen = () => {
           }
         />
         <Spacer />
-        <FlatList
-          style={{
-            height: '100%',
-          }}
-          data={AllDealsOfTheDay}
-          numColumns={2}
-          keyExtractor={(_, ind) => ind.toString()}
-          renderItem={({item}) => (
-            <Pressable style={{flex: 1}}>
-              <ProductCard {...item} />
-            </Pressable>
-          )}
-        />
+        {AllDealsOfTheDay.length != 0 ? (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            style={{
+              height: '100%',
+            }}
+            data={AllDealsOfTheDay}
+            numColumns={2}
+            keyExtractor={(_, ind) => ind.toString()}
+            renderItem={({item}) => (
+              <Pressable style={{flex: 1}}>
+                <ProductCard {...item} />
+              </Pressable>
+            )}
+          />
+        ) : (
+          <View
+            style={{
+              flexDirection: 'column',
+              width: '100%',
+              height: '100%',
+              paddingTop: 80,
+            }}>
+            <Image
+              style={{width: 380, height: 220, resizeMode: 'cover'}}
+              source={sharedImages.noDealImg}
+            />
+            <View
+              style={{
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginTop: 20,
+              }}>
+              <Paragraph
+                fontSize={24}
+                fontWeight="800"
+                style={{
+                  color: '#0E3F66',
+                }}>
+                NO DEALS AVAILABLE
+              </Paragraph>
+              <Paragraph
+                style={{
+                  color: '',
+                  textAlign: 'center',
+                  marginVertical: 8,
+                }}>
+                Oops! there is no deal of the day available now. Please check
+                back later
+              </Paragraph>
+            </View>
+            <PressableView
+              onPress={() => null}
+              style={{
+                backgroundColor: '#4DABF5',
+                padding: 14,
+                borderRadius: 5,
+                width: '100%',
+                marginTop: 280,
+              }}>
+              <Paragraph
+                style={{
+                  color: colors.white,
+                  textAlign: 'center',
+                }}>
+                Go Back Home
+              </Paragraph>
+            </PressableView>
+          </View>
+        )}
       </ViewContainer>
     </SafeAreaView>
   );

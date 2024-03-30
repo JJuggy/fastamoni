@@ -2,7 +2,7 @@ import {Paragraph} from '@components/text/text';
 import {FlexedView} from '@components/view';
 import {widthPixel} from '@utility/pxToDpConvert';
 import React, {ReactNode} from 'react';
-import {Image, Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View, ViewStyle} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import colors from '@utility/colors';
@@ -15,12 +15,23 @@ interface Props {
   backAction?: () => void;
   rightItem?: ReactNode;
   leftItem?: ReactNode;
+  textColor?: string;
+  containerStyle?: ViewStyle;
+  tintColor?: string;
 }
 
-const Header = ({title, backAction, rightItem, leftItem}: Props) => {
+const Header = ({
+  title,
+  backAction,
+  rightItem,
+  leftItem,
+  containerStyle,
+  textColor = 'black ',
+  tintColor = 'black',
+}: Props) => {
   const {goBack} = useNavigation<nav<HomeScreenParam>>();
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, {...containerStyle}]}>
       <FlexedView justifyContent="space-between">
         {leftItem ? (
           leftItem
@@ -29,11 +40,15 @@ const Header = ({title, backAction, rightItem, leftItem}: Props) => {
             onPress={() => {
               backAction ? backAction() : goBack();
             }}>
-            <Image source={sharedImages.icons.back} />
+            <Image source={sharedImages.icons.back} tintColor={tintColor} />
           </Pressable>
         )}
         {title ? (
-          <Paragraph fontSize={16} lineHeight={21} fontWeight="500">
+          <Paragraph
+            color={textColor ? textColor : 'black'}
+            fontSize={16}
+            lineHeight={21}
+            fontWeight="500">
             {title}
           </Paragraph>
         ) : null}

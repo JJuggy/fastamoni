@@ -7,8 +7,12 @@ import sharedImages from '@utility/sharedImages';
 import {Paragraph} from '@components/text/text';
 import colors from '@utility/colors';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
+import {useNavigation} from '@react-navigation/native';
+import {HomeNavigatorParams} from '../../types';
+import {HomeScreenParam} from '@navigators/main/screens';
 
 const ProfileScreen = () => {
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   return (
     <BaseView>
       <ViewContainer>
@@ -45,7 +49,10 @@ const ProfileScreen = () => {
           </ViewContainer>
           <ViewContainer>
             {storesOption.map(op => (
-              <Pressable key={op.label} style={styles.option}>
+              <Pressable
+                onPress={() => navigate(op.url)}
+                key={op.label}
+                style={styles.option}>
                 <FlexedView justifyContent="space-between">
                   <FlexedView>
                     <Image
@@ -120,7 +127,7 @@ const storesOption = [
   {
     icon: sharedImages.icons.shop,
     label: 'Store Details',
-    url: 'StoreDetails',
+    url: 'MyStore',
   },
   {
     icon: sharedImages.icons.wallet,

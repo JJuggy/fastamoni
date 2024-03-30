@@ -59,7 +59,10 @@ const HomeScreen: React.FC = ({}) => {
           }
           title={'PrimeBazaar'}
           rightItem={
-            <View
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Orders');
+              }}
               style={{
                 backgroundColor: '#BADEFB',
                 width: 40,
@@ -76,7 +79,7 @@ const HomeScreen: React.FC = ({}) => {
                   height: 26,
                 }}
               />
-            </View>
+            </Pressable>
           }
         />
         <ScrollView style={{height: '100%'}}>
@@ -89,6 +92,9 @@ const HomeScreen: React.FC = ({}) => {
             }}
             justifyContent="center">
             <AppTextInput
+              onPressIn={() => {
+                navigation.navigate('SearchScreen');
+              }}
               leftIcon={
                 <Image
                   source={sharedImages.icons.search}

@@ -4,6 +4,9 @@ import {FlexedView, PressableView} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import colors from '@utility/colors';
 import sharedImages from '@utility/sharedImages';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '@react-navigation/native';
+
 export interface homeCardProps {
   dealName: string;
   storeName: string;
@@ -11,9 +14,31 @@ export interface homeCardProps {
   location: string;
 }
 const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
+  type HomeCardRouteParams = {
+    ProductDetails: {
+      details: {
+        dealName: string;
+        storeName: string;
+        price: string;
+        location: string;
+      };
+    };
+  };
+  type YourNavigationType = NavigationProp<HomeCardRouteParams>;
+  const navigation: YourNavigationType = useNavigation();
+
   return (
     <PressableView
-      onPress={() => null}
+      onPress={() =>
+        navigation.navigate('ProductDetails', {
+          details: {
+            dealName,
+            storeName,
+            price,
+            location,
+          },
+        })
+      }
       style={{
         backgroundColor: colors.white,
         height: 190,
@@ -137,7 +162,7 @@ const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
                 onPress={() => null}
                 style={{
                   backgroundColor: 'white',
-                  padding: 3,
+                  padding: 4,
                   borderRadius: 9,
                   borderWidth: 1,
                   borderColor: '#4DABF5',
@@ -195,7 +220,7 @@ const styles = StyleSheet.create({
     height: 190,
     resizeMode: 'cover',
   },
-  icons: {width: 18, height: 18, marginRight: 5, marginLeft: 3},
+  icons: {width: 10, height: 15, marginRight: 5, marginLeft: 3},
   nairaIconStyle: {
     width: 12,
     height: 12,

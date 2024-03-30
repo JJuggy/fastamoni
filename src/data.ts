@@ -22,6 +22,30 @@ export default {
       price: '120,000',
       location: 'Abule oja,Yaba Lagos',
     },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
   ],
   homeTopDeals: [
     {
@@ -81,6 +105,85 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      grade: 'A',
+      location: 'Abule oja,Yaba Lagos',
+      discountedPrice: '150000',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      grade: 'A',
+      location: 'Abule oja,Yaba Lagos',
+      discountedPrice: '150000',
+    },
+  ],
+  orders: [
+    {
+      storeName: 'OJB Declutter',
+      productName: '3kva Elepaq Gen',
+      price: '150000',
+    },
+  ],
+  completedOrders: [
+    {
+      orderNumber: '32453',
+      orderItems: ['1', '2', '3'],
+      orderDate: '27th August 2021, 12:00',
+      orderStatus: 'completed',
+      storeName: 'OJB Declutter',
+      cancelled: false,
+    },
+    {
+      orderNumber: '32453',
+      orderItems: ['1', '2', '3'],
+      orderDate: '27th August 2021, 12:00',
+      orderStatus: 'completed',
+      storeName: 'OJB Declutter',
+      cancelled: true,
+    },
+  ],
+  transactionHistory: [
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'success',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'success',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
     },
   ],
 };

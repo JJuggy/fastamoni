@@ -5,6 +5,7 @@ export default {
   storeBanner: require('../assets/img/onboard2.png'),
   homeScreenDealImg: require('../assets/img/homeDeal.png'),
   topDealImg: require('../assets/img/topDeal.png'),
+  noDealImg: require('../assets/img/noDeal.png'),
   icons: {
     home: require('../assets/icons/home.png'),
     orders: require('../assets/icons/orders.png'),
@@ -36,5 +37,11 @@ export default {
     chevron_right: require('../assets/icons/chevron-right.png'),
     person_round_black: require('../assets/icons/person_round_black.png'),
     search_black: require('../assets/icons/search_black.png'),
+    minus: require('../assets/icons/minus.png'),
+    add: require('../assets/icons/add.png'),
+    circleCancel: require('../assets/icons/circle-cancel.png'),
+    recent: require('../assets/icons/recent.png'),
+    settings: require('../assets/icons/settings.png'),
+    plus_circle: require('../assets/icons/plus_circle.png'),
   },
 };

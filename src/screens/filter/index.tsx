@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {
   BaseView,
@@ -25,11 +25,12 @@ const FilterScreen = () => {
     navigation.goBack();
   };
   return (
-    <BaseView>
-      <ViewContainer style={[styles.container]}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#F5F5F5'}}>
+      <ViewContainer style={[styles.container, {backgroundColor: '#F5F5F5'}]}>
         <Header title="Filter" />
         <View style={{marginTop: 35}}>
           <DropDown
+          
             placeholder="Select location"
             label="Location"
             width={'100%'}
@@ -43,6 +44,7 @@ const FilterScreen = () => {
             width={'50%'}
             setSelectedOption={setSelectedPeriod}
             selectedOption={selectedPeriod}
+            dropDownOptions={['Anytime', 'For a day', 'Last hour', 'A week']}
           />
           <Spacer />
           <FlexedView style={{alignItems: 'center'}}>
@@ -52,14 +54,19 @@ const FilterScreen = () => {
               width={'160%'}
               setSelectedOption={setSelectedMinPrice}
               selectedOption={selectedMinPrice}
+              dropDownOptions={['$0', '$10', '$20', '$30', '$40', '$50']}
             />
 
-            <Paragraph style={{marginHorizontal: 60}}>to</Paragraph>
+            <Paragraph
+              style={{marginHorizontal: 60, marginTop: 29, marginRight: 12}}>
+              to
+            </Paragraph>
             <DropDown
               placeholder="Optional"
               width={'160%'}
               setSelectedOption={setSelectedMaxPrice}
               selectedOption={selectedMaxPrice}
+              dropDownOptions={['$0', '$10', '$20', '$30', '$40', '$50']}
             />
           </FlexedView>
         </View>
@@ -78,7 +85,7 @@ const FilterScreen = () => {
           <Text style={{color: colors.white}}>Apply Filter</Text>
         </PressableView>
       </ViewContainer>
-    </BaseView>
+    </SafeAreaView>
   );
 };
 

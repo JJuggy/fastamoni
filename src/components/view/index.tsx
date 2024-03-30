@@ -4,6 +4,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleProp,
+  Text,
+  TextStyle,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -26,12 +28,31 @@ export const Spacer = ({height}: {height?: number}) => {
 interface PressableViewProps extends PropsWithChildren {
   style: StyleProp<ViewStyle>;
   onPress: () => void;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 interface FlexProps extends PropsWithChildren {
   justifyContent?: ViewStyle['justifyContent'];
   style?: StyleProp<ViewStyle>;
 }
+
+export const Divider = ({
+  height,
+  bg = 'rgba(246, 246, 246, 1)',
+}: {
+  height: number;
+  bg?: string;
+}) => {
+  return (
+    <View
+      style={{
+        height: height ? height : 2,
+        width: '100%',
+        backgroundColor: bg,
+      }}
+    />
+  );
+};
 
 export const FlexedView = ({children, justifyContent, style}: FlexProps) => {
   return (
@@ -48,6 +69,7 @@ export const PressableView = ({
   children,
   style,
   onPress,
+  textStyle,
 }: PressableViewProps) => {
   return (
     <TouchableOpacity
@@ -56,7 +78,7 @@ export const PressableView = ({
         {flexDirection: 'row', alignItems: 'center', justifyContent: 'center'},
         style,
       ]}>
-      {children}
+      <Text style={[textStyle]}>{children}</Text>
     </TouchableOpacity>
   );
 };
