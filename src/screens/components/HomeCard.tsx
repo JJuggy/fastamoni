@@ -180,7 +180,8 @@ const HomeCard = ({
                   fontSize={10}
                   style={{
                     color: '#4DABF5',
-                    backgroundColor: 'white',
+                    // backgroundColor: 'red',
+                    paddingBottom: 5,
                   }}>
                   Visit Store
                 </Paragraph>
@@ -193,6 +194,7 @@ const HomeCard = ({
                   borderRadius: 9,
                   width: '50%',
                   marginLeft: 3,
+                  alignItems: 'center',
                 }}>
                 <Image
                   style={styles.icons}

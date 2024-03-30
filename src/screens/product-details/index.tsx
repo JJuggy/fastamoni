@@ -113,9 +113,24 @@ const ProductDetails = () => {
               ))}
             </View>
           </View>
-          {similarProductsInStore.map(item => {
-            return <HomeCard item={item} {...item} />;
-          })}
+          <View>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: '300',
+                marginVertical: 12,
+                color: '#737373',
+              }}>
+              Similar products in store
+            </Text>
+            {similarProductsInStore.map((item, index) => {
+              return (
+                <View key={index}>
+                  <HomeCard item={item} {...item} />
+                </View>
+              );
+            })}
+          </View>
         </ScrollView>
         <FlexedView
           style={{
