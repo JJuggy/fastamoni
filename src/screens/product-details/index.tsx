@@ -6,12 +6,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {FlexedView, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
 import {useRoute} from '@react-navigation/native';
+import ProductCard from '@components/ProductCard';
 
 const ProductDetails = () => {
   const route = useRoute();
@@ -20,8 +21,17 @@ const ProductDetails = () => {
       storeName: string;
     };
   };
-
+  const [product, setProduct] = useState({
+    canSeeAddress: false,
+    storeName: 'OJB Declutter',
+    dealName: '3.5Kva Elepaq Gen',
+    price: '150000',
+    location: 'Location',
+    image: sharedImages.homeScreenDealImg,
+    grade: 'B',
+  });
   const {details} = route.params as ProductDetailsRoute;
+
   return (
     <SafeAreaView
       style={{
@@ -53,7 +63,9 @@ const ProductDetails = () => {
         title={details.storeName}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
-        <ScrollView></ScrollView>
+        <ScrollView>
+          <ProductCard productImgHeight={200} {...product} />
+        </ScrollView>
       </ViewContainer>
     </SafeAreaView>
   );

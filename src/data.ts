@@ -28,24 +28,6 @@ export default {
       price: '120,000',
       location: 'Abule oja,Yaba Lagos',
     },
-    {
-      dealName: '3kva Elepaq Generator',
-      storeName: 'OJB Declutter',
-      price: '120,000',
-      location: 'Abule oja,Yaba Lagos',
-    },
-    {
-      dealName: '3kva Elepaq Generator',
-      storeName: 'OJB Declutter',
-      price: '120,000',
-      location: 'Abule oja,Yaba Lagos',
-    },
-    {
-      dealName: '3kva Elepaq Generator',
-      storeName: 'OJB Declutter',
-      price: '120,000',
-      location: 'Abule oja,Yaba Lagos',
-    },
   ],
   homeTopDeals: [
     {
@@ -81,6 +63,7 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+      canSeeAddress: false,
     },
     {
       dealName: '3kva Elepaq Generator',
@@ -89,6 +72,7 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+      canSeeAddress: false,
     },
     {
       dealName: '3kva Elepaq Generator',
@@ -97,6 +81,7 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+      canSeeAddress: false,
     },
     {
       dealName: '3kva Elepaq Generator',
@@ -105,6 +90,7 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+      canSeeAddress: false,
     },
     {
       dealName: '3kva Elepaq Generator',
@@ -113,6 +99,7 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+      canSeeAddress: false,
     },
     {
       dealName: '3kva Elepaq Generator',
@@ -121,6 +108,7 @@ export default {
       grade: 'A',
       location: 'Abule oja,Yaba Lagos',
       discountedPrice: '150000',
+      canSeeAddress: false,
     },
   ],
   orders: [

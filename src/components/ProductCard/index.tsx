@@ -10,7 +10,9 @@ interface ProductCardProps {
   price: string;
   grade: string;
   location: string;
-  discountedPrice: string;
+  discountedPrice?: string;
+  canSeeAddress: boolean;
+  productImgHeight?: number;
 }
 const ProductCard = ({
   dealName,
@@ -19,6 +21,8 @@ const ProductCard = ({
   grade,
   location,
   discountedPrice,
+  canSeeAddress,
+  productImgHeight = 120,
 }: ProductCardProps) => {
   return (
     <View style={styles.dealcardcontainer}>
@@ -26,7 +30,7 @@ const ProductCard = ({
         source={sharedImages.homeScreenDealImg}
         style={{
           width: '100%',
-          height: 120,
+          height: productImgHeight,
         }}
       />
       <View
@@ -54,7 +58,7 @@ const ProductCard = ({
         </FlexedView>
         <Paragraph>{dealName}</Paragraph>
         <Paragraph style={{color: '#125386', marginVertical: 3}}>
-          Grade: {grade}
+          Grade:{grade}
         </Paragraph>
         <FlexedView
           style={{
@@ -62,7 +66,7 @@ const ProductCard = ({
           }}>
           <Image
             style={{
-              width: 15,
+              width: 17,
               height: 15,
               marginRight: 3,
             }}
@@ -74,7 +78,7 @@ const ProductCard = ({
             style={{
               color: 'black',
             }}>
-            {location}
+            {canSeeAddress ? location : 'Location hidden'}
           </Paragraph>
         </FlexedView>
         <FlexedView
@@ -132,16 +136,27 @@ const ProductCard = ({
             marginVertical: 5,
             textDecorationLine: 'line-through',
           }}>
-          <Image
-            tintColor={'grey'}
-            style={{
-              width: 8,
-              height: 8,
-              marginRight: 5,
-            }}
-            source={sharedImages.icons['naira']}
-          />
-          {discountedPrice}
+          {discountedPrice != undefined ? (
+            <FlexedView>
+              <Image
+                tintColor={'grey'}
+                style={{
+                  width: 8,
+                  height: 8,
+                  marginRight: 5,
+                }}
+                source={sharedImages.icons['naira']}
+              />
+              <Paragraph
+                style={{
+                  color: '#707070',
+                  marginVertical: 5,
+                  textDecorationLine: 'line-through',
+                }}>
+                {discountedPrice}
+              </Paragraph>
+            </FlexedView>
+          ) : null}
         </Paragraph>
         <PressableView
           onPress={() => null}

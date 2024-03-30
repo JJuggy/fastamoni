@@ -241,7 +241,7 @@ const HomeScreen: React.FC = ({}) => {
             <ScrollView>
               {homeScreenDeals.map((item, index) => (
                 <Pressable key={index} style={{flex: 1}}>
-                  <HomeCard {...item} />
+                  <HomeCard item={item} {...item} />
                 </Pressable>
               ))}
             </ScrollView>

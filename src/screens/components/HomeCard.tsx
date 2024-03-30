@@ -8,12 +8,19 @@ import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@react-navigation/native';
 
 export interface homeCardProps {
+  item: any;
   dealName: string;
   storeName: string;
   price: string;
   location: string;
 }
-const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
+const HomeCard = ({
+  item,
+  dealName,
+  storeName,
+  price,
+  location,
+}: homeCardProps) => {
   type HomeCardRouteParams = {
     ProductDetails: {
       details: {
@@ -31,17 +38,13 @@ const HomeCard = ({dealName, storeName, price, location}: homeCardProps) => {
     <PressableView
       onPress={() =>
         navigation.navigate('ProductDetails', {
-          details: {
-            dealName,
-            storeName,
-            price,
-            location,
-          },
+          details: item,
         })
       }
       style={{
         backgroundColor: colors.white,
         height: 190,
+        marginBottom: 15,
       }}>
       <FlexedView
         style={{
