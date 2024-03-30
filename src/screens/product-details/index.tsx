@@ -16,6 +16,7 @@ import {useRoute} from '@react-navigation/native';
 import ProductCard from '@components/ProductCard';
 import data from '../../data';
 import {AppButton} from '@components/button';
+import HomeCard from '@screens/components/HomeCard';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
@@ -33,7 +34,7 @@ const ProductDetails = () => {
     grade: 'B',
   });
   const {details} = route.params as ProductDetailsRoute;
-  const {itemInfo} = data;
+  const {itemInfo, similarProductsInStore} = data;
   return (
     <SafeAreaView
       style={{
@@ -65,7 +66,7 @@ const ProductDetails = () => {
         title={details.storeName}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <ProductCard
             withStoreRating={true}
             productImgHeight={200}
@@ -112,12 +113,16 @@ const ProductDetails = () => {
               ))}
             </View>
           </View>
+          {similarProductsInStore.map(item => {
+            return <HomeCard item={item} {...item} />;
+          })}
         </ScrollView>
         <FlexedView
           style={{
             bottom: 70,
             width: '100%',
             marginBottom: 12,
+            zIndex: 100,
           }}>
           <AppButton
             icon={
@@ -144,6 +149,7 @@ const ProductDetails = () => {
               borderWidth: 1,
               marginLeft: 4,
               borderColor: '#737373',
+              backgroundColor: 'white',
             }}>
             <View
               style={{
