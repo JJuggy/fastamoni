@@ -1,19 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import React, {useState} from 'react';
 import Header from '@components/header';
 import {
-  BaseView,
   FlexedView,
   PressableView,
   Spacer,
   ViewContainer,
 } from '@components/view';
-import {current} from '@reduxjs/toolkit';
 import colors from '@utility/colors';
-import {widthPixel} from '@utility/pxToDpConvert';
-import {Paragraph} from '@components/text/text';
 import CartTab from './components/CartTab';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
@@ -90,11 +85,4 @@ const OrdersScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-    paddingHorizontal: widthPixel(20),
-  },
-});
 export default OrdersScreen;

@@ -1,3 +1,4 @@
+import Clipboard from '@react-native-community/clipboard';
 import {Dimensions} from 'react-native';
 import {
   launchCamera,
@@ -46,4 +47,8 @@ export const pickImage = async (
   } catch (error) {
     onPick('Error Picking Image', undefined);
   }
+};
+
+export const writeToClipboard = async (text: string) => {
+  Clipboard.setString(text);
 };

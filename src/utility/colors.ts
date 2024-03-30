@@ -18,6 +18,7 @@ export default {
   success: 'rgba(200, 230, 201, 1)',
   primaryLight: 'rgba(186, 222, 251, 1)',
   background: 'rgba(245, 245, 245, 1)',
+  primary400: 'rgba(233, 245, 254, 0.4)',
 };
 
 export const randomColor = (arr: string[]) => {

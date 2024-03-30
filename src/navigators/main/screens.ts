@@ -17,4 +17,5 @@ export type HomeScreenParam = {
   RecentlyViewed: undefined;
   MyStore: undefined;
   FAQs: undefined;
+  Checkout: undefined;
 };
