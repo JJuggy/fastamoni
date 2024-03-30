@@ -1,24 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import Header from '@components/header';
 import {
-  BaseView,
   FlexedView,
   PressableView,
   Spacer,
   ViewContainer,
 } from '@components/view';
-import {current} from '@reduxjs/toolkit';
 import colors from '@utility/colors';
 import {widthPixel} from '@utility/pxToDpConvert';
-import {Paragraph} from '@components/text/text';
 import CartTab from './components/CartTab';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
+import {HomeScreenParam} from '@navigators/main/screens';
+import {RouteProp, useRoute} from '@react-navigation/native';
 
-const getView = (screen: string) => {
+type routeParams = RouteProp<HomeScreenParam, 'Orders'>;
+export type orderStage = 'My cart' | 'Ongoing' | 'Completed';
+
+const getView = (screen: orderStage) => {
   switch (screen) {
     case 'My cart':
       return <CartTab />;
@@ -31,7 +33,10 @@ const getView = (screen: string) => {
   }
 };
 const OrdersScreen = () => {
-  const [currentTab, setCurrentTab] = useState('My cart');
+  const {params} = useRoute<routeParams>();
+  const [currentTab, setCurrentTab] = useState<orderStage>(
+    params?.currentStage ?? 'My cart',
+  );
 
   return (
     <SafeAreaView>

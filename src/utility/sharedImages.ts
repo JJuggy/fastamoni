@@ -43,5 +43,8 @@ export default {
     recent: require('../assets/icons/recent.png'),
     settings: require('../assets/icons/settings.png'),
     plus_circle: require('../assets/icons/plus_circle.png'),
+    bank: require('../assets/icons/bank.png'),
+    card: require('../assets/icons/card.png'),
+    copy: require('../assets/icons/copy.png'),
   },
 };

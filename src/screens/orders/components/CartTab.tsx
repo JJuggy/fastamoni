@@ -1,21 +1,14 @@
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useState} from 'react';
-import {FlexedView, PressableView} from '@components/view';
-import sharedImages from '@utility/sharedImages';
-import {Paragraph} from '@components/text/text';
+/* eslint-disable react-native/no-inline-styles */
+import {ScrollView, StyleSheet} from 'react-native';
+import React from 'react';
 import data from '../../../data';
-import colors from '@utility/colors';
 import OrderItem from '@components/orders/orderItem';
 import {AppButton} from '@components/button';
-import {IOrder, IOrderProps} from 'src/types';
+import {HomeNavigatorParams, IOrderProps} from 'src/types';
+import {useNavigation} from '@react-navigation/native';
+
 const CartTab = () => {
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   const {orders}: IOrderProps['orders'] = data;
   return (
     <ScrollView
@@ -24,7 +17,7 @@ const CartTab = () => {
       }}>
       <OrderItem orders={orders} />
       <AppButton
-        onPress={() => null}
+        onPress={() => navigate('Checkout')}
         textStyle={{color: 'white', fontWeight: '700'}}
         text="Proceed to checkout"
         style={{

@@ -6,6 +6,7 @@ import DealsOfTheDayScreen from '@screens/deals-of-the-day';
 import SearchScreen from '@screens/home/SearchScreen';
 import FilterScreen from '@screens/filter';
 import ProductDetails from '@screens/product-details';
+import Checkout from '@screens/orders/Checkout';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
@@ -21,6 +22,7 @@ const UserLoggedIn = () => {
       <Screen name="DealsOfTheDayScreen" component={DealsOfTheDayScreen} />
       <Screen name="SearchScreen" component={SearchScreen} />
       <Screen name="ProductDetails" component={ProductDetails} />
+      <Screen name="Checkout" component={Checkout} />
     </Navigator>
   );
 };

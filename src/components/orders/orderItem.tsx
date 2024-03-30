@@ -1,9 +1,9 @@
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Paragraph} from '@components/text/text';
 import {FlexedView} from '@components/view';
 import sharedImages from '@utility/sharedImages';
-import {AppButton} from '@components/button';
 import {IOrder, IOrderProps} from 'src/types';
 
 const OrderItem = ({orders}: IOrderProps) => {
@@ -48,7 +48,7 @@ const OrderItem = ({orders}: IOrderProps) => {
                       height: 15,
                       marginRight: 5,
                     }}
-                    source={sharedImages.icons['naira']}
+                    source={sharedImages.icons.naira}
                   />
                   {order.price}
                 </Paragraph>
@@ -78,7 +78,7 @@ const OrderItem = ({orders}: IOrderProps) => {
                     height: 2,
                     marginRight: 5,
                   }}
-                  source={sharedImages.icons['minus']}
+                  source={sharedImages.icons.minus}
                 />
               </Pressable>
               <Paragraph
@@ -99,7 +99,7 @@ const OrderItem = ({orders}: IOrderProps) => {
                     height: 16,
                     marginLeft: 5,
                   }}
-                  source={sharedImages.icons['add']}
+                  source={sharedImages.icons.add}
                 />
               </Pressable>
             </View>
@@ -115,7 +115,7 @@ const OrderItem = ({orders}: IOrderProps) => {
                 height: 15,
                 marginRight: 5,
               }}
-              source={sharedImages.icons['naira']}
+              source={sharedImages.icons.naira}
             />
             <Paragraph
               style={{
