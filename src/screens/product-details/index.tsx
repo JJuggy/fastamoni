@@ -64,7 +64,11 @@ const ProductDetails = () => {
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
         <ScrollView>
-          <ProductCard productImgHeight={200} {...product} />
+          <ProductCard
+            withStoreRating={true}
+            productImgHeight={200}
+            {...product}
+          />
         </ScrollView>
       </ViewContainer>
     </SafeAreaView>

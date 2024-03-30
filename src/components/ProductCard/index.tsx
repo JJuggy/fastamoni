@@ -3,7 +3,7 @@ import React from 'react';
 import sharedImages from '@utility/sharedImages';
 import {FlexedView, PressableView} from '@components/view';
 import {Paragraph} from '@components/text/text';
-
+import {Rating} from 'react-native-rating-element';
 interface ProductCardProps {
   dealName: string;
   storeName: string;
@@ -13,6 +13,7 @@ interface ProductCardProps {
   discountedPrice?: string;
   canSeeAddress: boolean;
   productImgHeight?: number;
+  withStoreRating?: boolean;
 }
 const ProductCard = ({
   dealName,
@@ -23,6 +24,7 @@ const ProductCard = ({
   discountedPrice,
   canSeeAddress,
   productImgHeight = 120,
+  withStoreRating = false,
 }: ProductCardProps) => {
   return (
     <View style={styles.dealcardcontainer}>
@@ -78,7 +80,7 @@ const ProductCard = ({
             style={{
               color: 'black',
             }}>
-            {canSeeAddress ? location : 'Location hidden'}
+            {canSeeAddress ? location : '******************'}
           </Paragraph>
         </FlexedView>
         <FlexedView
@@ -158,28 +160,54 @@ const ProductCard = ({
             </FlexedView>
           ) : null}
         </Paragraph>
-        <PressableView
-          onPress={() => null}
-          style={{
-            backgroundColor: '#4DABF5',
-            borderRadius: 5,
-            paddingVertical: 4,
-          }}>
-          <FlexedView>
-            <Image
-              source={sharedImages.icons.cart}
+        {withStoreRating === false ? (
+          <PressableView
+            onPress={() => null}
+            style={{
+              backgroundColor: '#4DABF5',
+              borderRadius: 5,
+              paddingVertical: 4,
+            }}>
+            <FlexedView>
+              <Image
+                source={sharedImages.icons.cart}
+                style={{
+                  width: 15,
+                  height: 15,
+                  tintColor: 'white',
+                  marginRight: 3,
+                }}
+              />
+              <Paragraph fontSize={10} style={{color: 'white'}}>
+                Add to cart
+              </Paragraph>
+            </FlexedView>
+          </PressableView>
+        ) : (
+          <View
+            style={{
+              flexDirection: 'column',
+            }}>
+            <Paragraph
+              fontSize={11}
               style={{
-                width: 15,
-                height: 15,
-                tintColor: 'white',
-                marginRight: 3,
+                marginBottom: 4,
               }}
-            />
-            <Paragraph fontSize={10} style={{color: 'white'}}>
-              Add to cart
+              color="#737373">
+              Store rating
             </Paragraph>
-          </FlexedView>
-        </PressableView>
+            <Rating
+              rated={'4'}
+              totalCount={5}
+              size={14}
+              type="custom"
+              selectedIconImage={require('../../assets/icons/starfilled.png')}
+              emptyIconImage={require('../../assets/icons/stargray.png')}
+              readonly // by default is false
+              direction="row" // anyOf["row" (default), "row-reverse", "column", "column-reverse"]
+            />
+          </View>
+        )}
       </View>
     </View>
   );
