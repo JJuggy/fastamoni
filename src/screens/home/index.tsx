@@ -80,7 +80,9 @@ const HomeScreen: React.FC = ({}) => {
             </Pressable>
           }
         />
-        <ScrollView style={{height: '100%'}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{height: '100%'}}>
           <FlexedView
             style={{
               height: 60,
@@ -120,7 +122,7 @@ const HomeScreen: React.FC = ({}) => {
                 backgroundColor: 'white',
                 flex: 1,
                 marginLeft: 12,
-                height: 60,
+                height: 50,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
@@ -241,7 +243,7 @@ const HomeScreen: React.FC = ({}) => {
             <ScrollView>
               {homeScreenDeals.map((item, index) => (
                 <Pressable key={index} style={{flex: 1}}>
-                  <HomeCard {...item} />
+                  <HomeCard item={item} {...item} />
                 </Pressable>
               ))}
             </ScrollView>

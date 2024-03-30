@@ -7,13 +7,20 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
-import {FlexedView, Spacer, ViewContainer} from '@components/view';
+import {
+  FlexedView,
+  PressableView,
+  Spacer,
+  ViewContainer,
+} from '@components/view';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
 import data from '../../data';
 import colors from '@utility/colors';
 import {useNavigation} from '@react-navigation/native';
 import ProductCard from '@components/ProductCard';
+import {Paragraph} from '@components/text/text';
+import {View} from 'react-native';
 const DealsOfTheDayScreen = () => {
   const {AllDealsOfTheDay} = data;
   const navigation = useNavigation();
