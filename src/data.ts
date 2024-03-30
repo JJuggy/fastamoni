@@ -22,6 +22,30 @@ export default {
       price: '120,000',
       location: 'Abule oja,Yaba Lagos',
     },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
+    {
+      dealName: '3kva Elepaq Generator',
+      storeName: 'OJB Declutter',
+      price: '120,000',
+      location: 'Abule oja,Yaba Lagos',
+    },
   ],
   homeTopDeals: [
     {
@@ -122,6 +146,44 @@ export default {
       orderStatus: 'completed',
       storeName: 'OJB Declutter',
       cancelled: true,
+    },
+  ],
+  transactionHistory: [
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'success',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'cancelled',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
+    },
+    {
+      date: '27th Feb, 2024. 19:07',
+      status: 'success',
+      name: 'OJB Declutter',
+      order: 'Order 3835565',
     },
   ],
 };

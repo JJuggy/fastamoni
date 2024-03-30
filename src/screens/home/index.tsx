@@ -6,8 +6,6 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  StatusBar,
-  StyleSheet,
   View,
   Animated,
   ViewToken,

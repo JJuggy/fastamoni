@@ -12,4 +12,9 @@ export type HomeScreenParam = {
   Orders: undefined;
   SearchScreen: undefined;
   ProductDetails: undefined;
+  TransactionHistory: undefined;
+  ProfileScreen: undefined;
+  RecentlyViewed: undefined;
+  MyStore: undefined;
+  FAQs: undefined;
 };

@@ -44,7 +44,7 @@ export const AppTextInput = ({
           styles.inputContaner,
           {...inputStyle},
           {
-            height: Math.max(multiline ? 100 : 60, height),
+            height: Math.max(multiline ? 100 : 50, height),
             marginTop: multiline ? 5 : 0,
           },
         ]}>

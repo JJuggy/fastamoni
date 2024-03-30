@@ -1,5 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import {AppTextInput} from '@components/TextInput';
+import {AppButton} from '@components/button';
 import Header from '@components/header';
+import Radio from '@components/radio';
 import {Paragraph} from '@components/text/text';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
@@ -18,7 +21,16 @@ const PlaceOrder = () => {
     grade: '',
     quantity: '',
     images: [] as string[],
+    price: '',
+    address: '',
   });
+
+  const updateItemInfo = (field: string, value: string) => {
+    setItemInfo({
+      ...itemInfo,
+      [field]: value,
+    });
+  };
 
   const uploadImage = () => {
     pickImage('upload', (err, img) => {
@@ -48,7 +60,9 @@ const PlaceOrder = () => {
         <Header title="Upload item" />
         <Spacer />
         <View style={{flex: 1}}>
-          <ScrollView>
+          <ScrollView
+            contentContainerStyle={{paddingBottom: 150}}
+            showsVerticalScrollIndicator={false}>
             <ViewContainer style={styles.container}>
               <View>
                 <FlexedView>
@@ -94,13 +108,76 @@ const PlaceOrder = () => {
               </View>
               <Spacer />
               <View>
-                <AppTextInput placeholder="Title" value={itemInfo.title} />
-                <AppTextInput placeholder="Description" value={itemInfo.desc} />
+                <AppTextInput
+                  placeholder="Title"
+                  value={itemInfo.title}
+                  onChangeText={text => updateItemInfo('title', text)}
+                />
+                <AppTextInput
+                  placeholder="Description"
+                  value={itemInfo.desc}
+                  onChangeText={text => updateItemInfo('desc', text)}
+                />
                 <AppTextInput
                   placeholder="Quantity"
                   value={itemInfo.quantity}
+                  keyboardType="number-pad"
+                  onChangeText={text => updateItemInfo('quantity', text)}
                 />
+                <AppTextInput
+                  leftIcon={
+                    <Image
+                      source={sharedImages.icons.naira}
+                      style={{height: 15, width: 15}}
+                      tintColor={colors.gray}
+                    />
+                  }
+                  placeholder="Price"
+                  value={itemInfo.price}
+                  keyboardType="number-pad"
+                  onChangeText={text => updateItemInfo('price', text)}
+                />
+                <AppTextInput
+                  editable={false}
+                  placeholder="Commission 20%"
+                  keyboardType="number-pad"
+                />
+                <AppTextInput
+                  placeholder="Pickup address"
+                  value={itemInfo.address}
+                  onChangeText={text => updateItemInfo('address', text)}
+                />
+                <FlexedView>
+                  <Radio
+                    selected={true}
+                    color={colors.primary}
+                    onPress={() => {}}
+                  />
+                  <Paragraph
+                    style={{flex: 1, marginLeft: 10}}
+                    fontSize={12}
+                    color={colors.gray}>
+                    A 20% commission would be charged upon successful sale of
+                    this product
+                  </Paragraph>
+                </FlexedView>
               </View>
+              <Spacer />
+              <ViewContainer>
+                <FlexedView justifyContent="space-between">
+                  <AppButton
+                    variant="secondary"
+                    text="Cancel"
+                    style={styles.btn}
+                  />
+                  <AppButton
+                    variant="primary"
+                    text="Upload"
+                    style={styles.btn}
+                  />
+                </FlexedView>
+              </ViewContainer>
+              <Spacer height={25} />
             </ViewContainer>
           </ScrollView>
         </View>
@@ -110,6 +187,9 @@ const PlaceOrder = () => {
 };
 
 const styles = StyleSheet.create({
+  btn: {
+    width: '47%',
+  },
   img: {
     width: widthPixel(100),
     height: widthPixel(100),

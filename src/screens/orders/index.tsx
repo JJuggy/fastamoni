@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import Header from '@components/header';
