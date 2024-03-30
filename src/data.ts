@@ -174,4 +174,26 @@ export default {
       order: 'Order 3835565',
     },
   ],
+  itemInfo: [
+    {
+      title: 'Model',
+      description: '3kva Elepaq Generator',
+    },
+    {
+      title: 'Brand',
+      description: 'Elepaq',
+    },
+    {
+      title: 'Condition',
+      description: 'used',
+    },
+    {
+      title: 'Cefects',
+      description: 'None',
+    },
+    {
+      title: 'Additional Info',
+      description: 'Servicing Required',
+    },
+  ],
 };

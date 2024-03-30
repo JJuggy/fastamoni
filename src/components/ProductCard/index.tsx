@@ -58,7 +58,7 @@ const ProductCard = ({
             {storeName}
           </Paragraph>
         </FlexedView>
-        <Paragraph>{dealName}</Paragraph>
+        <Paragraph style={{marginVertical: 4}}>{dealName}</Paragraph>
         <Paragraph style={{color: '#125386', marginVertical: 3}}>
           Grade:{grade}
         </Paragraph>

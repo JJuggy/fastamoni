@@ -1,5 +1,6 @@
 import {
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -13,7 +14,8 @@ import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
 import {useRoute} from '@react-navigation/native';
 import ProductCard from '@components/ProductCard';
-
+import data from '../../data';
+import {AppButton} from '@components/button';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
@@ -31,7 +33,7 @@ const ProductDetails = () => {
     grade: 'B',
   });
   const {details} = route.params as ProductDetailsRoute;
-
+  const {itemInfo} = data;
   return (
     <SafeAreaView
       style={{
@@ -69,7 +71,91 @@ const ProductDetails = () => {
             productImgHeight={200}
             {...product}
           />
+
+          <View
+            style={{
+              backgroundColor: colors.white,
+              padding: 16,
+              marginTop: 16,
+              flexDirection: 'row',
+            }}>
+            <View>
+              {itemInfo.map((item, index) => (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 10,
+                  }}
+                  key={index}>
+                  <Text style={{fontSize: 14, fontWeight: '200'}}>
+                    {item.title}
+                  </Text>
+                </View>
+              ))}
+            </View>
+            <View style={{marginLeft: 17}}>
+              {itemInfo.map((item, index) => (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 10,
+                  }}
+                  key={index}>
+                  <Text style={{fontSize: 14, fontWeight: '200'}}>
+                    {item.description}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
         </ScrollView>
+        <FlexedView
+          style={{
+            bottom: 70,
+            width: '100%',
+            marginBottom: 12,
+          }}>
+          <AppButton style={{flex: 1}} text="Add to cart" />
+          <Pressable
+            style={{
+              borderRadius: 10,
+              marginVertical: 10,
+              padding: 10,
+              borderWidth: 1,
+              marginLeft: 4,
+              borderColor: '#737373',
+            }}>
+            <View
+              style={{
+                flexDirection: 'column',
+              }}>
+              <Image
+                source={sharedImages.icons.shop}
+                tintColor="#737373"
+                style={{
+                  height: 16,
+                  width: 16,
+                  alignSelf: 'center',
+                }}
+              />
+
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: '#737373',
+                  fontSize: 8,
+                  fontWeight: '200',
+                  marginTop: 3,
+                }}>
+                Visit Store
+              </Text>
+            </View>
+          </Pressable>
+        </FlexedView>
       </ViewContainer>
     </SafeAreaView>
   );
