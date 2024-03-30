@@ -6,6 +6,7 @@ import {
   Image,
   ImageBackground,
   Pressable,
+  ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
@@ -15,7 +16,7 @@ import {Paragraph} from '@components/text/text';
 import {windowHeight} from '@utility/helpers';
 import {FlexedView, Spacer, ViewContainer} from '@components/view';
 import Header from '@components/header';
-import colors from '@utility/colors';
+import colors, {randomColor} from '@utility/colors';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {HomeNavigatorParams} from 'src/types';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
@@ -28,6 +29,12 @@ import FilterComponent from '@screens/components/FilterComponent';
 
 const MyStore = () => {
   const {AllDealsOfTheDay} = data;
+  const metricColors = [
+    colors.success,
+    colors.warning,
+    colors.primaryLight,
+    colors.teal,
+  ];
 
   const {goBack} = useNavigation<HomeNavigatorParams>();
 
@@ -60,6 +67,23 @@ const MyStore = () => {
             </View>
           </FlexedView>
         </ViewContainer>
+        <ViewContainer>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {metrics.map(mt => (
+              <View
+                style={[
+                  styles.metric,
+                  {backgroundColor: randomColor(metricColors)},
+                ]}>
+                <Paragraph textAlign="center">{mt.title}</Paragraph>
+                <Paragraph mt={5} textAlign="center">
+                  {mt.number}
+                </Paragraph>
+              </View>
+            ))}
+          </ScrollView>
+        </ViewContainer>
+        <Spacer />
       </View>
     );
   };
@@ -117,6 +141,7 @@ export default MyStore;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
   },
   banner: {
     justifyContent: 'center',
@@ -140,4 +165,33 @@ const styles = StyleSheet.create({
     top: heightPixel(-20),
     zIndex: -1000,
   },
+  metric: {
+    marginHorizontal: 5,
+    padding: 8,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+  },
 });
+
+const metrics = [
+  {
+    title: 'Item Sold',
+    number: 5,
+  },
+  {
+    title: 'Total Sales',
+    number: 5,
+  },
+  {
+    title: 'Profile Impression',
+    number: 35,
+  },
+  {
+    title: 'Sales Reach',
+    number: 2.5,
+  },
+  {
+    title: 'Total Sales',
+    number: 5,
+  },
+];

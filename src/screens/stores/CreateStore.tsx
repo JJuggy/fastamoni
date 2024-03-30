@@ -47,7 +47,7 @@ const CreateStore = () => {
   };
 
   return (
-    <BaseView background="rgba(246, 247, 249, 1)">
+    <BaseView background={colors.background}>
       <View style={styles.container}>
         <Header title="Create store" />
         <View style={{flex: 1}}>

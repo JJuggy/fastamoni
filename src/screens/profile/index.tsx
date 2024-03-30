@@ -74,7 +74,10 @@ const ProfileScreen = () => {
           </ViewContainer>
           <ViewContainer>
             {aboutOption.map(op => (
-              <Pressable key={op.label} style={styles.option}>
+              <Pressable
+                onPress={() => navigate(op.url)}
+                key={op.label}
+                style={styles.option}>
                 <FlexedView justifyContent="space-between">
                   <FlexedView>
                     <Image
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     paddingVertical: heightPixel(18),
   },
   grayHeading: {
-    backgroundColor: colors.border,
+    backgroundColor: colors.background,
     paddingVertical: heightPixel(20),
   },
   option: {

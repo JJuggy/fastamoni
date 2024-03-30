@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
@@ -19,11 +20,11 @@ const RecentlyViewed = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: colors.border,
+          backgroundColor: colors.background,
           paddingHorizontal: 20,
         }}>
         <Spacer />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {homeScreenDeals.map((item, index) => (
             <Pressable key={index} style={{flex: 1, marginBottom: 20}}>
               <HomeCard {...item} />

@@ -13,4 +13,13 @@ export default {
   gray: 'rgba(112, 112, 112, 1)',
   dark_blue: 'rgba(14, 63, 102, 1)',
   app_bg: 'rgba(246, 247, 249, 1)',
+  teal: 'rgba(176, 234, 242, 1)',
+  warning: 'rgba(255, 249, 194, 1)',
+  success: 'rgba(200, 230, 201, 1)',
+  primaryLight: 'rgba(186, 222, 251, 1)',
+  background: 'rgba(245, 245, 245, 1)',
+};
+
+export const randomColor = (arr: string[]) => {
+  return arr[Math.floor(Math.random() * arr.length)];
 };

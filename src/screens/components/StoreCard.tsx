@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   catV: {
     padding: 8,
-    backgroundColor: colors.border,
+    backgroundColor: colors.background,
   },
   icons: {width: 20, height: 20, marginRight: 5},
 });

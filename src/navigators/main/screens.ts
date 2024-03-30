@@ -16,4 +16,5 @@ export type HomeScreenParam = {
   ProfileScreen: undefined;
   RecentlyViewed: undefined;
   MyStore: undefined;
+  FAQs: undefined;
 };
