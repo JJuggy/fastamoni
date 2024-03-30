@@ -46,6 +46,7 @@ export const AppButton: React.FC<ButtonProps> = ({
   disabled,
   height,
   variant = 'primary',
+  icon,
 }) => {
   return (
     <TouchableOpacity
@@ -60,6 +61,7 @@ export const AppButton: React.FC<ButtonProps> = ({
           alignItems: 'center',
           justifyContent: 'center',
           opacity: disabled ? 0.4 : 1,
+          flexDirection: 'row',
         },
         style,
       ]}>
@@ -74,6 +76,7 @@ export const AppButton: React.FC<ButtonProps> = ({
       ) : (
         <ActivityIndicator color="#fff" animating={isLoading} size="small" />
       )}
+      {icon !== undefined && icon}
     </TouchableOpacity>
   );
 };

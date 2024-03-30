@@ -119,7 +119,23 @@ const ProductDetails = () => {
             width: '100%',
             marginBottom: 12,
           }}>
-          <AppButton style={{flex: 1}} text="Add to cart" />
+          <AppButton
+            icon={
+              <Image
+                source={sharedImages.icons.cart}
+                tintColor={'white'}
+                style={{
+                  height: 16,
+                  width: 16,
+                  alignSelf: 'center',
+                  flexDirection: 'row',
+                  marginLeft: 3,
+                }}
+              />
+            }
+            style={{flex: 1}}
+            text="Add to cart"
+          />
           <Pressable
             style={{
               borderRadius: 10,
@@ -147,8 +163,8 @@ const ProductDetails = () => {
                 style={{
                   textAlign: 'center',
                   color: '#737373',
-                  fontSize: 8,
-                  fontWeight: '200',
+                  fontSize: 10,
+                  fontWeight: '400',
                   marginTop: 3,
                 }}>
                 Visit Store
