@@ -24,8 +24,11 @@ import Radio from '@components/radio';
 import {AppButton} from '@components/button';
 import {useModal} from '@providers/DynamicModalProvider';
 import {windowHeight, writeToClipboard} from '@utility/helpers';
+import {HomeNavigatorParams} from 'src/types';
+import {useNavigation} from '@react-navigation/native';
 
 const Checkout = () => {
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   const [payMethod, setPayMethod] = useState('card');
   const {close, show} = useModal();
 
@@ -72,7 +75,14 @@ const Checkout = () => {
             </TouchableOpacity>
           </ViewContainer>
           <Spacer height={windowHeight * 0.15} />
-          <AppButton variant="primary" text="I have paid" />
+          <AppButton
+            variant="primary"
+            text="I have paid"
+            onPress={() => {
+              close();
+              navigate('Orders');
+            }}
+          />
         </ViewContainer>
       </BaseView>
     );
