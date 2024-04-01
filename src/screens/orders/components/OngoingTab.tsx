@@ -29,7 +29,7 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
         <Spacer />
         <View></View>
         {type === 'buyer' ? (
-          <Paragraph fontSize={10}>
+          <Paragraph fontSize={12}>
             Provide the Seller with the code after inspection and you're
             satisfied with the item, to finalize purchase.
           </Paragraph>
@@ -93,7 +93,7 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
                 onPress={() => {
                   console.warn('cancel order');
                 }}>
-                {type === 'buyer' ? (
+                {type !== 'buyer' ? (
                   <Pressable
                     onPress={() => {
                       Linking.openURL(`tel:${'08058196256'}`);
@@ -119,6 +119,7 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
                       color: '#DE3D31',
                       backgroundColor: colors.white,
                       marginLeft: 'auto',
+                      padding: 6,
                     }}>
                     Cancel Order
                   </Paragraph>
