@@ -16,6 +16,7 @@ import OrderItem from '@components/orders/orderItem';
 import data from '../../../data';
 import {IOrder, IOrderProps} from 'src/types';
 import CodeInputField from '@components/code-field';
+import {Linking} from 'react-native';
 
 const OngoingTab = ({type}: {type: string | undefined}) => {
   const {orders}: any = data;
@@ -29,8 +30,8 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
         <View></View>
         {type === 'buyer' ? (
           <Paragraph fontSize={10}>
-            Provide the seller with the code after inspection and you're
-            satisfied with the item, to finalize purchase
+            Provide the Seller with the code after inspection and you're
+            satisfied with the item, to finalize purchase.
           </Paragraph>
         ) : (
           <>
@@ -45,7 +46,7 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
         )}
         <Spacer />
 
-        {type === 'buyer' ? (
+        {type !== 'buyer' ? (
           <CodeInputField setInputCode={setInputCodeValue} />
         ) : (
           <FlexedView
@@ -86,18 +87,42 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
               <Pressable
                 style={{
                   width: 'auto',
-                  marginLeft: 'auto',
+
+                  padding: 5,
                 }}
                 onPress={() => {
                   console.warn('cancel order');
                 }}>
-                <Paragraph
-                  style={{
-                    marginLeft: 'auto',
-                    color: '#DE3D31',
-                  }}>
-                  Cancel Order
-                </Paragraph>
+                {type === 'buyer' ? (
+                  <Pressable
+                    onPress={() => {
+                      Linking.openURL(`tel:${'08058196256'}`);
+                    }}>
+                    <FlexedView
+                      style={{
+                        marginRight: 'auto',
+                      }}>
+                      <Image
+                        style={{
+                          width: 14,
+                          height: 14,
+                          marginRight: 4,
+                        }}
+                        source={sharedImages.icons.phone}
+                      />
+                      <Paragraph color="#4CAF50">Call Buyer</Paragraph>
+                    </FlexedView>
+                  </Pressable>
+                ) : (
+                  <Paragraph
+                    style={{
+                      color: '#DE3D31',
+                      backgroundColor: colors.white,
+                      marginLeft: 'auto',
+                    }}>
+                    Cancel Order
+                  </Paragraph>
+                )}
               </Pressable>
             </View>
             <View

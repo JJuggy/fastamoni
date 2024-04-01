@@ -60,7 +60,7 @@ const HomeScreen: React.FC = ({}) => {
             <Pressable
               onPress={() => {
                 navigation.navigate('Orders', {
-                  type: 'seller',
+                  type: 'buyer',
                 });
               }}
               style={{

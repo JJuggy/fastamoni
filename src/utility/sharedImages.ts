@@ -46,5 +46,6 @@ export default {
     bank: require('../assets/icons/bank.png'),
     card: require('../assets/icons/card.png'),
     copy: require('../assets/icons/copy.png'),
+    phone: require('../assets/icons/phone.png'),
   },
 };
