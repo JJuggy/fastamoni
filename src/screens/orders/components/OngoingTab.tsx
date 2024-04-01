@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Paragraph} from '@components/text/text';
 import {FlexedView, Spacer} from '@components/view';
 import colors from '@utility/colors';
@@ -15,111 +15,135 @@ import sharedImages from '@utility/sharedImages';
 import OrderItem from '@components/orders/orderItem';
 import data from '../../../data';
 import {IOrder, IOrderProps} from 'src/types';
+import CodeInputField from '@components/code-field';
 
-const OngoingTab = () => {
-  const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
+const OngoingTab = ({type}: {type: string | undefined}) => {
   const {orders}: any = data;
+  const [inputCodeValue, setInputCodeValue] = React.useState(['', '', '', '']);
+  const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
+
   return (
     <SafeAreaView>
       <ScrollView style={{height: '100%'}}>
         <Spacer />
-        <Paragraph>
-          Provide the seller with the code after inspection and you're satisfied
-          with the item, to finalize purchase
-        </Paragraph>
-        <Spacer />
-        <FlexedView
-          style={{paddingHorizontal: 35}}
-          justifyContent="space-between">
-          {code.map(cd => (
-            <View
-              style={{
-                borderRadius: 12,
-                width: 60,
-                height: 60,
-                backgroundColor: '#00ABC1',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Paragraph
-                style={{color: 'white'}}
-                fontSize={22}
-                fontWeight="500">
-                {cd}
-              </Paragraph>
-            </View>
-          ))}
-        </FlexedView>
+        <View></View>
+        {type === 'buyer' ? (
+          <Paragraph fontSize={10}>
+            Provide the seller with the code after inspection and you're
+            satisfied with the item, to finalize purchase
+          </Paragraph>
+        ) : (
+          <>
+            <Paragraph fontSize={12}>
+              Payment has been made for your item. Buyer is enroute to your
+              location.
+            </Paragraph>
+            <Paragraph fontSize={13} fontWeight="600" color={colors.primary}>
+              Input the code from the buyer to finalize purchase.
+            </Paragraph>
+          </>
+        )}
         <Spacer />
 
-        <View
-          style={{
-            flexDirection: 'column',
-          }}>
+        {type === 'buyer' ? (
+          <CodeInputField setInputCode={setInputCodeValue} />
+        ) : (
+          <FlexedView
+            style={{paddingHorizontal: 35}}
+            justifyContent="space-between">
+            {code.map((cd, idx) => (
+              <View
+                key={idx}
+                style={{
+                  borderRadius: 12,
+                  width: 60,
+                  height: 60,
+                  backgroundColor: '#00ABC1',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Paragraph
+                  style={{color: 'white'}}
+                  fontSize={22}
+                  fontWeight="500">
+                  {cd}
+                </Paragraph>
+              </View>
+            ))}
+          </FlexedView>
+        )}
+
+        <Spacer />
+        {type === 'buyer' && (
           <View
             style={{
-              width: '100%',
+              flexDirection: 'column',
             }}>
-            <Pressable
+            <View
               style={{
-                width: 'auto',
-                marginLeft: 'auto',
-              }}
-              onPress={() => {
-                console.warn('cancel order');
+                width: '100%',
               }}>
-              <Paragraph
+              <Pressable
                 style={{
+                  width: 'auto',
                   marginLeft: 'auto',
-                  color: '#DE3D31',
-                }}>
-                Cancel Order
-              </Paragraph>
-            </Pressable>
-          </View>
-          <View
-            style={{
-              flexDirection: 'column',
-              marginTop: 5,
-            }}>
-            <Paragraph fontSize={16} fontWeight="600">
-              Pickup Details
-            </Paragraph>
-            <Paragraph
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginTop: 4,
-              }}>
-              <Image
-                source={sharedImages.icons.location}
-                tintColor={'#707070'}
-                style={{
-                  width: 12,
-                  height: 12,
                 }}
-              />
+                onPress={() => {
+                  console.warn('cancel order');
+                }}>
+                <Paragraph
+                  style={{
+                    marginLeft: 'auto',
+                    color: '#DE3D31',
+                  }}>
+                  Cancel Order
+                </Paragraph>
+              </Pressable>
+            </View>
+            <View
+              style={{
+                flexDirection: 'column',
+                marginTop: 5,
+              }}>
+              <Paragraph fontSize={16} fontWeight="600">
+                Pickup Details
+              </Paragraph>
               <Paragraph
                 style={{
-                  color: '#707070',
-                  marginLeft: 5,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginTop: 4,
                 }}>
-                17, Abudu street, Abule oja, Lagos
+                <Image
+                  source={sharedImages.icons.location}
+                  tintColor={'#707070'}
+                  style={{
+                    width: 12,
+                    height: 12,
+                  }}
+                />
+                <Paragraph
+                  style={{
+                    color: '#707070',
+                    marginLeft: 5,
+                  }}>
+                  17, Abudu street, Abule oja, Lagos
+                </Paragraph>
               </Paragraph>
-            </Paragraph>
+            </View>
+            <View
+              style={{
+                flexDirection: 'column',
+                marginTop: 18,
+              }}>
+              <Paragraph fontSize={16} fontWeight="600">
+                Your Order
+              </Paragraph>
+              <OrderItem orders={orders} />
+            </View>
           </View>
-          <View
-            style={{
-              flexDirection: 'column',
-              marginTop: 18,
-            }}>
-            <Paragraph fontSize={16} fontWeight="600">
-              Your Order
-            </Paragraph>
-            <OrderItem orders={orders} />
-          </View>
-        </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

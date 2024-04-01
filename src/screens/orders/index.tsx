@@ -12,13 +12,14 @@ import colors from '@utility/colors';
 import CartTab from './components/CartTab';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
+import {useRoute} from '@react-navigation/native';
 
-const getView = (screen: string) => {
+const getView = (screen: string, type?: string) => {
   switch (screen) {
     case 'My cart':
       return <CartTab />;
     case 'Ongoing':
-      return <OngoingTab />;
+      return <OngoingTab type={type} />;
     case 'Completed':
       return <CompletedTab />;
     default:
@@ -27,6 +28,8 @@ const getView = (screen: string) => {
 };
 const OrdersScreen = () => {
   const [currentTab, setCurrentTab] = useState('My cart');
+  const route = useRoute();
+  const {type} = route.params as {type: string};
 
   return (
     <SafeAreaView>
@@ -78,7 +81,7 @@ const OrdersScreen = () => {
         </FlexedView>
         <Spacer />
         {currentTab === 'My cart' && getView('My cart')}
-        {currentTab === 'Ongoing' && getView('Ongoing')}
+        {currentTab === 'Ongoing' && getView('Ongoing', type)}
         {currentTab === 'Completed' && getView('Completed')}
       </ViewContainer>
     </SafeAreaView>
