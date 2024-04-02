@@ -47,5 +47,9 @@ export default {
     card: require('../assets/icons/card.png'),
     copy: require('../assets/icons/copy.png'),
     phone: require('../assets/icons/phone.png'),
+    editPencil: require('../assets/icons/edit-pencil.png'),
+    signOut: require('../assets/icons/sign-out.png'),
+    caretRight: require('../assets/icons/caret-right.png'),
+    trash: require('../assets/icons/trash.png'),
   },
 };

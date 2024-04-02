@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {SafeAreaView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '@components/header';
 import {
   FlexedView,
@@ -12,7 +12,7 @@ import colors from '@utility/colors';
 import CartTab from './components/CartTab';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const getView = (screen: string, type?: string) => {
   switch (screen) {
@@ -27,9 +27,18 @@ const getView = (screen: string, type?: string) => {
   }
 };
 const OrdersScreen = () => {
-  const [currentTab, setCurrentTab] = useState('My cart');
   const route = useRoute();
-  const {type} = route.params as {type: string};
+  const navigation = useNavigation();
+  // const {tab} = route?.params as {tab: string | undefined};
+  const [currentTab, setCurrentTab] = useState('My cart');
+  // // const {type} = route.params as {type: string};
+
+  // useEffect(() => {
+  //   const focusSubscription = navigation.addListener('focus', () => {
+  //     setCurrentTab(tab);
+  //   });
+  //   return focusSubscription;
+  // }, [navigation, tab]);
 
   return (
     <SafeAreaView>
@@ -81,7 +90,7 @@ const OrdersScreen = () => {
         </FlexedView>
         <Spacer />
         {currentTab === 'My cart' && getView('My cart')}
-        {currentTab === 'Ongoing' && getView('Ongoing', type)}
+        {currentTab === 'Ongoing' && getView('Ongoing', 'buyer')}
         {currentTab === 'Completed' && getView('Completed')}
       </ViewContainer>
     </SafeAreaView>
