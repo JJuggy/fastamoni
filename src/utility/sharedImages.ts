@@ -51,5 +51,6 @@ export default {
     signOut: require('../assets/icons/sign-out.png'),
     caretRight: require('../assets/icons/caret-right.png'),
     trash: require('../assets/icons/trash.png'),
+    circleQuestion: require('../assets/icons/circle-question.png'),
   },
 };
