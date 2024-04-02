@@ -13,16 +13,20 @@ import {Paragraph} from '@components/text/text';
 import sharedImages from '@utility/sharedImages';
 import colors from '@utility/colors';
 import Header from '@components/header';
-
+import {useModal} from '@providers/DynamicModalProvider';
+import {AppTextInput} from '@components/TextInput';
+import {AppButton} from '@components/button';
+import data from '../../data';
 const ProfileDetails = () => {
+  const {ProfileDetailOptions} = data;
   return (
     <SafeAreaView>
       <ViewContainer>
         <Header title="Profile Details" />
         <View>
-          {ProfileDetailOptions.map((option, index) => (
-            <ProfileDetailView label={option.label} detail={option.detail} />
-          ))}
+          {ProfileDetailOptions.map((option, index) =>
+            ProfileDetailView(option),
+          )}
         </View>
       </ViewContainer>
       <FlexedView
@@ -106,6 +110,37 @@ const ProfileDetailView = ({
   label: string;
   detail: string;
 }) => {
+  const {show, close} = useModal();
+  const handleShowEditModal = (tab: string) => {
+    switch (tab) {
+      case 'Account Name':
+        show({
+          as: 'normal',
+          content: <AccountNameModal />,
+        });
+        break;
+      case 'Phone Number':
+        show({
+          as: 'normal',
+          content: <PhoneNumberModal />,
+        });
+        break;
+      case 'Email Address':
+        show({
+          as: 'normal',
+          content: <EmailAddressModal />,
+        });
+        break;
+      case 'Password':
+        show({
+          as: 'normal',
+          content: <EditPasswordModal />,
+        });
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <FlexedView
       style={{
@@ -135,7 +170,7 @@ const ProfileDetailView = ({
       <View>
         <Pressable
           onPress={() => {
-            null;
+            handleShowEditModal(label);
           }}>
           <Image
             tintColor={'#737373'}
@@ -147,25 +182,146 @@ const ProfileDetailView = ({
     </FlexedView>
   );
 };
-const ProfileDetailOptions = [
-  {
-    label: 'Account Name',
-    detail: 'Dada Taiwo',
-  },
-  {
-    label: 'Phone Number',
-    detail: '07060945202',
-  },
-  {
-    label: 'Email Address',
-    detail: 'dadataiwo@gmail.com',
-  },
-  {
-    label: 'Password',
-    detail: '*********',
-  },
-];
-
+const AccountNameModal = () => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
+        }}>
+        <AppTextInput
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
+          }}
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          value="Dada"
+          label="First Name"
+        />
+        <AppTextInput
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
+          }}
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          value="Dada"
+          label="Last Name"
+        />
+        <AppButton text="Update account name" />
+      </View>
+    </View>
+  );
+};
+const PhoneNumberModal = () => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
+        }}>
+        <AppTextInput
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
+          }}
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          value="Dada"
+          label="Phone Number"
+        />
+        <AppButton text="Update phone number" />
+      </View>
+    </View>
+  );
+};
+const EmailAddressModal = () => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
+        }}>
+        <AppTextInput
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
+          }}
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          value="JuggyJs@gmail.com"
+          label="Email Address"
+        />
+        <AppButton text="Update email address" />
+      </View>
+    </View>
+  );
+};
+const EditPasswordModal = () => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
+        }}>
+        <AppTextInput
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
+          }}
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          value="********"
+          label="Password"
+        />
+        <AppTextInput
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
+          }}
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          value=" ********"
+          label="Confirm Password"
+        />
+        <AppButton text="Update password" />
+      </View>
+    </View>
+  );
+};
 
 export default ProfileDetails;
 
