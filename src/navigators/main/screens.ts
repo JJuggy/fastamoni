@@ -22,4 +22,5 @@ export type HomeScreenParam = {
   Checkout: undefined;
   ProfileDetails: undefined;
   Wallet: undefined;
+  RecentlySearched: undefined;
 };

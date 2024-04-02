@@ -7,7 +7,7 @@ import SearchScreen from '@screens/home/SearchScreen';
 import FilterScreen from '@screens/filter';
 import ProductDetails from '@screens/product-details';
 import Checkout from '@screens/orders/Checkout';
-import ProfileDetails from '@screens/ProfileDetails';
+import ProfileDetails from '@screens/profile/ProfileDetails';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
