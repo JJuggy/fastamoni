@@ -229,7 +229,7 @@ export default {
     {
       question: 'What is Decluttering?',
       answer:
-        'YDecluttering is the process of removing unnecessary items, belongings, or clutter from a space in order to create a more organized, functional, and aesthetically pleasing environment.',
+        'Decluttering is the process of removing unnecessary items, belongings, or clutter from a space in order to create a more organized, functional, and aesthetically pleasing environment.',
     },
     {
       question: 'What is Commission?',
