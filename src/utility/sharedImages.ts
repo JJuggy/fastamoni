@@ -52,5 +52,7 @@ export default {
     caretRight: require('../assets/icons/caret-right.png'),
     trash: require('../assets/icons/trash.png'),
     circleQuestion: require('../assets/icons/circle-question.png'),
+    thumbsUp: require('../assets/icons/thumbs-up.png'),
+    thumbsDown: require('../assets/icons/thumbs-down.png'),
   },
 };
