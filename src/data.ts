@@ -207,7 +207,7 @@ export default {
       canSeeAddress: false,
     },
   ],
-   ProfileDetailOptions : [
+  ProfileDetailOptions: [
     {
       label: 'Account Name',
       detail: 'Dada Taiwo',
@@ -224,5 +224,39 @@ export default {
       label: 'Password',
       detail: '*********',
     },
-  ]
+  ],
+  buyersFaq: [
+    {
+      question: 'What is Decluttering?',
+      answer:
+        'YDecluttering is the process of removing unnecessary items, belongings, or clutter from a space in order to create a more organized, functional, and aesthetically pleasing environment.',
+    },
+    {
+      question: 'What is Commission?',
+      answer:
+        'Commission can be seen as a way to incentivize the removal or sale of excess items. Here, commission might refer to a percentage of the profit earned from selling items.....',
+    },
+    {
+      question: 'What is Refund?',
+      answer:
+        'A refund could refer to the return of items or goods that are no longer needed or wanted',
+    },
+  ],
+  sellersFaq: [
+    {
+      question: 'What is Decluttering?',
+      answer:
+        'YDecluttering is the process of removing unnecessary items, belongings, or clutter from a space in order to create a more organized, functional, and aesthetically pleasing environment.',
+    },
+    {
+      question: 'What is Commission?',
+      answer:
+        'Commission can be seen as a way to incentivize the removal or sale of excess items. Here, commission might refer to a percentage of the profit earned from selling items.....',
+    },
+    {
+      question: 'What is Refund?',
+      answer:
+        'A refund could refer to the return of items or goods that are no longer needed or wanted',
+    },
+  ],
 };

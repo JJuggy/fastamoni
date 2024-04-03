@@ -23,4 +23,5 @@ export type HomeScreenParam = {
   ProfileDetails: undefined;
   Wallet: undefined;
   RecentlySearched: undefined;
+  ReadMoreFaq: undefined;
 };

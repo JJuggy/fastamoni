@@ -19,6 +19,7 @@ import {AppButton} from '@components/button';
 import data from '../../data';
 const ProfileDetails = () => {
   const {ProfileDetailOptions} = data;
+  const {show, close} = useModal();
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -29,43 +30,51 @@ const ProfileDetails = () => {
           )}
         </View>
       </ViewContainer>
-      <FlexedView
-        style={{
-          backgroundColor: colors.white,
-          padding: 6,
-          paddingVertical: 25,
-          marginTop: 8,
-          paddingHorizontal: 12,
-          borderBottomWidth: 0.2,
-          borderBottomColor: '#737373',
-        }}
-        justifyContent="space-between">
-        <View
+      <Pressable
+        onPress={() => {
+          show({
+            as: 'normal',
+            content: <SignOutModal />,
+          });
+        }}>
+        <FlexedView
           style={{
-            flexDirection: 'row',
-          }}>
-          <Image
-            tintColor={'#737373'}
-            style={{width: 20, height: 20, marginRight: 8}}
-            source={sharedImages.icons.signOut}
-          />
-          <Paragraph
-            color="#737373"
+            backgroundColor: colors.white,
+            padding: 6,
+            paddingVertical: 25,
+            marginTop: 8,
+            paddingHorizontal: 12,
+            borderBottomWidth: 0.2,
+            borderBottomColor: '#737373',
+          }}
+          justifyContent="space-between">
+          <Pressable
             style={{
-              marginBottom: 3,
-            }}
-            fontWeight="500">
-            Sign Out
-          </Paragraph>
-        </View>
-        <View>
-          <Image
-            tintColor={'#737373'}
-            style={{width: 20, height: 20}}
-            source={sharedImages.icons.caretRight}
-          />
-        </View>
-      </FlexedView>
+              flexDirection: 'row',
+            }}>
+            <Image
+              tintColor={'#737373'}
+              style={{width: 20, height: 20, marginRight: 8}}
+              source={sharedImages.icons.signOut}
+            />
+            <Paragraph
+              color="#737373"
+              style={{
+                marginBottom: 3,
+              }}
+              fontWeight="500">
+              Sign Out
+            </Paragraph>
+          </Pressable>
+          <View>
+            <Image
+              tintColor={'#737373'}
+              style={{width: 20, height: 20}}
+              source={sharedImages.icons.caretRight}
+            />
+          </View>
+        </FlexedView>
+      </Pressable>
       <FlexedView
         style={{
           backgroundColor: colors.white,
@@ -318,6 +327,36 @@ const EditPasswordModal = () => {
           label="Confirm Password"
         />
         <AppButton text="Update password" />
+      </View>
+    </View>
+  );
+};
+const SignOutModal = () => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
+        }}>
+        <Paragraph
+          color="#0E3F66"
+          style={{
+            marginBottom: 6,
+            textAlign: 'center',
+          }}
+          fontWeight="700">
+          Are you sure you want to Sign Out?
+        </Paragraph>
+        <AppButton style={{marginVertical: 20}} text="Yes" />
+        <AppButton style={{backgroundColor: '#BADEFB'}} text="No" />
       </View>
     </View>
   );

@@ -10,6 +10,7 @@ import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from '../../types';
 import {HomeScreenParam} from '@navigators/main/screens';
+import {AppButton} from '@components/button';
 
 const ProfileScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
@@ -91,6 +92,15 @@ const ProfileScreen = () => {
                 </FlexedView>
               </Pressable>
             ))}
+          </ViewContainer>
+          <ViewContainer>
+            <AppButton
+              text="Subscribe"
+              style={{
+                width: '30%',
+                marginTop: 12,
+              }}
+            />
           </ViewContainer>
         </ScrollView>
       </View>
