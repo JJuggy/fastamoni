@@ -75,40 +75,48 @@ const ProfileDetails = () => {
           </View>
         </FlexedView>
       </Pressable>
-      <FlexedView
-        style={{
-          backgroundColor: colors.white,
-          padding: 6,
-          paddingVertical: 25,
-          paddingHorizontal: 12,
-        }}
-        justifyContent="space-between">
-        <View
+      <Pressable
+        onPress={() => {
+          show({
+            as: 'normal',
+            content: <DeleteAccountModal />,
+          });
+        }}>
+        <FlexedView
           style={{
-            flexDirection: 'row',
-          }}>
-          <Image
-            tintColor={'#737373'}
-            style={{width: 20, height: 20, marginRight: 8}}
-            source={sharedImages.icons.trash}
-          />
-          <Paragraph
-            color="#F28F77"
+            backgroundColor: colors.white,
+            padding: 6,
+            paddingVertical: 25,
+            paddingHorizontal: 12,
+          }}
+          justifyContent="space-between">
+          <View
             style={{
-              marginBottom: 3,
-            }}
-            fontWeight="500">
-            Delete Account
-          </Paragraph>
-        </View>
-        <View>
-          <Image
-            tintColor={'#737373'}
-            style={{width: 20, height: 20}}
-            source={sharedImages.icons.caretRight}
-          />
-        </View>
-      </FlexedView>
+              flexDirection: 'row',
+            }}>
+            <Image
+              tintColor={'#737373'}
+              style={{width: 20, height: 20, marginRight: 8}}
+              source={sharedImages.icons.trash}
+            />
+            <Paragraph
+              color="#F28F77"
+              style={{
+                marginBottom: 3,
+              }}
+              fontWeight="500">
+              Delete Account
+            </Paragraph>
+          </View>
+          <View>
+            <Image
+              tintColor={'#737373'}
+              style={{width: 20, height: 20}}
+              source={sharedImages.icons.caretRight}
+            />
+          </View>
+        </FlexedView>
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -357,6 +365,48 @@ const SignOutModal = () => {
         </Paragraph>
         <AppButton style={{marginVertical: 20}} text="Yes" />
         <AppButton style={{backgroundColor: '#BADEFB'}} text="No" />
+      </View>
+    </View>
+  );
+};
+const DeleteAccountModal = () => {
+  return (
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <View
+        style={{
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
+        }}>
+        <Paragraph
+          color="#661C17"
+          style={{
+            marginBottom: 6,
+            textAlign: 'center',
+          }}
+          fontWeight="700">
+          Are you sure you want to delete your account?
+        </Paragraph>
+        <AppButton
+          textStyle={{
+            color: 'white',
+          }}
+          style={{marginVertical: 20, backgroundColor: '#DE3D31'}}
+          text="Yes"
+        />
+        <AppButton
+          textStyle={{
+            color: 'white',
+          }}
+          style={{backgroundColor: '#FCC5C1'}}
+          text="No"
+        />
       </View>
     </View>
   );
