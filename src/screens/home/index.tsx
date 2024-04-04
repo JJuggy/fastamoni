@@ -30,8 +30,8 @@ import {HomeNavigatorParams} from 'src/types';
 import {useGetProductsQuery} from '@services/products';
 
 const HomeScreen: React.FC = ({}) => {
-  const {data: deals} = useGetProductsQuery();
-  console.warn('THE PRODUCTS ARE', deals?.data);
+  const {data: allProducts} = useGetProductsQuery();
+  console.warn('THE PRODUCTS ARE', allProducts?.data);
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);
