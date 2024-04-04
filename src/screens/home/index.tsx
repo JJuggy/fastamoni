@@ -26,10 +26,12 @@ import data from '../../data';
 import HomeCard from '@screens/components/HomeCard';
 import Dots from '@screens/onboarding/Dots';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {HomeNavigatorParams} from 'src/types';
+import {useGetProductsQuery} from '@services/products';
 
 const HomeScreen: React.FC = ({}) => {
+  const {data: deals} = useGetProductsQuery();
+  console.warn('THE PRODUCTS ARE', deals?.data);
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);

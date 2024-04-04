@@ -16,7 +16,7 @@ export const productsApi = createApi({
   baseQuery: axiosBaseQuery({baseHeaders: {}}),
   tagTypes: ['Product'],
   endpoints: build => ({
-    getProducts: build.query<Product[], void>({
+    getProducts: build.query<{data: Product[]}, void>({
       query: () => ({
         url: '/products',
         method: 'GET',

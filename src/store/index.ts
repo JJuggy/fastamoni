@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './auth';
-import { authApi } from '@services/auth';
-import { productsApi } from '@services/products';
+import {authApi} from '@services/auth';
+import {productsApi} from '@services/products';
 
 // import { authApi } from './auth/api';
 
@@ -15,7 +15,9 @@ export const store = configureStore({
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,
-    }).concat(authApi.middleware),
+    })
+      .concat(authApi.middleware)
+      .concat(productsApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
