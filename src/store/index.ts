@@ -2,6 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './auth';
 import {authApi} from '@services/auth';
 import {productsApi} from '@services/products';
+import {categoriesApi} from '@services/categories';
 
 // import { authApi } from './auth/api';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    [categoriesApi.reducerPath]: categoriesApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -17,7 +19,8 @@ export const store = configureStore({
       serializableCheck: false,
     })
       .concat(authApi.middleware)
-      .concat(productsApi.middleware),
+      .concat(productsApi.middleware)
+      .concat(categoriesApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
