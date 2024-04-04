@@ -1,15 +1,11 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@utility/axiosQuery/axiosBaseQuery';
-import {LoginRequest} from './interface';
+import {LoginRequest, SignUpRequest} from './interface';
 import {Response} from '@store/interfaces';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: axiosBaseQuery({
-    baseUrl: 'https://pb-backend-service-8xl3.onrender.com',
-   
-    
-  }),
+  baseQuery: axiosBaseQuery({baseHeaders: {}}),
   endpoints: builder => ({
     login: builder.mutation<Response, LoginRequest>({
       query: credentials => ({
@@ -18,9 +14,9 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
-    signUp: builder.mutation<Response, void>({
+    signUp: builder.mutation<Response, SignUpRequest>({
       query: credentials => ({
-        url: '/auth/register/otp',
+        url: '/auth/register',
         method: 'POST',
         body: credentials,
       }),

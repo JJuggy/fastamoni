@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
@@ -9,9 +10,12 @@ import {AuthScreenList} from 'src/navigators/auth/authParamList';
 import {useNavigation} from '@react-navigation/native';
 import {nav} from 'src/types';
 import sharedImages from '@utility/sharedImages';
+import {useSignUpMutation} from '@services/auth';
+import {notifyError, notifySucess} from '@utility/notify';
 
 const SignUp: React.FC = () => {
   const {navigate} = useNavigation<nav<AuthScreenList>>();
+  const [signUp, {isLoading}] = useSignUpMutation();
   const [info, setInfo] = useState({
     email: '',
     firstname: '',
@@ -45,7 +49,6 @@ const SignUp: React.FC = () => {
       password: info.password,
       business_name: info.businessName,
     };
-    console.warn(dataToSubmit);
     signUp(dataToSubmit)
       .unwrap()
       .then(res => {
@@ -142,7 +145,18 @@ const SignUp: React.FC = () => {
               </Pressable>
             </FlexedView>
             <Spacer />
-            <AppButton variant="primary" text="Create Account" />
+            <AppButton
+              variant="primary"
+              text="Create Account"
+              disabled={
+                !info.email ||
+                !info.password ||
+                !info.firstname ||
+                !info.lastname
+              }
+              onPress={submit}
+              isLoading={isLoading}
+            />
             <Spacer height={30} />
             <Pressable onPress={() => navigate('SignIn')} style={styles.login}>
               <FlexedView>

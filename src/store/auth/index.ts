@@ -4,19 +4,15 @@ import {RootState} from '..';
 
 export interface User {
   email?: string;
-  phone_number?: string;
-  address?: string;
-  country?: string;
   id?: number | string;
   last_name?: string;
   first_name?: string;
-  picture?: any;
+  email_verified?: boolean;
 }
 
 export interface Auth {
   user: User | null;
   token: string | null;
-  isLoading?: boolean;
   didOnboard: boolean;
 }
 
@@ -24,16 +20,16 @@ const initialState: Auth = {
   isLoading: true,
   didOnboard: false,
   token: null,
+  user: null,
 } as Auth;
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredential(state, {payload: {user}}: PayloadAction<Auth>) {
+    setCredential(state, {payload: {user}}: PayloadAction<Pick<Auth, 'user'>>) {
       AsyncStorage.setItem('@user', JSON.stringify({user}));
       state.user = user;
-      state.isLoading = false;
     },
 
     setToken(state, {payload: val}: PayloadAction<string>) {

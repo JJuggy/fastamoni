@@ -11,6 +11,7 @@ import {Provider} from 'react-redux';
 import {store} from '@store/index';
 import RootNavigator from './navigators';
 import DynamicModalProvider from '@providers/DynamicModalProvider';
+import FlashMessage from 'react-native-flash-message';
 
 function App(): JSX.Element {
   return (
@@ -19,6 +20,7 @@ function App(): JSX.Element {
         <DynamicModalProvider>
           <RootNavigator />
         </DynamicModalProvider>
+        <FlashMessage position="top" />
       </NavigationContainer>
     </Provider>
   );
