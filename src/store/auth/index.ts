@@ -14,6 +14,7 @@ export interface Auth {
   user: User | null;
   token: string | null;
   didOnboard: boolean;
+  isLoading: boolean;
 }
 
 const initialState: Auth = {
