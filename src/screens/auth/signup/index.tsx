@@ -32,6 +32,31 @@ const SignUp: React.FC = () => {
     });
   };
 
+  const submit = () => {
+    if (info.password !== info.confirmPassword) {
+      notifyError('Error', 'Please confirm that your password matches');
+      return;
+    }
+
+    let dataToSubmit = {
+      first_name: info.firstname,
+      last_name: info.lastname,
+      email: info.email,
+      password: info.password,
+      business_name: info.businessName,
+    };
+    console.warn(dataToSubmit);
+    signUp(dataToSubmit)
+      .unwrap()
+      .then(res => {
+        notifySucess('Success', 'Account created successfully');
+        navigate('SignIn');
+      })
+      .catch(err => {
+        console.log(err.data?.message);
+      });
+  };
+
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
@@ -63,7 +88,7 @@ const SignUp: React.FC = () => {
             <AppTextInput
               label="Password"
               value={info.password}
-              secureTextEntry
+              secureTextEntry={showPassword.password}
               onChangeText={text => onChangeText('password', text)}
               rightIcon={
                 <Pressable
@@ -73,7 +98,7 @@ const SignUp: React.FC = () => {
                       password: !showPassword.password,
                     })
                   }>
-                  {showPassword ? (
+                  {showPassword.password ? (
                     <Image source={sharedImages.icons.eyeOpen} />
                   ) : (
                     <Image source={sharedImages.icons.eyeOpen} />
@@ -84,7 +109,7 @@ const SignUp: React.FC = () => {
             <AppTextInput
               label="Confirm Password"
               value={info.confirmPassword}
-              secureTextEntry
+              secureTextEntry={showPassword.confirmPassword}
               onChangeText={text => onChangeText('confirmPassword', text)}
               rightIcon={
                 <Pressable
@@ -94,7 +119,7 @@ const SignUp: React.FC = () => {
                       confirmPassword: !showPassword.confirmPassword,
                     })
                   }>
-                  {showPassword ? (
+                  {showPassword.confirmPassword ? (
                     <Image source={sharedImages.icons.eyeOpen} />
                   ) : (
                     <Image source={sharedImages.icons.eyeOpen} />
@@ -103,7 +128,7 @@ const SignUp: React.FC = () => {
               }
             />
             <AppTextInput
-              label="Bisuness Name (Optional)"
+              label="Business Name (Optional)"
               value={info.businessName}
               onChangeText={text => onChangeText('businessName', text)}
             />
