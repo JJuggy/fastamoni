@@ -8,16 +8,18 @@ import {AppButton} from '@components/button';
 import {useNavigation} from '@react-navigation/native';
 import {nav} from 'src/types';
 import sharedImages from '@utility/sharedImages';
-
+import {useLoginMutation} from '@services/auth';
 const SignIn: React.FC = () => {
   const {navigate} = useNavigation<nav<AuthScreenList>>();
-  const [info, setInfo] = useState({
+  const [login] = useLoginMutation();
+  const [info, setInfo] = useState<{email: string; password: string}>({
     email: '',
     password: '',
   });
-
   const [showPassword, setShowPassword] = useState(false);
-
+  const handleLogin = () => {
+    login(info);
+  };
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
@@ -57,7 +59,7 @@ const SignIn: React.FC = () => {
               <Paragraph>Forgot Password?</Paragraph>
             </Pressable>
             <Spacer height={30} />
-            <AppButton variant="primary" text="Sign In" />
+            <AppButton onPress={handleLogin} variant="primary" text="Sign In" />
             <Spacer height={30} />
             <Pressable
               onPress={() => navigate('SignUp')}
