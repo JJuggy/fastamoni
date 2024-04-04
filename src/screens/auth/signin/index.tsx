@@ -60,7 +60,7 @@ const SignIn: React.FC = () => {
             />
             <AppTextInput
               label="Password"
-              secureTextEntry
+              secureTextEntry={showPassword ? false : true}
               onChangeText={text => setInfo({...info, password: text})}
               rightIcon={
                 <Pressable onPress={() => setShowPassword(!showPassword)}>
