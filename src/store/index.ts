@@ -3,6 +3,7 @@ import authReducer from './auth';
 import {authApi} from '@services/auth';
 import {productsApi} from '@services/products';
 import {categoriesApi} from '@services/categories';
+import {cartApi} from '@services/carts';
 
 // import { authApi } from './auth/api';
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -20,7 +22,8 @@ export const store = configureStore({
     })
       .concat(authApi.middleware)
       .concat(productsApi.middleware)
-      .concat(categoriesApi.middleware),
+      .concat(categoriesApi.middleware)
+      .concat(cartApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
