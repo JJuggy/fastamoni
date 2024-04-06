@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Platform,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import colors from '../../utility/colors';
 import {heightPixel, widthPixel} from '../../utility/pxToDpConvert';
@@ -20,6 +21,7 @@ interface IProps extends TextInputProps {
   containerStyle?: ViewStyle;
   inputStyle?: ViewStyle;
   multiline?: boolean;
+  labelStyle?: TextStyle;
 }
 
 export const AppTextInput = ({
@@ -29,6 +31,7 @@ export const AppTextInput = ({
   containerStyle,
   inputStyle,
   multiline = false,
+  labelStyle,
   ...props
 }: IProps) => {
   const [height, setHeight] = useState(0);
@@ -36,7 +39,7 @@ export const AppTextInput = ({
     <View style={[styles.body, {...containerStyle}]}>
       {label && (
         <View style={{marginBottom: 5}}>
-          <Text>{label}</Text>
+          <Text style={{...labelStyle}}>{label}</Text>
         </View>
       )}
       <View

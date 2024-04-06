@@ -9,7 +9,9 @@ export type HomeScreenParam = {
   StoreDetailsScreen: {productId: string | number};
   FilterScreen: undefined;
   DealsOfTheDayScreen: undefined;
-  Orders: undefined;
+  Orders: {
+    type: 'buyer' | 'seller';
+  };
   SearchScreen: undefined;
   ProductDetails: undefined;
   TransactionHistory: undefined;
@@ -18,4 +20,8 @@ export type HomeScreenParam = {
   MyStore: undefined;
   FAQs: undefined;
   Checkout: undefined;
+  ProfileDetails: undefined;
+  Wallet: undefined;
+  RecentlySearched: undefined;
+  ReadMoreFaq: undefined;
 };

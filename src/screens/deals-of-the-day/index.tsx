@@ -21,9 +21,16 @@ import {useNavigation} from '@react-navigation/native';
 import ProductCard from '@components/ProductCard';
 import {Paragraph} from '@components/text/text';
 import {View} from 'react-native';
+import {NavigationProp} from '@react-navigation/native';
 const DealsOfTheDayScreen = () => {
   const {AllDealsOfTheDay} = data;
-  const navigation = useNavigation();
+  type DealsOfTheDayScreenParams = {
+    Orders: {
+      tab: 'My cart' | 'Ongoing' | 'Completed';
+    };
+  };
+  type YourNavigationType = NavigationProp<DealsOfTheDayScreenParams>;
+  const navigation: YourNavigationType = useNavigation();
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -44,11 +51,18 @@ const DealsOfTheDayScreen = () => {
                 source={sharedImages.icons.search}
                 tintColor={'#9E9E9E'}
               />
-              <Image
-                style={styles.icon}
-                source={sharedImages.icons.cart}
-                tintColor={'#9E9E9E'}
-              />
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('Orders', {
+                    tab: 'My cart',
+                  });
+                }}>
+                <Image
+                  style={styles.icon}
+                  source={sharedImages.icons.cart}
+                  tintColor={'#9E9E9E'}
+                />
+              </Pressable>
             </FlexedView>
           }
         />

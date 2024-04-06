@@ -46,5 +46,13 @@ export default {
     bank: require('../assets/icons/bank.png'),
     card: require('../assets/icons/card.png'),
     copy: require('../assets/icons/copy.png'),
+    phone: require('../assets/icons/phone.png'),
+    editPencil: require('../assets/icons/edit-pencil.png'),
+    signOut: require('../assets/icons/sign-out.png'),
+    caretRight: require('../assets/icons/caret-right.png'),
+    trash: require('../assets/icons/trash.png'),
+    circleQuestion: require('../assets/icons/circle-question.png'),
+    thumbsUp: require('../assets/icons/thumbs-up.png'),
+    thumbsDown: require('../assets/icons/thumbs-down.png'),
   },
 };

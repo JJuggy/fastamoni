@@ -25,6 +25,10 @@ import TransactionHistory from '@screens/profile/TransactionHistory';
 import RecentlyViewed from '@screens/profile/RecentlyViewed';
 import MyStore from '@screens/profile/MyStore';
 import Faq from '@screens/profile/Faq';
+import ProfileDetails from '@screens/profile/ProfileDetails';
+import Wallet from '@screens/profile/wallet';
+import RecentlySearched from '@screens/profile/RecentlySearched';
+import ReadMoreFaq from '@screens/profile/ReadMoreFaq';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -157,7 +161,11 @@ const ProfileStack = () => {
       <Screen name="TransactionHistory" component={TransactionHistory} />
       <Screen name="RecentlyViewed" component={RecentlyViewed} />
       <Screen name="MyStore" component={MyStore} />
+      <Screen name="ProfileDetails" component={ProfileDetails} />
       <Screen name="FAQs" component={Faq} />
+      <Screen name="ReadMoreFaq" component={ReadMoreFaq} />
+      <Screen name="Wallet" component={Wallet} />
+      <Screen name="RecentlySearched" component={RecentlySearched} />
     </Navigator>
   );
 };
