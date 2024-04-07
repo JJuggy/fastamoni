@@ -35,3 +35,14 @@ export const notifyInfo = (message: string, description: string) => {
     type: 'info',
   });
 };
+
+export const notifyError = (message: string, description: string) => {
+  showMessage({
+    duration: 4000,
+    message,
+    description,
+    icon: 'info',
+    hideStatusBar: true,
+    type: 'danger',
+  });
+};
