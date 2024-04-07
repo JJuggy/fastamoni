@@ -9,17 +9,38 @@ import {useNavigation} from '@react-navigation/native';
 import {nav} from 'src/types';
 import sharedImages from '@utility/sharedImages';
 import {useLoginMutation} from '@services/auth';
+import {useDispatch} from 'react-redux';
+import {setCredential, setToken} from '@store/auth';
 const SignIn: React.FC = () => {
   const {navigate} = useNavigation<nav<AuthScreenList>>();
-  const [login] = useLoginMutation();
+  const dispatch = useDispatch();
+  const [login, {isLoading}] = useLoginMutation();
   const [info, setInfo] = useState<{email: string; password: string}>({
     email: '',
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const handleLogin = () => {
-    login(info);
+  const handleLogin = async () => {
+    try {
+      let resp = await login(info).unwrap();
+
+      dispatch(
+        setCredential({
+          user: {
+            first_name: resp.data?.data?.first_name,
+            last_name: resp.data?.data?.last_name,
+            email: resp.data?.data?.email,
+            id: resp.data?.data?._id,
+            email_verified: resp.data?.data?.email_verified,
+          },
+        }),
+      );
+      dispatch(setToken(resp.data?.data?.access_token));
+    } catch (error) {
+      console.log(error?.data?.message);
+    }
   };
+
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
@@ -59,7 +80,12 @@ const SignIn: React.FC = () => {
               <Paragraph>Forgot Password?</Paragraph>
             </Pressable>
             <Spacer height={30} />
-            <AppButton onPress={handleLogin} variant="primary" text="Sign In" />
+            <AppButton
+              onPress={handleLogin}
+              isLoading={isLoading}
+              variant="primary"
+              text="Sign In"
+            />
             <Spacer height={30} />
             <Pressable
               onPress={() => navigate('SignUp')}

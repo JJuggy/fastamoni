@@ -5,11 +5,7 @@ import {Response} from '@store/interfaces';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: axiosBaseQuery({
-    baseUrl: 'https://pb-backend-service-8xl3.onrender.com',
-   
-    
-  }),
+  baseQuery: axiosBaseQuery({baseHeaders: {}}),
   endpoints: builder => ({
     login: builder.mutation<Response, LoginRequest>({
       query: credentials => ({
