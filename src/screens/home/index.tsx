@@ -32,6 +32,7 @@ import {useGetProductsQuery} from '@services/products';
 const HomeScreen: React.FC = ({}) => {
   const {data: allProducts} = useGetProductsQuery();
   console.warn('THE PRODUCTS ARE', allProducts?.data);
+
   const {homeTopDeals} = data;
   const {homeScreenDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -244,13 +245,13 @@ const HomeScreen: React.FC = ({}) => {
           </View>
           <View style={{}}>
             <Spacer />
-            <ScrollView>
-              {homeScreenDeals.map((item, index) => (
-                <Pressable key={index} style={{flex: 1}}>
-                  <HomeCard item={item} {...item} />
-                </Pressable>
-              ))}
-            </ScrollView>
+            {/* <ScrollView> */}
+            {homeScreenDeals.map((item, index) => (
+              <Pressable key={index} style={{flex: 1}}>
+                <HomeCard item={item} />
+              </Pressable>
+            ))}
+            {/* </ScrollView> */}
           </View>
           {/* </BaseView> */}
         </ScrollView>

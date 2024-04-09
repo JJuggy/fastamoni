@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {FlexedView, PressableView} from '@components/view';
@@ -6,39 +7,44 @@ import colors from '@utility/colors';
 import sharedImages from '@utility/sharedImages';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@react-navigation/native';
+import {useUpdateCartItemMutation} from '@services/carts';
+import {useAuth} from '@store/auth/hook';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {HomeScreenParam} from '@navigators/main/screens';
+import {NAIRA} from '@utility/naira';
+
+type nav = StackNavigationProp<HomeScreenParam>;
 
 export interface homeCardProps {
   item: any;
-  dealName: string;
-  storeName: string;
-  price: string;
-  location: string;
 }
-const HomeCard = ({
-  item,
-  dealName,
-  storeName,
-  price,
-  location,
-}: homeCardProps) => {
-  type HomeCardRouteParams = {
-    ProductDetails: {
-      details: {
-        dealName: string;
-        storeName: string;
-        price: string;
-        location: string;
-      };
-    };
+const HomeCard = ({item}: homeCardProps) => {
+  const navigation = useNavigation<nav>();
+  const [updateCart] = useUpdateCartItemMutation();
+  const {user} = useAuth();
+
+  const updateCartlist = async () => {
+    try {
+      const res = await updateCart({
+        body: {
+          items: [
+            {
+              quantity: 1,
+              productId: item?.id,
+            },
+          ],
+        },
+      }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  type YourNavigationType = NavigationProp<HomeCardRouteParams>;
-  const navigation: YourNavigationType = useNavigation();
 
   return (
     <PressableView
       onPress={() =>
         navigation.navigate('ProductDetails', {
-          details: item,
+          detail: item,
         })
       }
       style={{
@@ -79,7 +85,7 @@ const HomeCard = ({
               style={{
                 color: '#131313',
               }}>
-              {dealName}
+              {item?.dealName}
             </Paragraph>
             <Paragraph
               fontWeight="700"
@@ -88,7 +94,7 @@ const HomeCard = ({
                 color: '#2196F3',
                 marginVertical: 4,
               }}>
-              {storeName}
+              {item?.storeName}
             </Paragraph>
             <FlexedView
               style={{
@@ -138,7 +144,7 @@ const HomeCard = ({
                 style={{
                   color: 'black',
                 }}>
-                {location}
+                {item?.location}
               </Paragraph>
             </FlexedView>
             <Paragraph
@@ -148,11 +154,7 @@ const HomeCard = ({
                 color: 'black',
                 marginVertical: 5,
               }}>
-              <Image
-                style={styles.nairaIconStyle}
-                source={sharedImages.icons['naira']}
-              />
-              {price}
+              {`${NAIRA} ${item?.price}`}
             </Paragraph>
 
             <View
@@ -187,7 +189,7 @@ const HomeCard = ({
                 </Paragraph>
               </PressableView>
               <PressableView
-                onPress={() => null}
+                onPress={updateCartlist}
                 style={{
                   backgroundColor: '#4DABF5',
                   padding: 4,
@@ -227,8 +229,9 @@ const styles = StyleSheet.create({
   },
   icons: {width: 10, height: 15, marginRight: 5, marginLeft: 3},
   nairaIconStyle: {
-    width: 12,
-    height: 12,
+    width: 3,
+    height: 3,
     marginRight: 5,
+    borderWidth: 1,
   },
 });

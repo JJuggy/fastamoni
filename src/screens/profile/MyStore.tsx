@@ -26,8 +26,12 @@ import data from '../../data';
 import ProductCard from '@components/ProductCard';
 import {useModal} from '@providers/DynamicModalProvider';
 import FilterComponent from '@screens/components/FilterComponent';
+import {useGetStoreQuery} from '@services/stores';
+import {useAuth} from '@store/auth/hook';
 
 const MyStore = () => {
+  const {user} = useAuth();
+  const {data: storeResponse} = useGetStoreQuery(user?.id as string);
   const {AllDealsOfTheDay} = data;
   const metricColors = [
     colors.success,

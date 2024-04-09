@@ -11,8 +11,6 @@ export const initInterceptors = () => {
       const result = await getItem();
       const token = result ? result : '';
 
-      // console.log(token, 'the token from interceoptor==>>>>>');
-
       if (config.headers) {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -20,7 +18,7 @@ export const initInterceptors = () => {
       }
 
       config.headers = {...config.headers};
-      // console.log(config, 'the header configss');
+
       return config;
     },
     error => {
