@@ -20,6 +20,7 @@ import HomeCard from '@screens/components/HomeCard';
 import {addToCart} from '@store/cart';
 import {useDispatch} from 'react-redux';
 import {useModal} from '@providers/DynamicModalProvider';
+import {useGetSimilarProductsQuery} from '@services/products';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
@@ -33,12 +34,22 @@ const ProductDetails = () => {
       price: string;
       grade: string;
       images: string[];
+      category: {
+        name: string;
+      };
     };
   };
   const dispatch = useDispatch();
   const {show, close} = useModal();
-
   const {details} = route.params as ProductDetailsRoute;
+  const {data: simProd} = useGetSimilarProductsQuery({
+    title: details.title,
+    category: details?.category?.name ?? '',
+  });
+  const [similarProducts, setSimilarProducts] = useState(simProd?.data);
+  useEffect(() => {
+    setSimilarProducts(simProd?.data);
+  }, [simProd?.data]);
   const {itemInfo, similarProductsInStore} = data;
   return (
     <SafeAreaView
@@ -74,13 +85,14 @@ const ProductDetails = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <ProductCard
             dealName={details.title}
-            storeName={details.store.name}
+            storeName={details.store[0].name}
             discountedPrice={undefined}
             price={details.price}
             grade={details.grade}
             productImages={details.images}
             canSeeAddress={false}
             withStoreRating={true}
+            condition={details.condition}
             productImgHeight={200}
             {...details}
           />
@@ -135,10 +147,18 @@ const ProductDetails = () => {
               }}>
               Similar products
             </Text>
-            {similarProductsInStore.map((item, index) => {
+            {similarProducts?.map((item, index) => {
               return (
                 <View key={index}>
-                  <HomeCard item={item} {...item} />
+                  <HomeCard
+                    showCondition={false}
+                    dealName={item.title}
+                    storeName={item.store[0].name}
+                    price={item.price}
+                    dealThumbnail={item.thumbnail[0]?.url}
+                    item={item}
+                    {...item}
+                  />
                 </View>
               );
             })}

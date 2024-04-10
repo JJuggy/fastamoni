@@ -8,6 +8,7 @@ import {IOrder, IOrderProps} from 'src/types';
 
 const OrderItem = ({orders}: IOrderProps) => {
   const [numberOfOrders, setNumberOfOrders] = React.useState(1);
+  console.log('the store name ', orders);
   return orders?.map((order: IOrder, index: number) => {
     return (
       <View key={index}>
@@ -15,7 +16,7 @@ const OrderItem = ({orders}: IOrderProps) => {
           <FlexedView justifyContent="space-between">
             <FlexedView>
               <Image
-                source={{uri: order.thumbnail.url}}
+                source={{uri: order.thumbnail[0].url}}
                 style={{
                   width: 90,
                   height: 90,
@@ -24,7 +25,7 @@ const OrderItem = ({orders}: IOrderProps) => {
               />
               <View style={{flexDirection: 'column', marginLeft: 12}}>
                 <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                  {order.store.name}
+                  {order.store[0].name}
                 </Paragraph>
                 <Paragraph
                   fontWeight="500"

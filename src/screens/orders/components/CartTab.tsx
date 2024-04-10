@@ -16,12 +16,9 @@ const CartTab = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const cart = useCart();
   let totalPrice: number = 0;
-  console.log(
-    'total',
-    cart.cart.reduce((total, product) => {
-      return (totalPrice = total + product.price);
-    }, 0),
-  );
+  cart.cart.reduce((total, product) => {
+    return (totalPrice = total + product.price);
+  }, 0);
   return (
     <ScrollView
       style={{

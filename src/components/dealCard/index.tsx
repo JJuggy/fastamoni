@@ -67,10 +67,11 @@ const DealCard = ({storeName, dealDescription, verified}: Props) => {
           <FlexedView>
             <Image style={styles.icons} source={sharedImages.icons.verify} />
             <Paragraph
+              fontSize={12}
               style={{
                 color: colors.white,
               }}>
-              {verified ? 'Verified' : 'UnVerified'}
+              Verified
             </Paragraph>
           </FlexedView>
         </View>

@@ -30,10 +30,12 @@ import {HomeNavigatorParams} from 'src/types';
 import {useGetProductsQuery} from '@services/products';
 import {useGetCategoriesQuery} from '@services/categories';
 import {useCart} from '@store/cart/hook';
+import {useGetTopStoresQuery} from '@services/stores';
 
 const HomeScreen: React.FC = ({}) => {
   const {data: allProducts} = useGetProductsQuery();
   const {data: allCategories} = useGetCategoriesQuery();
+  const {data: topStores} = useGetTopStoresQuery();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
   useEffect(() => {
     setHomeDeals(allProducts?.data);
@@ -83,7 +85,7 @@ const HomeScreen: React.FC = ({}) => {
                 <View
                   style={{
                     position: 'absolute',
-                    top: -8,
+                    top: -5,
                     right: 0,
                   }}>
                   <Paragraph
@@ -237,33 +239,69 @@ const HomeScreen: React.FC = ({}) => {
               />
             </PressableView>
           </FlexedView>
-
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginTop: 12,
+              marginBottom: 6,
+            }}>
+            <Paragraph fontSize={14} fontWeight="700">
+              Categories
+            </Paragraph>
+            <Pressable>
+              <Paragraph fontSize={13} fontWeight="400">
+                View all
+              </Paragraph>
+            </Pressable>
+          </View>
           <ScrollView
+            showsHorizontalScrollIndicator={false}
             style={{height: 80, marginVertical: 8, marginTop: 12}}
             horizontal>
             {allCategories?.data.map((item, index) => (
-              <Pressable key={index} style={{flex: 1}}>
+              <Pressable
+                key={index}
+                style={{
+                  flex: 1,
+                  marginLeft: 12,
+                }}>
                 <View
                   style={{
                     flexDirection: 'column',
                     alignItems: 'center',
                   }}>
                   <Image
-                    // source={{uri: item.thumbnail?.url}}
-                    source={sharedImages.icons.device}
+                    source={{uri: item.icon}}
                     style={{
                       width: 60,
                       height: 60,
                     }}
                   />
-                  <Paragraph>{item.name}</Paragraph>
+                  <Paragraph
+                    style={
+                      {
+                        // maxWidth: 60,
+                      }
+                    }>
+                    {item.name}
+                  </Paragraph>
                 </View>
               </Pressable>
             ))}
           </ScrollView>
           <FlatList
-            data={homeTopDeals}
-            renderItem={({item}) => <DealCard {...item} />}
+            data={topStores?.data}
+            renderItem={({item}) => (
+              <DealCard
+                storeName={item.name}
+                // dealDescription={}
+
+                {...item}
+              />
+            )}
             keyExtractor={(item, index) => index.toString()}
             horizontal
             onViewableItemsChanged={onViewableItemsChanged}
@@ -296,9 +334,9 @@ const HomeScreen: React.FC = ({}) => {
                   <HomeCard
                     showCondition={false}
                     dealName={item.title}
-                    storeName={item.store.name}
+                    storeName={item.store[0].name}
                     price={item.price}
-                    dealThumbnail={item.thumbnail?.url}
+                    dealThumbnail={item.thumbnail[0]?.url}
                     item={item}
                     {...item}
                   />

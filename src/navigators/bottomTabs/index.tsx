@@ -178,6 +178,7 @@ const HomeNavigator = () => {
         headerShown: false,
       }}>
       <Screen name="HomeScreen" component={HomeScreen} />
+      <Screen name="StoreDetailsScreen" component={StoreDetailsScreen} />
     </Navigator>
   );
 };

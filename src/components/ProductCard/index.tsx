@@ -15,6 +15,7 @@ interface ProductCardProps {
   productImgHeight?: number;
   withStoreRating?: boolean;
   productImages: any;
+  condition: string;
 }
 const ProductCard = ({
   dealName,
@@ -27,16 +28,20 @@ const ProductCard = ({
   productImgHeight = 120,
   withStoreRating = false,
   productImages,
+  condition,
 }: ProductCardProps) => {
   return (
     <View style={styles.dealcardcontainer}>
-      <Image
-        source={{uri: productImages[0].url}}
-        style={{
-          width: '100%',
-          height: productImgHeight,
-        }}
-      />
+      {productImages?.[0].url != undefined && (
+        <Image
+          source={{uri: productImages?.[0].url}}
+          style={{
+            width: '100%',
+            height: productImgHeight,
+          }}
+        />
+      )}
+
       <View
         style={{
           flexDirection: 'column',
@@ -56,11 +61,13 @@ const ProductCard = ({
             style={{
               marginBottom: 3,
             }}
-            fontSize={12}>
+            fontSize={14}>
             {storeName}
           </Paragraph>
         </FlexedView>
-        <Paragraph style={{marginVertical: 4}}>{dealName}</Paragraph>
+        <Paragraph fontWeight="500" style={{marginVertical: 4}}>
+          {dealName}
+        </Paragraph>
         <Paragraph style={{color: '#125386', marginVertical: 3}}>
           Grade:{grade}
         </Paragraph>
@@ -100,28 +107,13 @@ const ProductCard = ({
               style={{
                 color: 'white',
               }}>
-              Used
-            </Paragraph>
-          </View>
-          <View
-            style={{
-              backgroundColor: '#BADEFB',
-              padding: 4,
-              borderRadius: 4,
-              marginLeft: 3,
-            }}>
-            <Paragraph
-              fontSize={10}
-              style={{
-                color: 'white',
-              }}>
-              Servicing Required
+              {condition}
             </Paragraph>
           </View>
         </FlexedView>
         <Paragraph
           fontWeight="500"
-          fontSize={15}
+          fontSize={18}
           style={{
             color: 'black',
             marginVertical: 5,
