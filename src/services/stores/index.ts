@@ -15,13 +15,13 @@ export const storesApi = createApi({
     }),
     getStore: build.query<Store, number>({
       query: id => ({
-        url: `stores/${id}`,
+        url: `/stores/${id}`,
         method: 'GET',
       }),
     }),
     createStore: build.mutation<Store, CreateStoreArgs>({
       query: ({body}) => ({
-        url: 'stores',
+        url: '/stores',
         method: 'POST',
         body,
       }),

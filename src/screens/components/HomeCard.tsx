@@ -51,7 +51,7 @@ const HomeCard = ({
       }
       style={{
         backgroundColor: colors.white,
-        height: 120,
+        height: 140,
         marginBottom: 15,
       }}>
       <FlexedView
@@ -134,12 +134,17 @@ const HomeCard = ({
               </FlexedView>
             )}
 
-            {/* <FlexedView
+            <FlexedView
               style={{
                 marginVertical: 5,
               }}>
               <Image
-                style={styles.icons}
+                style={{
+                  width: 12,
+                  height: 15,
+                  marginRight: 5,
+                  marginLeft: 3,
+                }}
                 source={sharedImages.icons.location}
               />
               <Paragraph
@@ -150,15 +155,15 @@ const HomeCard = ({
                 }}>
                 {location}
               </Paragraph>
-            </FlexedView> */}
+            </FlexedView>
             <Paragraph
-              fontWeight="500"
+              fontWeight="700"
               fontSize={18}
               style={{
                 color: 'black',
                 marginVertical: 5,
-                alignItems:'center',
-                justifyContent:'center'
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <Image
                 style={styles.nairaIconStyle}
@@ -252,10 +257,10 @@ export default HomeCard;
 const styles = StyleSheet.create({
   dealStyle: {
     width: '100%',
-    height: 120,
+    height: '100%',
     resizeMode: 'cover',
   },
-  icons: {width: 10, height: 15, marginRight: 5, marginLeft: 3},
+  icons: {width: 9, height: 15, marginRight: 5, marginLeft: 3},
   nairaIconStyle: {
     width: 12,
     height: 12,

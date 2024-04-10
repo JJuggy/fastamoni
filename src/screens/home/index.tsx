@@ -42,6 +42,7 @@ const HomeScreen: React.FC = ({}) => {
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
+  console.log(homeDeals);
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation: HomeNavigatorParams = useNavigation();
