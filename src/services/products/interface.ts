@@ -1,11 +1,14 @@
 export interface Product {
-  id: number;
-  price: number;
-  minPrice: string;
-  maxPrice: string;
-  description: string;
-  image: string;
-  title: string;
-  category: string;
-  store: string;
+  id?: number;
+  price?: number | string;
+  minPrice?: string;
+  maxPrice?: string;
+  description?: string;
+  images?: string[];
+  title?: string;
+  category?: string;
+  store?: string;
+  grade?: string;
+  stock?: string | number;
+  thumbnail?: string;
 }

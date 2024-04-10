@@ -6,6 +6,7 @@ import {productsApi} from '@services/products';
 import {categoriesApi} from '@services/categories';
 import {cartApi} from '@services/carts';
 import {storeApi} from '@services/stores';
+import {utilityApi} from '@services/utility';
 
 // import { authApi } from './auth/api';
 
@@ -18,6 +19,7 @@ export const store = configureStore({
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     [storeApi.reducerPath]: storeApi.reducer,
+    [utilityApi.reducerPath]: utilityApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

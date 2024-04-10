@@ -1,6 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@utility/axiosQuery/axiosBaseQuery';
 import {Response} from '@store/interfaces';
+import {ICreateStore} from './interfaces';
 
 export const storeApi = createApi({
   reducerPath: 'storeApi',
@@ -19,7 +20,14 @@ export const storeApi = createApi({
         method: 'GET',
       }),
     }),
+    createStore: build.mutation<Response, FormData>({
+      query: () => ({
+        url: '/store/update',
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 
-export const {useGetStoresQuery, useGetStoreQuery} = storeApi;
+export const {useGetStoresQuery, useGetStoreQuery, useCreateStoreMutation} =
+  storeApi;

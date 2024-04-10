@@ -5,6 +5,7 @@ import Header from '@components/header';
 import Radio from '@components/radio';
 import {Paragraph} from '@components/text/text';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
+import {useCreateProductMutation} from '@services/products';
 import colors from '@utility/colors';
 import {pickImage} from '@utility/helpers';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
@@ -13,6 +14,7 @@ import React, {useRef, useState} from 'react';
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 
 const PlaceOrder = () => {
+  const [createProduct] = useCreateProductMutation();
   const scrollRef = useRef<ScrollView>(null);
   const [itemInfo, setItemInfo] = useState({
     title: '',
