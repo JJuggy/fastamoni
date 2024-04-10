@@ -4,14 +4,14 @@ import {store} from '../../store';
 import {setToken} from '../../store/auth';
 
 export const initInterceptors = () => {
-  // console.log(store.dispatch())
+  console.log('running axios')
   axios.interceptors.request.use(
     async config => {
       const {getItem} = useAsyncStorage('@token');
       const result = await getItem();
       const token = result ? result : '';
 
-      // console.log(token, 'the token from interceoptor==>>>>>');
+      console.log(token, 'the token from interceoptor==>>>>>');
 
       if (config.headers) {
         if (token) {
@@ -20,7 +20,7 @@ export const initInterceptors = () => {
       }
 
       config.headers = {...config.headers};
-      // console.log(config, 'the header configss');
+      console.log(config, 'the header configss');
       return config;
     },
     error => {

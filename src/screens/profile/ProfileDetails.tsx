@@ -17,8 +17,11 @@ import {useModal} from '@providers/DynamicModalProvider';
 import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
 import data from '../../data';
+import {useRoute} from '@react-navigation/native';
 const ProfileDetails = () => {
   const {ProfileDetailOptions} = data;
+  const router = useRoute();
+  const {details} = router.params as any;
   const {show, close} = useModal();
   return (
     <SafeAreaView>

@@ -23,19 +23,20 @@ const SignIn: React.FC = () => {
   const handleLogin = async () => {
     try {
       let resp = await login(info).unwrap();
-
+      console.warn(info);
       dispatch(
         setCredential({
           user: {
-            first_name: resp.data?.data?.first_name,
-            last_name: resp.data?.data?.last_name,
-            email: resp.data?.data?.email,
-            id: resp.data?.data?._id,
-            email_verified: resp.data?.data?.email_verified,
+            first_name: resp.data?.user?.first_name,
+            last_name: resp.data?.user?.last_name,
+            email: resp.data?.user?.email,
+            id: resp.data?.user?._id,
+            email_verified: resp.data?.user?.email_verified,
           },
         }),
       );
-      dispatch(setToken(resp.data?.data?.access_token));
+      console.warn('the resp', resp);
+      dispatch(setToken(resp.data.accessToken));
     } catch (error) {
       console.log(error?.data?.message);
     }

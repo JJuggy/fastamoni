@@ -1,5 +1,6 @@
 export interface Product {
   id: number;
+  thumbnail: any;
   price: number;
   minPrice: string;
   maxPrice: string;

@@ -11,8 +11,10 @@ export interface homeCardProps {
   item: any;
   dealName: string;
   storeName: string;
-  price: string;
-  location: string;
+  price: any;
+  location?: string;
+  dealThumbnail: string;
+  showCondition: boolean;
 }
 const HomeCard = ({
   item,
@@ -20,13 +22,15 @@ const HomeCard = ({
   storeName,
   price,
   location,
+  dealThumbnail,
+  showCondition = false,
 }: homeCardProps) => {
   type HomeCardRouteParams = {
     ProductDetails: {
       details: {
         dealName: string;
         storeName: string;
-        price: string;
+        price: any;
         location: string;
       };
     };
@@ -43,27 +47,24 @@ const HomeCard = ({
       }
       style={{
         backgroundColor: colors.white,
-        height: 190,
+        height: 106,
         marginBottom: 15,
       }}>
       <FlexedView
         style={{
           flexDirection: 'row',
-          width: '100%',
+          // width: '100%',
           height: '100%',
         }}>
         <View
           style={{
-            width: '50%',
+            width: '40%',
           }}>
-          <Image
-            source={sharedImages.homeScreenDealImg}
-            style={styles.dealStyle}
-          />
+          <Image source={{uri: dealThumbnail}} style={styles.dealStyle} />
         </View>
         <View
           style={{
-            width: '50%',
+            width: '60%',
           }}>
           <View
             style={{
@@ -74,7 +75,7 @@ const HomeCard = ({
               width: 'auto',
             }}>
             <Paragraph
-              fontSize={14}
+              fontSize={10}
               fontWeight="400"
               style={{
                 color: '#131313',
@@ -83,48 +84,51 @@ const HomeCard = ({
             </Paragraph>
             <Paragraph
               fontWeight="700"
-              fontSize={20}
+              fontSize={12}
               style={{
                 color: '#2196F3',
                 marginVertical: 4,
               }}>
               {storeName}
             </Paragraph>
-            <FlexedView
-              style={{
-                marginVertical: 5,
-              }}>
-              <View
+            {showCondition && (
+              <FlexedView
                 style={{
-                  backgroundColor: '#BADEFB',
-                  padding: 4,
-                  borderRadius: 4,
+                  marginVertical: 5,
                 }}>
-                <Paragraph
-                  fontSize={10}
+                <View
                   style={{
-                    color: 'white',
+                    backgroundColor: '#BADEFB',
+                    padding: 4,
+                    borderRadius: 4,
                   }}>
-                  Used
-                </Paragraph>
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#BADEFB',
-                  padding: 4,
-                  borderRadius: 4,
-                  marginLeft: 3,
-                }}>
-                <Paragraph
-                  fontSize={10}
+                  <Paragraph
+                    fontSize={10}
+                    style={{
+                      color: 'white',
+                    }}>
+                    Used
+                  </Paragraph>
+                </View>
+                <View
                   style={{
-                    color: 'white',
+                    backgroundColor: '#BADEFB',
+                    padding: 4,
+                    borderRadius: 4,
+                    marginLeft: 3,
                   }}>
-                  Servicing Required
-                </Paragraph>
-              </View>
-            </FlexedView>
-            <FlexedView
+                  <Paragraph
+                    fontSize={10}
+                    style={{
+                      color: 'white',
+                    }}>
+                    Servicing Required
+                  </Paragraph>
+                </View>
+              </FlexedView>
+            )}
+
+            {/* <FlexedView
               style={{
                 marginVertical: 5,
               }}>
@@ -140,7 +144,7 @@ const HomeCard = ({
                 }}>
                 {location}
               </Paragraph>
-            </FlexedView>
+            </FlexedView> */}
             <Paragraph
               fontWeight="500"
               fontSize={15}
@@ -170,17 +174,18 @@ const HomeCard = ({
                   borderWidth: 1,
                   borderColor: '#4DABF5',
                   width: '50%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}>
-                <Image
+                {/* <Image
                   style={styles.icons}
                   source={sharedImages.icons.shop}
                   tintColor={'#4DABF5'}
-                />
+                /> */}
                 <Paragraph
                   fontSize={10}
                   style={{
                     color: '#4DABF5',
-                    // backgroundColor: 'red',
                     paddingBottom: 5,
                   }}>
                   Visit Store
@@ -196,11 +201,11 @@ const HomeCard = ({
                   marginLeft: 3,
                   alignItems: 'center',
                 }}>
-                <Image
+                {/* <Image
                   style={styles.icons}
                   source={sharedImages.icons.cart}
                   tintColor={'white'}
-                />
+                /> */}
                 <Paragraph
                   fontSize={10}
                   style={{
@@ -222,7 +227,7 @@ export default HomeCard;
 const styles = StyleSheet.create({
   dealStyle: {
     width: '100%',
-    height: 190,
+    height: 106,
     resizeMode: 'cover',
   },
   icons: {width: 10, height: 15, marginRight: 5, marginLeft: 3},

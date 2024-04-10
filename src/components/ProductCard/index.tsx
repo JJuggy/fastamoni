@@ -9,11 +9,12 @@ interface ProductCardProps {
   storeName: string;
   price: string;
   grade: string;
-  location: string;
+  location?: string;
   discountedPrice?: string;
   canSeeAddress: boolean;
   productImgHeight?: number;
   withStoreRating?: boolean;
+  productImages: any;
 }
 const ProductCard = ({
   dealName,
@@ -25,11 +26,12 @@ const ProductCard = ({
   canSeeAddress,
   productImgHeight = 120,
   withStoreRating = false,
+  productImages,
 }: ProductCardProps) => {
   return (
     <View style={styles.dealcardcontainer}>
       <Image
-        source={sharedImages.homeScreenDealImg}
+        source={{uri: productImages[0].url}}
         style={{
           width: '100%',
           height: productImgHeight,
@@ -54,7 +56,7 @@ const ProductCard = ({
             style={{
               marginBottom: 3,
             }}
-            fontSize={8}>
+            fontSize={12}>
             {storeName}
           </Paragraph>
         </FlexedView>

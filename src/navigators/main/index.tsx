@@ -22,7 +22,7 @@ const UserLoggedIn = () => {
       <Screen name="FilterScreen" component={FilterScreen} />
       <Screen name="DealsOfTheDayScreen" component={DealsOfTheDayScreen} />
       <Screen name="SearchScreen" component={SearchScreen} />
-      <Screen name="ProfileDetails" component={ProfileDetails} />
+      <Screen name="ProductDetails" component={ProductDetails} />
       <Screen name="Checkout" component={Checkout} />
     </Navigator>
   );

@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlexedView, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import Header from '@components/header';
@@ -21,18 +21,17 @@ const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
     details: {
-      storeName: string;
+      store: {
+        name: string;
+        rating: number;
+        location: string;
+      };
+      title: string;
+      price: string;
+      grade: string;
+      images: string[];
     };
   };
-  const [product, setProduct] = useState({
-    canSeeAddress: false,
-    storeName: 'OJB Declutter',
-    dealName: '3.5Kva Elepaq Gen',
-    price: '150000',
-    location: 'Location',
-    image: sharedImages.homeScreenDealImg,
-    grade: 'B',
-  });
   const {details} = route.params as ProductDetailsRoute;
   const {itemInfo, similarProductsInStore} = data;
   return (
@@ -63,14 +62,21 @@ const ProductDetails = () => {
             />
           </FlexedView>
         }
-        title={details.storeName}
+        title={details.store.name}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <ProductCard
+            dealName={details.title}
+            storeName={details.store.name}
+            discountedPrice={undefined}
+            price={details.price}
+            grade={details.grade}
+            productImages={details.images}
+            canSeeAddress={false}
             withStoreRating={true}
             productImgHeight={200}
-            {...product}
+            {...details}
           />
 
           <View
@@ -121,7 +127,7 @@ const ProductDetails = () => {
                 marginVertical: 12,
                 color: '#737373',
               }}>
-              Similar products in store
+              Similar products
             </Text>
             {similarProductsInStore.map((item, index) => {
               return (

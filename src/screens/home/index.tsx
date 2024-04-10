@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -31,9 +31,11 @@ import {useGetProductsQuery} from '@services/products';
 
 const HomeScreen: React.FC = ({}) => {
   const {data: allProducts} = useGetProductsQuery();
-  console.warn('THE PRODUCTS ARE', allProducts?.data);
+  const [homeDeals, setHomeDeals] = useState(allProducts?.data);
+  useEffect(() => {
+    setHomeDeals(allProducts?.data);
+  }, [allProducts?.data]);
   const {homeTopDeals} = data;
-  const {homeScreenDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation: HomeNavigatorParams = useNavigation();
@@ -245,9 +247,17 @@ const HomeScreen: React.FC = ({}) => {
           <View style={{}}>
             <Spacer />
             <ScrollView>
-              {homeScreenDeals.map((item, index) => (
+              {homeDeals?.map((item, index) => (
                 <Pressable key={index} style={{flex: 1}}>
-                  <HomeCard item={item} {...item} />
+                  <HomeCard
+                    showCondition={false}
+                    dealName={item.title}
+                    storeName={item.store.name}
+                    price={item.price}
+                    dealThumbnail={item.thumbnail?.url}
+                    item={item}
+                    {...item}
+                  />
                 </Pressable>
               ))}
             </ScrollView>
