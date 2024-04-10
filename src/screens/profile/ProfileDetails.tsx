@@ -18,10 +18,10 @@ import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
 import data from '../../data';
 import {useRoute} from '@react-navigation/native';
+import {useLogout} from '@store/auth/hook';
 const ProfileDetails = () => {
   const {ProfileDetailOptions} = data;
   const router = useRoute();
-  const {details} = router.params as any;
   const {show, close} = useModal();
   return (
     <SafeAreaView>
@@ -343,6 +343,7 @@ const EditPasswordModal = () => {
   );
 };
 const SignOutModal = () => {
+  const logout = useLogout();
   return (
     <View
       style={{
@@ -366,7 +367,11 @@ const SignOutModal = () => {
           fontWeight="700">
           Are you sure you want to Sign Out?
         </Paragraph>
-        <AppButton style={{marginVertical: 20}} text="Yes" />
+        <AppButton
+          onPress={() => logout()}
+          style={{marginVertical: 20}}
+          text="Yes"
+        />
         <AppButton style={{backgroundColor: '#BADEFB'}} text="No" />
       </View>
     </View>
