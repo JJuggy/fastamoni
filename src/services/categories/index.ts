@@ -9,25 +9,25 @@ export const categoriesApi = createApi({
   endpoints: build => ({
     getCategories: build.query<{data: Category[]}, void>({
       query: () => ({
-        url: '/categories',
+        url: 'categories',
         method: 'GET',
       }),
     }),
     getCategory: build.query<Category, number>({
       query: id => ({
-        url: `/categories/${id}`,
+        url: `categories/${id}`,
         method: 'GET',
       }),
     }),
     getCategoryGroups: build.query<{data: Category[]}, void>({
       query: () => ({
-        url: '/categories/groups',
+        url: 'categories/groups',
         method: 'GET',
       }),
     }),
     createCategory: build.mutation<Category, CreateCategoryArgs>({
       query: ({body}) => ({
-        url: '/categories',
+        url: 'categories',
         method: 'POST',
         body,
       }),
@@ -35,7 +35,7 @@ export const categoriesApi = createApi({
     }),
     updateCategory: build.mutation<Category, UpdateCategoryArgs>({
       query: ({id, body}) => ({
-        url: `/categories/${id}`,
+        url: `categories/${id}`,
         method: 'PUT',
         body,
       }),
@@ -43,7 +43,7 @@ export const categoriesApi = createApi({
     }),
     deleteCategory: build.mutation<void, number>({
       query: id => ({
-        url: `/categories/${id}`,
+        url: `categories/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Category'],

@@ -6,6 +6,9 @@ import colors from '@utility/colors';
 import sharedImages from '@utility/sharedImages';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {addToCart} from '@store/cart';
+import {useModal} from '@providers/DynamicModalProvider';
 
 export interface homeCardProps {
   item: any;
@@ -37,7 +40,8 @@ const HomeCard = ({
   };
   type YourNavigationType = NavigationProp<HomeCardRouteParams>;
   const navigation: YourNavigationType = useNavigation();
-
+  const dispatch = useDispatch();
+  const {show} = useModal();
   return (
     <PressableView
       onPress={() =>
@@ -192,7 +196,19 @@ const HomeCard = ({
                 </Paragraph>
               </PressableView>
               <PressableView
-                onPress={() => null}
+                onPress={() => {
+                  return (
+                    dispatch(addToCart({product: item})),
+                    show({
+                      as: 'bottomSheet',
+                      content: (
+                        <View style={{backgroundColor: 'white', padding: 20}}>
+                          <Text>Added to cart</Text>
+                        </View>
+                      ),
+                    })
+                  );
+                }}
                 style={{
                   backgroundColor: '#4DABF5',
                   padding: 4,

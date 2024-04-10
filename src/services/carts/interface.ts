@@ -4,6 +4,7 @@ export interface Cartitem {
   cart: string;
   product: any;
   quantity: number;
+  price: number;
 }
 export interface Carts {
   user: User;

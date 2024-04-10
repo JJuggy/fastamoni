@@ -54,5 +54,6 @@ export default {
     circleQuestion: require('../assets/icons/circle-question.png'),
     thumbsUp: require('../assets/icons/thumbs-up.png'),
     thumbsDown: require('../assets/icons/thumbs-down.png'),
+    device: require('../assets/icons/device.png'),
   },
 };

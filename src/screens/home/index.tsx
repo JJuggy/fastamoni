@@ -28,13 +28,17 @@ import Dots from '@screens/onboarding/Dots';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from 'src/types';
 import {useGetProductsQuery} from '@services/products';
+import {useGetCategoriesQuery} from '@services/categories';
+import {useCart} from '@store/cart/hook';
 
 const HomeScreen: React.FC = ({}) => {
   const {data: allProducts} = useGetProductsQuery();
+  const {data: allCategories} = useGetCategoriesQuery();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
   useEffect(() => {
     setHomeDeals(allProducts?.data);
   }, [allProducts?.data]);
+  const cart = useCart();
   const {homeTopDeals} = data;
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -75,6 +79,22 @@ const HomeScreen: React.FC = ({}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
+              {cart.cart.length != 0 && (
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: -8,
+                    right: 0,
+                  }}>
+                  <Paragraph
+                    color={colors.primary}
+                    fontSize={17}
+                    fontWeight="600">
+                    {cart.cart.length}
+                  </Paragraph>
+                </View>
+              )}
+
               <Image
                 source={sharedImages.icons.cart}
                 tintColor={colors.primary}
@@ -217,6 +237,30 @@ const HomeScreen: React.FC = ({}) => {
               />
             </PressableView>
           </FlexedView>
+
+          <ScrollView
+            style={{height: 80, marginVertical: 8, marginTop: 12}}
+            horizontal>
+            {allCategories?.data.map((item, index) => (
+              <Pressable key={index} style={{flex: 1}}>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    // source={{uri: item.thumbnail?.url}}
+                    source={sharedImages.icons.device}
+                    style={{
+                      width: 60,
+                      height: 60,
+                    }}
+                  />
+                  <Paragraph>{item.name}</Paragraph>
+                </View>
+              </Pressable>
+            ))}
+          </ScrollView>
           <FlatList
             data={homeTopDeals}
             renderItem={({item}) => <DealCard {...item} />}
@@ -247,7 +291,7 @@ const HomeScreen: React.FC = ({}) => {
           <View style={{}}>
             <Spacer />
             <ScrollView>
-              {homeDeals?.map((item, index) => (
+              {homeDeals?.map((item: any, index) => (
                 <Pressable key={index} style={{flex: 1}}>
                   <HomeCard
                     showCondition={false}

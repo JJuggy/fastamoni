@@ -17,6 +17,9 @@ import ProductCard from '@components/ProductCard';
 import data from '../../data';
 import {AppButton} from '@components/button';
 import HomeCard from '@screens/components/HomeCard';
+import {addToCart} from '@store/cart';
+import {useDispatch} from 'react-redux';
+import {useModal} from '@providers/DynamicModalProvider';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
@@ -32,6 +35,9 @@ const ProductDetails = () => {
       images: string[];
     };
   };
+  const dispatch = useDispatch();
+  const {show, close} = useModal();
+
   const {details} = route.params as ProductDetailsRoute;
   const {itemInfo, similarProductsInStore} = data;
   return (
@@ -146,6 +152,19 @@ const ProductDetails = () => {
             zIndex: 100,
           }}>
           <AppButton
+            onPress={() => {
+              return (
+                dispatch(addToCart({product: details})),
+                show({
+                  as: 'bottomSheet',
+                  content: (
+                    <View style={{backgroundColor: 'white', padding: 20}}>
+                      <Text>Added to cart</Text>
+                    </View>
+                  ),
+                })
+              );
+            }}
             icon={
               <Image
                 source={sharedImages.icons.cart}

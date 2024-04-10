@@ -30,8 +30,7 @@ const getView = (screen: string, type?: string) => {
 const OrdersScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const cart = useCart();
-  console.warn('THE CART IS', cart.cart);
+
   // const {tab} = route?.params as {tab: string | undefined};
   const [currentTab, setCurrentTab] = useState('My cart');
   // // const {type} = route.params as {type: string};

@@ -18,7 +18,7 @@ export const productsApi = createApi({
   endpoints: build => ({
     getProducts: build.query<{data: Product[]}, void>({
       query: () => ({
-        url: '/products',
+        url: 'products',
         method: 'GET',
       }),
     }),
