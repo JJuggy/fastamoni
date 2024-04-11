@@ -9,10 +9,12 @@ import colors from '@utility/colors';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from '../../types';
-import {HomeScreenParam} from '@navigators/main/screens';
+
 import {AppButton} from '@components/button';
+import {useAuth} from '@store/auth/hook';
 
 const ProfileScreen = () => {
+  const {user} = useAuth();
   const {navigate} = useNavigation<HomeNavigatorParams>();
   return (
     <BaseView>
@@ -27,10 +29,11 @@ const ProfileScreen = () => {
           <ViewContainer style={styles.profileH}>
             <FlexedView>
               <View>
-                <Paragraph color={colors.white}>Welcome Optimuz</Paragraph>
-                <Paragraph color={colors.white}>
-                  optimuzbazza@gmail.com
-                </Paragraph>
+                <Paragraph
+                  color={
+                    colors.white
+                  }>{`Welcome ${user?.first_name}`}</Paragraph>
+                <Paragraph color={colors.white}>{user?.email}</Paragraph>
               </View>
             </FlexedView>
           </ViewContainer>

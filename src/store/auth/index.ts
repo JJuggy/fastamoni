@@ -8,6 +8,7 @@ export interface User {
   last_name?: string;
   first_name?: string;
   email_verified?: boolean;
+  storeId?: string;
 }
 
 export interface Auth {

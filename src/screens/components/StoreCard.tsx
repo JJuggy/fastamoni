@@ -20,12 +20,13 @@ interface CardProps {
     category: string;
     verified: boolean;
     location: string;
+    noOfItemSold: number;
   };
   onPress: () => void;
 }
 
 const StoreCard = ({
-  item: {category, verified, rating, location, name},
+  item: {category, verified, rating, location, name, noOfItemSold},
   onPress,
 }: CardProps) => {
   const {width} = useWindowDimensions();
@@ -34,22 +35,18 @@ const StoreCard = ({
       onPress={onPress}
       style={[styles.container, {width: width * 0.43}]}>
       <Image source={sharedImages.storeImg} style={styles.storeBanner} />
-      <View style={styles.catV}>
-        <Paragraph fontSize={14} textAlign="center">
-          {category}
-        </Paragraph>
-      </View>
+
       <View style={styles.detailV}>
         <FlexedView style={styles.row}>
-          {verified && (
-            <Image style={styles.icons} source={sharedImages.icons.verify} />
-          )}
+          {<Image style={styles.icons} source={sharedImages.icons.verify} />}
           <Paragraph color={colors.dark_blue} fontWeight="600">
             {name}
           </Paragraph>
         </FlexedView>
-        <FlexedView style={styles.row}>
-          <Paragraph>{`${rating}`}</Paragraph>
+        <View style={styles.row}>
+          <Paragraph fontSize={12} color="#737373" style={{marginBottom: 3}}>
+            Store rating
+          </Paragraph>
           <Rating
             rated={rating}
             totalCount={5}
@@ -60,11 +57,8 @@ const StoreCard = ({
             readonly // by default is false
             direction="row" // anyOf["row" (default), "row-reverse", "column", "column-reverse"]
           />
-        </FlexedView>
-        <FlexedView style={styles.row}>
-          <Image style={styles.icons} source={sharedImages.icons.location} />
-          <Paragraph>{location}</Paragraph>
-        </FlexedView>
+        </View>
+        <Paragraph fontSize={12}>{noOfItemSold}+ items sold </Paragraph>
       </View>
     </Pressable>
   );
@@ -75,6 +69,7 @@ export default StoreCard;
 const styles = StyleSheet.create({
   row: {
     marginBottom: 10,
+    marginVertical: 8,
   },
   detailV: {
     padding: widthPixel(10),
@@ -82,13 +77,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 5,
-    borderWidth: 2,
+    // borderWidth: 2,
+    borderRadius: 12,
+    backgroundColor: 'white',
     borderColor: colors.border,
   },
   storeBanner: {
     width: '100%',
     height: 100,
     resizeMode: 'cover',
+    borderTopRightRadius: 12,
+    borderTopLeftRadius: 12,
   },
   catV: {
     padding: 8,

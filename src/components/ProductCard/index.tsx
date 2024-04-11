@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import sharedImages from '@utility/sharedImages';
@@ -28,7 +29,6 @@ const ProductCard = ({
   storeName,
   price,
   grade,
-  location,
   discountedPrice,
   canSeeAddress,
   productImgHeight = 120,
@@ -157,7 +157,7 @@ const ProductCard = ({
                   height: 8,
                   marginRight: 5,
                 }}
-                source={sharedImages.icons['naira']}
+                source={sharedImages.icons.naira}
               />
               <Paragraph
                 style={{

@@ -271,7 +271,7 @@ const HomeScreen: React.FC = ({}) => {
               <Pressable
                 onPress={() =>
                   navigation.navigate('CategoryScreen', {
-                    category: {category: item.name},
+                    category: item.name,
                   })
                 }
                 key={index}
@@ -353,7 +353,7 @@ const HomeScreen: React.FC = ({}) => {
                     dealName={item.title}
                     storeName={item.store[0].name}
                     price={item.price}
-                    dealThumbnail={item.thumbnail[0]?.url}
+                    dealThumbnail={item.images[0]?.url}
                     item={item}
                     {...item}
                   />

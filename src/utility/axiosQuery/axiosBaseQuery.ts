@@ -23,7 +23,6 @@ export const axiosBaseQuery =
   > =>
   ({url, method = 'GET', body, headers = {}}) => {
     return new Promise(async (resolve, reject) => {
-      console.log(body, 'body');
       try {
         const result = await axios({
           url: baseUrl + url,
