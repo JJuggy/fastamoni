@@ -33,7 +33,7 @@ import {useCart} from '@store/cart/hook';
 import {useGetTopStoresQuery} from '@services/stores';
 
 const HomeScreen: React.FC = ({}) => {
-  const {data: allProducts} = useGetProductsQuery();
+  const {data: allProducts, refetch} = useGetProductsQuery();
   const {data: allCategories} = useGetCategoriesQuery();
   const {data: topStores} = useGetTopStoresQuery();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
@@ -43,6 +43,12 @@ const HomeScreen: React.FC = ({}) => {
   const cart = useCart();
   const {homeTopDeals} = data;
   console.log('hd', homeDeals);
+  useEffect(() => {
+    const focusSubscription = navigation.addListener('focus', () => {
+      refetch();
+    });
+    return focusSubscription;
+  }, []);
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation: HomeNavigatorParams = useNavigation();
