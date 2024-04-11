@@ -18,6 +18,7 @@ function App(): JSX.Element {
   useEffect(() => {
     initInterceptors();
   }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer>

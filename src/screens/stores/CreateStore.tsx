@@ -10,14 +10,15 @@ import sharedImages from '@utility/sharedImages';
 import {Paragraph} from '@components/text/text';
 import {AppButton} from '@components/button';
 import {pickImage} from '@utility/helpers';
+import {useCreateStoreMutation} from '@services/stores';
 
 const CreateStore = () => {
+  const [create, {isLoading}] = useCreateStoreMutation();
   const [storeInfo, setStoreInfo] = useState({
-    store_name: '',
-    store_url: '',
+    name: '',
     description: '',
-    store_logo: '',
-    store_banner: '',
+    logo: '',
+    banner: '',
   });
 
   const updateStoreInfo = (field: string, value: string) => {
@@ -34,16 +35,36 @@ const CreateStore = () => {
     if (type === 'logo') {
       pickImage('upload', (err, img) => {
         if (!err) {
-          setStoreInfo({...storeInfo, store_logo: img as string});
+          console.log(img);
+
+          setStoreInfo({...storeInfo, logo: img as string});
         }
       });
     } else {
       pickImage('upload', (err, img) => {
         if (!err) {
-          setStoreInfo({...storeInfo, store_banner: img as string});
+          setStoreInfo({...storeInfo, banner: img as string});
         }
       });
     }
+  };
+
+  const createStore = () => {
+    const formD = new FormData();
+    const keys = Object.keys(storeInfo);
+
+    keys.forEach(key => {
+      formD.append(key, storeInfo[key]);
+    });
+
+    create(formD)
+      .unwrap()
+      .then(res => {
+        console.log(res.data, 'CREATE STORE RESPONSE');
+      })
+      .catch(err => {
+        console.log(err, 'CREATE STORE RESPONSE');
+      });
   };
 
   return (
@@ -57,11 +78,11 @@ const CreateStore = () => {
             <Spacer />
             <FlexedView style={styles.topV}>
               <View style={styles.imageV}>
-                {!storeInfo.store_logo ? (
+                {!storeInfo.logo ? (
                   <Image source={sharedImages.icons.person_round} />
                 ) : (
                   <Image
-                    source={{uri: storeInfo.store_logo}}
+                    source={{uri: storeInfo.logo}}
                     style={styles.logo}
                     resizeMode="cover"
                   />
@@ -88,15 +109,17 @@ const CreateStore = () => {
             <Spacer />
             <AppTextInput
               label="Store Name"
-              value={storeInfo.store_name}
-              onChangeText={text => updateStoreInfo('store_name', text)}
+              value={storeInfo.name}
+              onChangeText={text => updateStoreInfo('name', text)}
             />
+            {/*
             <AppTextInput
               label="Store URL"
               placeholder="gfttc"
               value={storeInfo.store_url}
               onChangeText={text => updateStoreInfo('store_url', text)}
             />
+            */}
             <AppTextInput
               label="Store Description"
               multiline
@@ -111,7 +134,7 @@ const CreateStore = () => {
             <Spacer />
             <Paragraph>Store Banner</Paragraph>
             <View style={styles.bannerV}>
-              {!storeInfo.store_banner ? (
+              {!storeInfo.banner ? (
                 <AppButton
                   variant="secondary"
                   text="Choose a banner"
@@ -120,14 +143,19 @@ const CreateStore = () => {
                 />
               ) : (
                 <Image
-                  source={{uri: storeInfo.store_banner}}
+                  source={{uri: storeInfo.banner}}
                   resizeMode="cover"
                   style={styles.banner}
                 />
               )}
             </View>
             <Spacer height={35} />
-            <AppButton variant="primary" text="Create Store" />
+            <AppButton
+              variant="primary"
+              text="Create Store"
+              onPress={createStore}
+              isLoading={isLoading}
+            />
           </ScrollView>
         </View>
       </View>

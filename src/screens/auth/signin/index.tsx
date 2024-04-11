@@ -35,8 +35,7 @@ const SignIn: React.FC = () => {
           },
         }),
       );
-      console.warn('the resp', resp);
-      dispatch(setToken(resp.data.accessToken));
+      dispatch(setToken(resp.data?.accessToken));
     } catch (error) {
       console.log(error?.data?.message);
     }

@@ -1,18 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
 import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
+import DropDown from '@components/dropDown';
 import Header from '@components/header';
 import Radio from '@components/radio';
 import {Paragraph} from '@components/text/text';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
+import {useCreateProductMutation} from '@services/products';
 import colors from '@utility/colors';
 import {pickImage} from '@utility/helpers';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
 import sharedImages from '@utility/sharedImages';
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
+import {states} from '../../data';
+import DropdownSelect from '@components/dropDown/dropdown2';
 
 const PlaceOrder = () => {
+  const [createProduct] = useCreateProductMutation();
   const scrollRef = useRef<ScrollView>(null);
   const [itemInfo, setItemInfo] = useState({
     title: '',
@@ -23,6 +28,8 @@ const PlaceOrder = () => {
     images: [] as string[],
     price: '',
     address: '',
+    state: '',
+    lga: '',
   });
 
   const updateItemInfo = (field: string, value: string) => {
@@ -53,6 +60,25 @@ const PlaceOrder = () => {
   };
 
   const onContentSizeChanged = () => scrollRef.current?.scrollToEnd();
+
+  const stateList = useMemo(() => {
+    return states.map(st => ({
+      label: st.state,
+      value: st.state,
+    }));
+  }, []);
+
+  const lgaList = useMemo(() => {
+    const lgas = states
+      .filter(st => st.state === itemInfo.state)
+      .map(st => st.lgas)
+      .flat();
+
+    return lgas.map(lg => ({
+      label: lg,
+      value: lg,
+    }));
+  }, [itemInfo.state]);
 
   return (
     <BaseView background={colors.app_bg}>
@@ -142,6 +168,25 @@ const PlaceOrder = () => {
                   placeholder="Commission 20%"
                   keyboardType="number-pad"
                 />
+                <DropdownSelect
+                  value={itemInfo.state}
+                  onSelect={sel => {
+                    updateItemInfo('state', sel.value);
+                  }}
+                  placeholder="State"
+                  data={stateList}
+                />
+
+                <DropdownSelect
+                  value={itemInfo.lga}
+                  onSelect={sel => {
+                    updateItemInfo('lga', sel.value);
+                  }}
+                  placeholder="LGA"
+                  data={lgaList}
+                />
+
+                <Spacer height={20} />
                 <AppTextInput
                   placeholder="Pickup address"
                   value={itemInfo.address}

@@ -13,17 +13,22 @@ export const storesApi = createApi({
         method: 'GET',
       }),
     }),
-    getStore: build.query<Store, number>({
+    getStores: build.query<Store, number>({
       query: id => ({
-        url: `/stores/${id}`,
+        url: `/store`,
         method: 'GET',
       }),
     }),
-    createStore: build.mutation<Store, CreateStoreArgs>({
-      query: ({body}) => ({
-        url: '/stores',
-        method: 'POST',
-        body,
+    getStore: build.query<Response, string>({
+      query: id => ({
+        url: `/store/store-info/${id}`,
+        method: 'GET',
+      }),
+    }),
+    createStore: build.mutation<Response, FormData>({
+      query: () => ({
+        url: '/store/update',
+        method: 'PATCH',
       }),
       invalidatesTags: ['Store'],
     }),
@@ -44,10 +49,10 @@ export const storesApi = createApi({
     }),
   }),
 });
-
 export const {
   useGetTopStoresQuery,
   useGetStoreQuery,
+  useGetStoresQuery,
   useCreateStoreMutation,
   useUpdateStoreMutation,
   useDeleteStoreMutation,

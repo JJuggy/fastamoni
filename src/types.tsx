@@ -13,3 +13,8 @@ export interface IOrderProps {
 export type nav<T extends ParamListBase> = StackNavigationProp<T>;
 
 export type HomeNavigatorParams = nav<HomeScreenParam>;
+
+export type DropDownItem = {
+  value: string;
+  label: string;
+};
