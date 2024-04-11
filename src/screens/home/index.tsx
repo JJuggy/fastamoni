@@ -42,7 +42,7 @@ const HomeScreen: React.FC = ({}) => {
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
-  console.log(homeDeals);
+  console.log('hd', homeDeals);
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation: HomeNavigatorParams = useNavigation();
@@ -252,7 +252,12 @@ const HomeScreen: React.FC = ({}) => {
             <Paragraph fontSize={14} fontWeight="700">
               Categories
             </Paragraph>
-            <Pressable>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('AllCategoriesScreen', {
+                  categories: allCategories?.data,
+                })
+              }>
               <Paragraph fontSize={13} fontWeight="400">
                 View all
               </Paragraph>
@@ -264,6 +269,11 @@ const HomeScreen: React.FC = ({}) => {
             horizontal>
             {allCategories?.data.map((item, index) => (
               <Pressable
+                onPress={() =>
+                  navigation.navigate('CategoryScreen', {
+                    category: {category: item.name},
+                  })
+                }
                 key={index}
                 style={{
                   flex: 1,
@@ -281,14 +291,7 @@ const HomeScreen: React.FC = ({}) => {
                       height: 60,
                     }}
                   />
-                  <Paragraph
-                    style={
-                      {
-                        // maxWidth: 60,
-                      }
-                    }>
-                    {item.name}
-                  </Paragraph>
+                  <Paragraph>{item.name}</Paragraph>
                 </View>
               </Pressable>
             ))}
@@ -296,12 +299,7 @@ const HomeScreen: React.FC = ({}) => {
           <FlatList
             data={topStores?.data}
             renderItem={({item}) => (
-              <DealCard
-                storeName={item.name}
-                // dealDescription={}
-
-                {...item}
-              />
+              <DealCard storeName={item.name} {...item} />
             )}
             keyExtractor={(item, index) => index.toString()}
             horizontal
@@ -329,7 +327,25 @@ const HomeScreen: React.FC = ({}) => {
           </View>
           <View style={{}}>
             <Spacer />
-            <ScrollView>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('AllDealsScreen', {
+                  deals: homeDeals,
+                })
+              }
+              style={{
+                width: '100%',
+                alignItems: 'flex-end',
+                marginBottom: 12,
+              }}>
+              <Paragraph fontSize={13} fontWeight="400">
+                View all
+              </Paragraph>
+            </Pressable>
+            <ScrollView
+              contentContainerStyle={{
+                paddingBottom: 120,
+              }}>
               {homeDeals?.map((item: any, index) => (
                 <Pressable key={index} style={{flex: 1}}>
                   <HomeCard
@@ -345,7 +361,6 @@ const HomeScreen: React.FC = ({}) => {
               ))}
             </ScrollView>
           </View>
-          {/* </BaseView> */}
         </ScrollView>
       </ViewContainer>
     </SafeAreaView>

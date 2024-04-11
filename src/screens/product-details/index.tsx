@@ -20,7 +20,11 @@ import HomeCard from '@screens/components/HomeCard';
 import {addToCart} from '@store/cart';
 import {useDispatch} from 'react-redux';
 import {useModal} from '@providers/DynamicModalProvider';
-import {useGetSimilarProductsQuery} from '@services/products';
+import {
+  useGetProductInfoQuery,
+  useGetSimilarProductsQuery,
+} from '@services/products';
+import {Product} from '@services/products/interface';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
@@ -41,15 +45,22 @@ const ProductDetails = () => {
   };
   const dispatch = useDispatch();
   const {show, close} = useModal();
-  const {details} = route.params as ProductDetailsRoute;
+  const {productId} = route.params as any;
+  const {data: details} = useGetProductInfoQuery(productId);
+  const [productDetails, setProductDetails] = useState<Product>(details?.data);
+  useEffect(() => {
+    setProductDetails(details?.data);
+  }, [details?.data]);
   const {data: simProd} = useGetSimilarProductsQuery({
-    title: details.title,
-    category: details?.category?.name ?? '',
+    title: productDetails?.title ?? '',
+    category: 'electronics' ?? '',
   });
   const [similarProducts, setSimilarProducts] = useState(simProd?.data);
   useEffect(() => {
     setSimilarProducts(simProd?.data);
   }, [simProd?.data]);
+  console.log('Similar prod', productDetails);
+
   const {itemInfo, similarProductsInStore} = data;
   return (
     <SafeAreaView
@@ -79,23 +90,22 @@ const ProductDetails = () => {
             />
           </FlexedView>
         }
-        title={details.store.name}
+        // title={details.store.name}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <ProductCard
-            dealName={details.title}
-            storeName={details.store[0].name}
-            discountedPrice={undefined}
-            price={details.price}
-            grade={details.grade}
-            productImages={details.images}
-            canSeeAddress={false}
-            withStoreRating={true}
-            condition={details.condition}
-            productImgHeight={200}
-            {...details}
-          />
+          {productDetails != undefined && (
+            <ProductCard
+              storeName={productDetails.store?.name}
+              discountedPrice={undefined}
+              rating={productDetails.store.rating}
+              productImages={productDetails?.images}
+              canSeeAddress={false}
+              withStoreRating={true}
+              productImgHeight={200}
+              {...productDetails}
+            />
+          )}
 
           <View
             style={{
@@ -147,7 +157,7 @@ const ProductDetails = () => {
               }}>
               Similar products
             </Text>
-            {similarProducts?.map((item, index) => {
+            {/* {similarProducts?.map((item, index) => {
               return (
                 <View key={index}>
                   <HomeCard
@@ -161,7 +171,7 @@ const ProductDetails = () => {
                   />
                 </View>
               );
-            })}
+            })} */}
           </View>
         </ScrollView>
         <FlexedView
@@ -174,7 +184,7 @@ const ProductDetails = () => {
           <AppButton
             onPress={() => {
               return (
-                dispatch(addToCart({product: details})),
+                dispatch(addToCart({product: productDetails})),
                 show({
                   as: 'bottomSheet',
                   content: (

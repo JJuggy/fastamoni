@@ -30,7 +30,7 @@ export const store = configureStore({
       .concat(productsApi.middleware)
       .concat(categoriesApi.middleware)
       .concat(cartApi.middleware)
-      .concat(storesApi.middleware).
+      .concat(storesApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

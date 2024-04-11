@@ -8,10 +8,8 @@ import sharedImages from '@utility/sharedImages';
 
 interface Props {
   storeName: string;
-  dealDescription: string;
-  verified: boolean;
 }
-const DealCard = ({storeName, dealDescription, verified}: Props) => {
+const DealCard = ({storeName}: Props) => {
   return (
     <LinearGradient
       colors={['#FF9A6C', '#D7A22B']}
@@ -55,13 +53,6 @@ const DealCard = ({storeName, dealDescription, verified}: Props) => {
             }}>
             <Paragraph fontSize={20} fontWeight="700" color={colors.white}>
               {storeName}
-            </Paragraph>
-            <Paragraph
-              style={{
-                marginVertical: 5,
-              }}
-              color={colors.white}>
-              {dealDescription}
             </Paragraph>
           </View>
           <FlexedView>
