@@ -10,6 +10,7 @@ import {useDispatch} from 'react-redux';
 import {addToCart} from '@store/cart';
 import {useModal} from '@providers/DynamicModalProvider';
 import {useUpdateCartItemMutation} from '@services/carts';
+import {useCart} from '@store/cart/hook';
 
 export interface homeCardProps {
   item: any;
@@ -35,7 +36,6 @@ const HomeCard = ({
   pickup_city,
   pickup_address,
 }: homeCardProps) => {
-  console.log(' pickup_city', pickup_city);
   type HomeCardRouteParams = {
     ProductDetails: {
       productId: string;
@@ -49,15 +49,25 @@ const HomeCard = ({
   const dispatch = useDispatch();
   const {show} = useModal();
   const [updateCart] = useUpdateCartItemMutation();
+  const cart = useCart();
+
+  console.log('the item is', item);
+  let mutatedCartForSubmission = cart.cart.map(({product, ...rest}) => {
+    return {
+      ...rest,
+      productId: product._id,
+    };
+  });
 
   const updateCartlist = async () => {
     try {
       updateCart({
         body: {
           items: [
+            ...mutatedCartForSubmission,
             {
+              productId: item._id,
               quantity: 1,
-              productId: item?._id,
               product_title: item?.title,
             },
           ],
@@ -225,7 +235,7 @@ const HomeCard = ({
               <Pressable
                 onPress={() =>
                   navigation.navigate('StoreDetailsScreen', {
-                    productId: item.name,
+                    storeId: item.store[0]._id,
                   })
                 }
                 style={{

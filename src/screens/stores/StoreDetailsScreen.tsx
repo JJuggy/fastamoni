@@ -9,7 +9,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import sharedImages from '@utility/sharedImages';
 import {Paragraph} from '@components/text/text';
 import {windowHeight} from '@utility/helpers';
@@ -25,15 +25,22 @@ import data from '../../data';
 import ProductCard from '@components/ProductCard';
 import {useModal} from '@providers/DynamicModalProvider';
 import FilterComponent from '@screens/components/FilterComponent';
+import {useGetStoreProductsQuery, useGetStoreQuery} from '@services/stores';
 
 type routeParams = RouteProp<HomeScreenParam, 'StoreDetailsScreen'>;
 
 const StoreDetailsScreen = () => {
   const {AllDealsOfTheDay} = data;
   const {show, close} = useModal();
-  const {params} = useRoute<routeParams>();
+  const route = useRoute<routeParams>();
+  const {storeId} = route.params as any;
+  const {data: storeInfo} = useGetStoreQuery(storeId);
+  const {data: storeProducts} = useGetStoreProductsQuery(storeId);
+  const [storeDets, setStoreDets] = useState(storeInfo?.data);
+  useEffect(() => {
+    storeInfo?.data !== undefined && setStoreDets(storeInfo.data);
+  }, [storeInfo?.data]);
   const {goBack} = useNavigation<HomeNavigatorParams>();
-
   const displayFilter = () => {
     show({
       as: 'fullscreen',
@@ -55,7 +62,7 @@ const StoreDetailsScreen = () => {
             fontSize={17}
             color={colors.black}
             fontWeight="600">
-            Ojb Declutter
+            {storeDets?.name}
           </Paragraph>
         </ViewContainer>
         <ViewContainer>
@@ -123,7 +130,7 @@ const StoreDetailsScreen = () => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={sharedImages.storeBanner}
+        source={{uri: storeDets?.banner?.url}}
         style={[styles.banner, {height: windowHeight * 0.13}]}>
         <ViewContainer>
           <Header
@@ -140,16 +147,20 @@ const StoreDetailsScreen = () => {
         </ViewContainer>
       </ImageBackground>
       <View style={{flex: 1, zIndex: 100}}>
-        <Image style={styles.storeImg} source={sharedImages.storeImg} />
+        <Image style={styles.storeImg} source={{uri: storeDets?.logo?.url}} />
         <FlatList
           contentContainerStyle={{
             paddingBottom: 120,
           }}
-          data={AllDealsOfTheDay}
+          data={storeProducts?.data?.products}
           numColumns={2}
           renderItem={({item}) => (
             <Pressable style={{flex: 1}}>
-              <ProductCard {...item} />
+              <ProductCard
+                productCardWidth={180}
+                storeName={item.store[0].name}
+                {...item}
+              />
             </Pressable>
           )}
           ListHeaderComponent={<ListHeader />}

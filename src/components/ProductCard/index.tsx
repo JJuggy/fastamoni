@@ -25,6 +25,8 @@ interface ProductCardProps {
   store: {
     name: string;
   };
+  storeName?: string;
+  productCardWidth: number;
 }
 const ProductCard = ({
   title,
@@ -40,9 +42,15 @@ const ProductCard = ({
   pickup_address,
   images,
   store,
+  storeName,
+  productCardWidth,
 }: ProductCardProps) => {
   return (
-    <View style={styles.dealcardcontainer}>
+    <View
+      style={[
+        styles.dealcardcontainer,
+        {width: productCardWidth ? productCardWidth : 200},
+      ]}>
       {images?.[0]?.url != undefined && (
         <Image
           source={{uri: images?.[0].url}}
@@ -75,7 +83,7 @@ const ProductCard = ({
               }
             }
             fontSize={14}>
-            {store.name}
+            {store.name !== undefined ? store.name : storeName}
           </Paragraph>
         </FlexedView>
         <Paragraph fontWeight="500" style={{marginVertical: 4}}>

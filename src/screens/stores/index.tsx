@@ -49,7 +49,7 @@ const StoresScreen = () => {
             <StoreCard
               item={item}
               onPress={() =>
-                navigate('StoreDetailsScreen', {productId: item.name})
+                navigate('StoreDetailsScreen', {storeId: item._id})
               }
             />
           )}

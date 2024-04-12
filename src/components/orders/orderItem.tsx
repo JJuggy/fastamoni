@@ -27,7 +27,7 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
 
               <View style={{flexDirection: 'column', marginLeft: 12}}>
                 <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                  {order.product.store[0].name}
+                  {order.product.store?.[0]?.name}
                 </Paragraph>
                 <Paragraph
                   fontWeight="500"

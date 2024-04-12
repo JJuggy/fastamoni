@@ -1,15 +1,16 @@
 import {User} from '@store/auth';
 
 export interface Cartitem {
-  productId: any;
+  product?:any,
+  productId?: any;
   quantity: number;
   price?: number;
   product_title: string;
-  images: any;
-  store: {
+  images?: any;
+  store?: {
     name: string;
   }[];
-  title: string;
+  title?: string;
 }
 export interface Carts {
   user: User;

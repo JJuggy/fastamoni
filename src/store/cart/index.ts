@@ -20,7 +20,10 @@ const cartSlice = createSlice({
       state.products.push(product);
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
-    removeFromCart(state, action: PayloadAction<{product: Cartitem}>) {
+    removeFromCart(
+      state,
+      action: PayloadAction<{product: {product: Cartitem}}>,
+    ) {
       const {product} = action.payload;
       state.products = state.products.filter(item => item !== product);
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));

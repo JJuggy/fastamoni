@@ -118,7 +118,11 @@ const ProductDetails = () => {
           contentContainerStyle={{paddingBottom: 90}}
           showsVerticalScrollIndicator={false}>
           {productDetails != undefined && (
-            <ProductCard withStoreRating={true} {...productDetails} />
+            <ProductCard
+              productCardWidth={400}
+              withStoreRating={true}
+              {...productDetails}
+            />
           )}
 
           <View

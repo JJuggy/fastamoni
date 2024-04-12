@@ -43,13 +43,11 @@ const HomeScreen: React.FC = ({}) => {
   const dispatch = useDispatch();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
   const {data: cartItems} = useGetCartQuery();
-  console.log('cart items', cartItems?.data.items);
   useEffect(() => {
     setHomeDeals(allProducts?.data);
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
-  console.log('the cart gotten from endpoint', cartItems?.data.items);
   useMemo(() => {
     cartItems?.data != undefined &&
       dispatch(
