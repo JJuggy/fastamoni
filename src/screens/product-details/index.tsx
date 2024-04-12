@@ -59,9 +59,29 @@ const ProductDetails = () => {
   useEffect(() => {
     setSimilarProducts(simProd?.data);
   }, [simProd?.data]);
-  console.log('Similar prod', productDetails);
-
-  const {itemInfo, similarProductsInStore} = data;
+  console.log('prodcut details are', productDetails);
+  let itemInfo = [
+    {
+      title: 'Model',
+      description: productDetails?.model_no,
+    },
+    {
+      title: 'Brand',
+      description: productDetails?.brand,
+    },
+    {
+      title: 'Condition',
+      description: productDetails?.condition,
+    },
+    {
+      title: 'Defects',
+      description: productDetails?.defects,
+    },
+    {
+      title: 'Additional Info',
+      description: productDetails?.description,
+    },
+  ];
   return (
     <SafeAreaView
       style={{

@@ -42,7 +42,7 @@ const HomeScreen: React.FC = ({}) => {
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
-  console.log('hd', homeDeals);
+  console.log('homedeal', homeDeals);
   useEffect(() => {
     const focusSubscription = navigation.addListener('focus', () => {
       refetch();
