@@ -235,24 +235,7 @@ export default {
       canSeeAddress: false,
     },
   ],
-  ProfileDetailOptions: [
-    {
-      label: 'Account Name',
-      detail: 'Dada Taiwo',
-    },
-    {
-      label: 'Phone Number',
-      detail: '07060945202',
-    },
-    {
-      label: 'Email Address',
-      detail: 'dadataiwo@gmail.com',
-    },
-    {
-      label: 'Password',
-      detail: '*********',
-    },
-  ],
+
   buyersFaq: [
     {
       question: 'What is Decluttering?',

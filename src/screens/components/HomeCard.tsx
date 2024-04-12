@@ -51,7 +51,6 @@ const HomeCard = ({
   const [updateCart] = useUpdateCartItemMutation();
   const cart = useCart();
 
-  console.log('the item is', item);
   let mutatedCartForSubmission = cart.cart.map(({product, ...rest}) => {
     return {
       ...rest,

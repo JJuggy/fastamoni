@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {FlexedView, ViewContainer} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import sharedImages from '@utility/sharedImages';
@@ -20,12 +20,30 @@ import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
 import data from '../../data';
 import {useLogout} from '@store/auth/hook';
-
+import {useRoute} from '@react-navigation/native';
 const ProfileDetails = () => {
-  const {ProfileDetailOptions} = data;
-
+  const route = useRoute();
+  const {detail} = route.params;
   const {show, close} = useModal();
+  const ProfileDetailOptions = [
+    {
+      label: 'Account Name',
+      detail: `${detail.first_name} ${detail.last_name}`,
+    },
+    {
+      label: 'Phone Number',
+      detail: `${'09058196256'} `,
+    },
 
+    {
+      label: 'Email Address',
+      detail: `${detail.email} `,
+    },
+    {
+      label: 'Password',
+      detail: '*********',
+    },
+  ];
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -206,6 +224,18 @@ const ProfileDetailView = ({
   );
 };
 const AccountNameModal = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const handleInput = (field, value) => {
+    if (field == 'First Name') {
+      setFirstName(value);
+    } else {
+      setLastName(value);
+    }
+  };
+  const handleSubmit = () => {
+    console.log('the dets', firstName, lastName);
+  };
   return (
     <View
       style={{
@@ -221,26 +251,33 @@ const AccountNameModal = () => {
           paddingVertical: 20,
         }}>
         <AppTextInput
+          value={firstName}
+          onChangeText={text => handleInput('First Name', text)}
           inputStyle={{
             backgroundColor: '#E1E1E1',
           }}
           labelStyle={{
             fontWeight: '700',
           }}
-          value="Dada"
           label="First Name"
         />
         <AppTextInput
+          value={lastName}
+          onChangeText={text => handleInput('Last Name', text)}
           inputStyle={{
             backgroundColor: '#E1E1E1',
           }}
           labelStyle={{
             fontWeight: '700',
           }}
-          value="Dada"
           label="Last Name"
         />
-        <AppButton text="Update account name" />
+        <AppButton
+          onPress={() => {
+            return handleSubmit();
+          }}
+          text="Update account name"
+        />
       </View>
     </View>
   );
@@ -276,6 +313,11 @@ const PhoneNumberModal = () => {
   );
 };
 const EmailAddressModal = () => {
+  const [email, setEmail] = useState('');
+  const handleSubmit = () => {
+    console.log('the email', email);
+  };
+
   return (
     <View
       style={{
@@ -291,21 +333,27 @@ const EmailAddressModal = () => {
           paddingVertical: 20,
         }}>
         <AppTextInput
+          value={email}
+          onChangeText={text => setEmail(text)}
           inputStyle={{
             backgroundColor: '#E1E1E1',
           }}
           labelStyle={{
             fontWeight: '700',
           }}
-          value="JuggyJs@gmail.com"
           label="Email Address"
         />
-        <AppButton text="Update email address" />
+        <AppButton onPress={handleSubmit} text="Update email address" />
       </View>
     </View>
   );
 };
 const EditPasswordModal = () => {
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const handleSubmit = () => {
+    console.log('password', password);
+  };
   return (
     <View
       style={{
@@ -327,7 +375,8 @@ const EditPasswordModal = () => {
           labelStyle={{
             fontWeight: '700',
           }}
-          value="********"
+          value={password}
+          onChangeText={text => setPassword(text)}
           label="Password"
         />
         <AppTextInput
@@ -337,10 +386,15 @@ const EditPasswordModal = () => {
           labelStyle={{
             fontWeight: '700',
           }}
-          value=" ********"
+          value={confirmPassword}
+          onChangeText={text => setConfirmPassword(text)}
           label="Confirm Password"
         />
-        <AppButton text="Update password" />
+        <AppButton
+          disabled={password != confirmPassword || password == ''}
+          onPress={handleSubmit}
+          text="Update password"
+        />
       </View>
     </View>
   );
