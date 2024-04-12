@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import {View, Animated, Pressable, Text, Image} from 'react-native';
 import colors from '@utility/colors';
@@ -7,7 +6,7 @@ import {Paragraph} from '@components/text/text';
 
 interface IDropDownProp {
   label?: string;
-  width: number | string;
+  width?: number | string;
   placeholder?: string;
   setSelectedOption?: (option: string) => void;
   selectedOption?: string;

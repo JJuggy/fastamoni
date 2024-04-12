@@ -6,6 +6,7 @@ if (__DEV__) {
 }
 
 const appEnvironment = () => {
+  console.log(BASE_URL_LIVE, BASE_URL_STAGING, 'baese urls nau');
   if (environment === 'prod') {
     return {
       baseUrl: BASE_URL_LIVE,

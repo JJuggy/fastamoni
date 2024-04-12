@@ -54,7 +54,7 @@ const RootNavigator: React.FC = () => {
       initialRouteName="UserLoggedIn">
       {/* when checking if user has signed in  render splash screen*/}
 
-      {!user && (
+      {user && (
         <Screen
           name="UserLoggedIn"
           component={UserLoggedIn}
@@ -75,7 +75,7 @@ const RootNavigator: React.FC = () => {
         />
       )}
 
-      {user && (
+      {!user && (
         <Screen
           name="AuthNavigator"
           component={AuthNavigator}

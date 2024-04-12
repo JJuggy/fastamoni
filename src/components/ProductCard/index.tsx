@@ -1,35 +1,43 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import sharedImages from '@utility/sharedImages';
 import {FlexedView, PressableView} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import {Rating} from 'react-native-rating-element';
+import {NAIRA} from '@utility/naira';
 interface ProductCardProps {
-  dealName: string;
-  storeName: string;
+  name: string;
   price: string;
   grade: string;
-  location: string;
+  pickup_address: string;
   discountedPrice?: string;
   canSeeAddress: boolean;
   productImgHeight?: number;
   withStoreRating?: boolean;
+  images?: string[];
+  store?: any;
+  condition?: string;
+  defects?: string;
 }
 const ProductCard = ({
-  dealName,
-  storeName,
+  name,
   price,
   grade,
-  location,
+  pickup_address,
   discountedPrice,
   canSeeAddress,
   productImgHeight = 120,
   withStoreRating = false,
+  images,
+  store,
+  condition,
+  defects,
 }: ProductCardProps) => {
   return (
     <View style={styles.dealcardcontainer}>
       <Image
-        source={sharedImages.homeScreenDealImg}
+        source={{uri: images?.[0]?.url}}
         style={{
           width: '100%',
           height: productImgHeight,
@@ -55,10 +63,10 @@ const ProductCard = ({
               marginBottom: 3,
             }}
             fontSize={8}>
-            {storeName}
+            {store?.[0]?.name}
           </Paragraph>
         </FlexedView>
-        <Paragraph style={{marginVertical: 4}}>{dealName}</Paragraph>
+        <Paragraph style={{marginVertical: 4}}>{name}</Paragraph>
         <Paragraph style={{color: '#125386', marginVertical: 3}}>
           Grade:{grade}
         </Paragraph>
@@ -80,7 +88,7 @@ const ProductCard = ({
             style={{
               color: 'black',
             }}>
-            {canSeeAddress ? location : '******************'}
+            {canSeeAddress ? pickup_address : '******************'}
           </Paragraph>
         </FlexedView>
         <FlexedView
@@ -98,7 +106,7 @@ const ProductCard = ({
               style={{
                 color: 'white',
               }}>
-              Used
+              {condition}
             </Paragraph>
           </View>
           <View
@@ -113,7 +121,7 @@ const ProductCard = ({
               style={{
                 color: 'white',
               }}>
-              Servicing Required
+              {defects}
             </Paragraph>
           </View>
         </FlexedView>
@@ -124,11 +132,7 @@ const ProductCard = ({
             color: 'black',
             marginVertical: 5,
           }}>
-          <Image
-            style={styles.nairaIconStyle}
-            source={sharedImages.icons['naira']}
-          />
-          {price}
+          {`${NAIRA} ${price}`}
         </Paragraph>
         <Paragraph
           fontWeight="300"
@@ -147,7 +151,7 @@ const ProductCard = ({
                   height: 8,
                   marginRight: 5,
                 }}
-                source={sharedImages.icons['naira']}
+                source={sharedImages.icons.naira}
               />
               <Paragraph
                 style={{

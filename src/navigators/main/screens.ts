@@ -13,7 +13,7 @@ export type HomeScreenParam = {
     type: 'buyer' | 'seller';
   };
   SearchScreen: undefined;
-  ProductDetails: undefined;
+  ProductDetails: {detail: any};
   TransactionHistory: undefined;
   ProfileScreen: undefined;
   RecentlyViewed: undefined;

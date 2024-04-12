@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
@@ -9,9 +10,12 @@ import {AuthScreenList} from 'src/navigators/auth/authParamList';
 import {useNavigation} from '@react-navigation/native';
 import {nav} from 'src/types';
 import sharedImages from '@utility/sharedImages';
+import {useSignUpMutation} from '@services/auth';
+import {notifyError, notifySucess} from '@utility/notify';
 
 const SignUp: React.FC = () => {
   const {navigate} = useNavigation<nav<AuthScreenList>>();
+  const [signUp, {isLoading}] = useSignUpMutation();
   const [info, setInfo] = useState({
     email: '',
     firstname: '',
@@ -30,6 +34,30 @@ const SignUp: React.FC = () => {
       ...info,
       [field]: value,
     });
+  };
+
+  const submit = () => {
+    if (info.password !== info.confirmPassword) {
+      notifyError('Error', 'Please confirm that your password matches');
+      return;
+    }
+
+    let dataToSubmit = {
+      first_name: info.firstname,
+      last_name: info.lastname,
+      email: info.email,
+      password: info.password,
+      // business_name: info.businessName,
+    };
+    signUp(dataToSubmit)
+      .unwrap()
+      .then(res => {
+        notifySucess('Success', 'Account created successfully');
+        navigate('SignIn');
+      })
+      .catch(err => {
+        console.log(err.data?.message);
+      });
   };
 
   return (
@@ -63,7 +91,7 @@ const SignUp: React.FC = () => {
             <AppTextInput
               label="Password"
               value={info.password}
-              secureTextEntry
+              secureTextEntry={showPassword.password}
               onChangeText={text => onChangeText('password', text)}
               rightIcon={
                 <Pressable
@@ -73,7 +101,7 @@ const SignUp: React.FC = () => {
                       password: !showPassword.password,
                     })
                   }>
-                  {showPassword ? (
+                  {showPassword.password ? (
                     <Image source={sharedImages.icons.eyeOpen} />
                   ) : (
                     <Image source={sharedImages.icons.eyeOpen} />
@@ -84,7 +112,7 @@ const SignUp: React.FC = () => {
             <AppTextInput
               label="Confirm Password"
               value={info.confirmPassword}
-              secureTextEntry
+              secureTextEntry={showPassword.confirmPassword}
               onChangeText={text => onChangeText('confirmPassword', text)}
               rightIcon={
                 <Pressable
@@ -94,7 +122,7 @@ const SignUp: React.FC = () => {
                       confirmPassword: !showPassword.confirmPassword,
                     })
                   }>
-                  {showPassword ? (
+                  {showPassword.confirmPassword ? (
                     <Image source={sharedImages.icons.eyeOpen} />
                   ) : (
                     <Image source={sharedImages.icons.eyeOpen} />
@@ -103,7 +131,7 @@ const SignUp: React.FC = () => {
               }
             />
             <AppTextInput
-              label="Bisuness Name (Optional)"
+              label="Business Name (Optional)"
               value={info.businessName}
               onChangeText={text => onChangeText('businessName', text)}
             />
@@ -117,7 +145,18 @@ const SignUp: React.FC = () => {
               </Pressable>
             </FlexedView>
             <Spacer />
-            <AppButton variant="primary" text="Create Account" />
+            <AppButton
+              variant="primary"
+              text="Create Account"
+              disabled={
+                !info.email ||
+                !info.password ||
+                !info.firstname ||
+                !info.lastname
+              }
+              onPress={submit}
+              isLoading={isLoading}
+            />
             <Spacer height={30} />
             <Pressable onPress={() => navigate('SignIn')} style={styles.login}>
               <FlexedView>
