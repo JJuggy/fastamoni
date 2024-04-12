@@ -53,7 +53,7 @@ const ProductDetails = () => {
   }, [details?.data]);
   const {data: simProd} = useGetSimilarProductsQuery({
     title: productDetails?.title ?? '',
-    category: 'electronics' ?? '',
+    category: productDetails.category.name ?? '',
   });
   const [similarProducts, setSimilarProducts] = useState(simProd?.data);
   useEffect(() => {
@@ -177,7 +177,7 @@ const ProductDetails = () => {
               }}>
               Similar products
             </Text>
-            {/* {similarProducts?.map((item, index) => {
+            {similarProducts?.map((item, index) => {
               return (
                 <View key={index}>
                   <HomeCard
@@ -191,7 +191,7 @@ const ProductDetails = () => {
                   />
                 </View>
               );
-            })} */}
+            })}
           </View>
         </ScrollView>
         <FlexedView
