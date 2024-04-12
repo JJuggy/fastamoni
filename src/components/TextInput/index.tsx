@@ -22,7 +22,7 @@ interface IProps extends TextInputProps {
   inputStyle?: ViewStyle;
   multiline?: boolean;
   labelStyle?: TextStyle;
-  textLimit: number;
+  textLimit?: number;
 }
 
 export const AppTextInput = ({
@@ -47,11 +47,12 @@ export const AppTextInput = ({
       <View
         style={[
           styles.inputContaner,
-          {...inputStyle},
+
           {
             height: Math.max(multiline ? 100 : 50, height),
             marginTop: multiline ? 5 : 0,
           },
+          {...inputStyle},
         ]}>
         {leftIcon && leftIcon}
         <TextInput

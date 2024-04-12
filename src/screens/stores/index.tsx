@@ -1,19 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from '@components/header';
 import {BaseView, Spacer, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import {widthPixel} from '@utility/pxToDpConvert';
 import sharedImages from '@utility/sharedImages';
 import React from 'react';
-import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
-import data from '../../data';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import StoreCard from '@screens/components/StoreCard';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from '../../types';
-import {SafeAreaView} from 'react-native';
+import {useGetStoresQuery} from '@services/stores';
 
 const StoresScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
-  const {stores} = data;
+  const {data} = useGetStoresQuery();
+  console.log('the stores is', data);
   return (
     <SafeAreaView style={{}}>
       <ViewContainer
@@ -22,7 +30,7 @@ const StoresScreen = () => {
           backgroundColor: '#F5F5F5',
         }}>
         <Header
-          title="Store"
+          title="Stores"
           rightItem={
             <Pressable
               onPress={() => navigate('CreateStore')}
@@ -34,7 +42,7 @@ const StoresScreen = () => {
         <Spacer />
 
         <FlatList
-          data={stores}
+          data={data?.data}
           numColumns={2}
           keyExtractor={(_, ind) => ind.toString()}
           renderItem={({item}) => (

@@ -5,6 +5,11 @@ export interface Cartitem {
   quantity: number;
   price?: number;
   product_title: string;
+  images: any;
+  store: {
+    name: string;
+  }[];
+  title: string;
 }
 export interface Carts {
   user: User;

@@ -31,18 +31,36 @@ import {useGetProductsQuery} from '@services/products';
 import {useGetCategoriesQuery} from '@services/categories';
 import {useCart} from '@store/cart/hook';
 import {useGetTopStoresQuery} from '@services/stores';
+import {useGetCartQuery} from '@services/carts';
+import {addToCart} from '@store/cart';
+import {useDispatch} from 'react-redux';
 
 const HomeScreen: React.FC = ({}) => {
   const {data: allProducts, refetch} = useGetProductsQuery();
   const {data: allCategories} = useGetCategoriesQuery();
   const {data: topStores} = useGetTopStoresQuery();
+  const dispatch = useDispatch();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
+  const {data: cartItems} = useGetCartQuery();
+  console.log('cart items', cartItems?.data.items[0].product);
   useEffect(() => {
     setHomeDeals(allProducts?.data);
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
-  console.log('homedeal', homeDeals);
+  console.log('the cart', cart);
+  useEffect(() => {
+    cartItems?.data != undefined &&
+      dispatch(
+        addToCart({
+          product: {
+            product: cartItems?.data.items[0].product,
+            quantity: 1,
+            product_title: cartItems?.data.items[0].product.title,
+          },
+        }),
+      );
+  }, [cartItems]);
   useEffect(() => {
     const focusSubscription = navigation.addListener('focus', () => {
       refetch();
@@ -88,7 +106,7 @@ const HomeScreen: React.FC = ({}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              {cart.cart.length != 0 && (
+              {cart.cart !== undefined && (
                 <View
                   style={{
                     position: 'absolute',

@@ -52,7 +52,7 @@ const HomeCard = ({
 
   const updateCartlist = async () => {
     try {
-      const res = await updateCart({
+      updateCart({
         body: {
           items: [
             {
@@ -63,7 +63,15 @@ const HomeCard = ({
           ],
         },
       }).unwrap();
-      dispatch(addToCart({product: item})),
+      dispatch(
+        addToCart({
+          product: {
+            product: item,
+            quantity: 1,
+            product_title: item.title,
+          },
+        }),
+      ),
         show({
           as: 'bottomSheet',
           content: (

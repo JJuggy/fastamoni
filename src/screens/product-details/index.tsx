@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   Image,
   Pressable,
@@ -53,13 +54,13 @@ const ProductDetails = () => {
   }, [details?.data]);
   const {data: simProd} = useGetSimilarProductsQuery({
     title: productDetails?.title ?? '',
-    category: productDetails.category.name ?? '',
+    category: productDetails?.category?.name ?? '',
   });
   const [similarProducts, setSimilarProducts] = useState(simProd?.data);
   useEffect(() => {
     setSimilarProducts(simProd?.data);
   }, [simProd?.data]);
-  console.log('prodcut details are', productDetails);
+  console.log('simProd', similarProducts);
   let itemInfo = [
     {
       title: 'Model',
@@ -113,18 +114,11 @@ const ProductDetails = () => {
         // title={details.store.name}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={{paddingBottom: 90}}
+          showsVerticalScrollIndicator={false}>
           {productDetails != undefined && (
-            <ProductCard
-              storeName={productDetails.store?.name}
-              discountedPrice={undefined}
-              rating={productDetails.store.rating}
-              productImages={productDetails?.images}
-              canSeeAddress={false}
-              withStoreRating={true}
-              productImgHeight={200}
-              {...productDetails}
-            />
+            <ProductCard withStoreRating={true} {...productDetails} />
           )}
 
           <View
@@ -204,7 +198,15 @@ const ProductDetails = () => {
           <AppButton
             onPress={() => {
               return (
-                dispatch(addToCart({product: productDetails})),
+                dispatch(
+                  addToCart({
+                    product: {
+                      product: productDetails,
+                      quantity: 1,
+                      product_title: productDetails.title,
+                    },
+                  }),
+                ),
                 show({
                   as: 'bottomSheet',
                   content: (

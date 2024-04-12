@@ -54,7 +54,7 @@ const OrdersScreen = () => {
             }}
             textStyle={{color: currentTab === 'My cart' ? 'white' : '#707070'}}
             style={{
-              borderRadius: 12,
+              borderRadius: 18,
               padding: 14,
               backgroundColor:
                 currentTab === 'My cart' ? colors.primary : '#D2D2D2',
@@ -67,7 +67,7 @@ const OrdersScreen = () => {
             }}
             textStyle={{color: currentTab === 'Ongoing' ? 'white' : '#707070'}}
             style={{
-              borderRadius: 12,
+              borderRadius: 18,
               padding: 14,
               backgroundColor:
                 currentTab === 'Ongoing' ? colors.primary : '#D2D2D2',
@@ -82,7 +82,7 @@ const OrdersScreen = () => {
               setCurrentTab('Completed');
             }}
             style={{
-              borderRadius: 12,
+              borderRadius: 18,
               padding: 14,
               backgroundColor:
                 currentTab === 'Completed' ? colors.primary : '#D2D2D2',

@@ -1,4 +1,11 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import {FlexedView, ViewContainer} from '@components/view';
@@ -7,15 +14,15 @@ import {Image} from 'react-native';
 import sharedImages from '@utility/sharedImages';
 import colors from '@utility/colors';
 import {useGetSimilarProductsQuery} from '@services/products';
+import ProductCard from '@components/ProductCard';
 
 const CategoryScreen = () => {
   const route = useRoute();
   const {category} = route.params as any;
   const {data: products} = useGetSimilarProductsQuery({
-    title: 'gle',
-    category: 'electronics',
+    title: '',
+    category: category,
   });
-  console.log('products', products);
   return (
     <SafeAreaView
       style={{
@@ -45,10 +52,19 @@ const CategoryScreen = () => {
             />
           </FlexedView>
         }
-        // title={details.store.name}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
-        <Text>The category screen</Text>
+        <FlatList
+          contentContainerStyle={{paddingBottom: 100}}
+          style={{zIndex: 1000}}
+          data={products?.data}
+          numColumns={2}
+          renderItem={({item}) => (
+            <Pressable style={{flex: 1}}>
+              <ProductCard {...item} />
+            </Pressable>
+          )}
+        />
       </ViewContainer>
     </SafeAreaView>
   );
