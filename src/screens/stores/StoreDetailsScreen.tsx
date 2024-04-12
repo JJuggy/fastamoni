@@ -142,6 +142,9 @@ const StoreDetailsScreen = () => {
       <View style={{flex: 1, zIndex: 100}}>
         <Image style={styles.storeImg} source={sharedImages.storeImg} />
         <FlatList
+          contentContainerStyle={{
+            paddingBottom: 120,
+          }}
           data={AllDealsOfTheDay}
           numColumns={2}
           renderItem={({item}) => (

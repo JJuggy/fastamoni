@@ -48,7 +48,7 @@ const HomeScreen: React.FC = ({}) => {
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
-  console.log('the cart', cart);
+  console.log('the cart', homeDeals);
   useEffect(() => {
     cartItems?.data != undefined &&
       dispatch(
