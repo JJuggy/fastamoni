@@ -47,7 +47,7 @@ const SignUp: React.FC = () => {
       last_name: info.lastname,
       email: info.email,
       password: info.password,
-      business_name: info.businessName,
+      // business_name: info.businessName,
     };
     signUp(dataToSubmit)
       .unwrap()

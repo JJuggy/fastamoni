@@ -1,7 +1,6 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {axiosBaseQuery} from '@utility/axiosQuery/axiosBaseQuery';
 import {Response} from '@store/interfaces';
-import {ICreateStore} from './interfaces';
 
 export const storeApi = createApi({
   reducerPath: 'storeApi',
@@ -21,13 +20,35 @@ export const storeApi = createApi({
       }),
     }),
     createStore: build.mutation<Response, FormData>({
-      query: () => ({
+      query: body => ({
         url: '/store/update',
         method: 'PATCH',
+        body: body,
+        headers: {
+          accept: 'application/json',
+          'content-type': 'multipart/form-data',
+        },
+      }),
+    }),
+    getStoreMetric: build.query<Response, void>({
+      query: () => ({
+        url: '/store/performance',
+        method: 'GET',
+      }),
+    }),
+    getStoreProducts: build.query<Response, string>({
+      query: id => ({
+        url: `/store/store-products/${id}`,
+        method: 'GET',
       }),
     }),
   }),
 });
 
-export const {useGetStoresQuery, useGetStoreQuery, useCreateStoreMutation} =
-  storeApi;
+export const {
+  useGetStoresQuery,
+  useGetStoreQuery,
+  useCreateStoreMutation,
+  useGetStoreMetricQuery,
+  useGetStoreProductsQuery,
+} = storeApi;

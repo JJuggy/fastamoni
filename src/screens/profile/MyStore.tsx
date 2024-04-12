@@ -26,12 +26,18 @@ import data from '../../data';
 import ProductCard from '@components/ProductCard';
 import {useModal} from '@providers/DynamicModalProvider';
 import FilterComponent from '@screens/components/FilterComponent';
-import {useGetStoreQuery} from '@services/stores';
+import {
+  useGetStoreMetricQuery,
+  useGetStoreProductsQuery,
+  useGetStoreQuery,
+} from '@services/stores';
 import {useAuth} from '@store/auth/hook';
 
 const MyStore = () => {
   const {user} = useAuth();
-  const {data: storeResponse} = useGetStoreQuery(user?.id as string);
+  const {data: storeMetrics} = useGetStoreMetricQuery();
+  const {data: storeResponse} = useGetStoreQuery(user?.storeId as string);
+  const {data: storeProducts} = useGetStoreProductsQuery(user?.storeId);
   const {AllDealsOfTheDay} = data;
   const metricColors = [
     colors.success,
@@ -40,19 +46,25 @@ const MyStore = () => {
     colors.teal,
   ];
 
+  const storeInfo = storeResponse?.data;
+  const metric = storeMetrics?.data;
+  const products = storeProducts?.data?.products;
+
+  // console.log(products, 'METRICS');
+
   const {goBack} = useNavigation<HomeNavigatorParams>();
 
   const ListHeader = () => {
     return (
       <View style={{zIndex: 1000}}>
-        <Image style={styles.storeImg} source={sharedImages.storeImg} />
+        <Image style={styles.storeImg} source={{uri: storeInfo?.logo?.url}} />
         <ViewContainer style={{zIndex: 100}}>
           <FlexedView
             justifyContent="space-between"
             style={{marginTop: 60, marginBottom: 30}}>
             <View>
               <Paragraph fontSize={17} color={colors.black} fontWeight="600">
-                Ojb Declutter
+                {storeInfo?.name}
               </Paragraph>
               <Paragraph>store</Paragraph>
             </View>
@@ -73,18 +85,46 @@ const MyStore = () => {
         </ViewContainer>
         <ViewContainer>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {metrics.map(mt => (
-              <View
-                style={[
-                  styles.metric,
-                  {backgroundColor: randomColor(metricColors)},
-                ]}>
-                <Paragraph textAlign="center">{mt.title}</Paragraph>
-                <Paragraph mt={5} textAlign="center">
-                  {mt.number}
-                </Paragraph>
-              </View>
-            ))}
+            <View
+              style={[
+                styles.metric,
+                {backgroundColor: randomColor(metricColors)},
+              ]}>
+              <Paragraph textAlign="center">Item Sold</Paragraph>
+              <Paragraph mt={5} textAlign="center">
+                {metric?.items_sold}
+              </Paragraph>
+            </View>
+            <View
+              style={[
+                styles.metric,
+                {backgroundColor: randomColor(metricColors)},
+              ]}>
+              <Paragraph textAlign="center">Total Sales</Paragraph>
+              <Paragraph mt={5} textAlign="center">
+                {metric?.total_sales}
+              </Paragraph>
+            </View>
+            <View
+              style={[
+                styles.metric,
+                {backgroundColor: randomColor(metricColors)},
+              ]}>
+              <Paragraph textAlign="center">Sales Rating</Paragraph>
+              <Paragraph mt={5} textAlign="center">
+                {metric?.rating}
+              </Paragraph>
+            </View>
+            <View
+              style={[
+                styles.metric,
+                {backgroundColor: randomColor(metricColors)},
+              ]}>
+              <Paragraph textAlign="center">Profile Impression</Paragraph>
+              <Paragraph mt={5} textAlign="center">
+                {metric?.profile_views}
+              </Paragraph>
+            </View>
           </ScrollView>
         </ViewContainer>
         <Spacer />
@@ -96,7 +136,7 @@ const MyStore = () => {
     <View style={styles.container}>
       <View style={{zIndex: -1000}}>
         <ImageBackground
-          source={sharedImages.storeBanner}
+          source={{uri: storeInfo?.banner?.url}}
           style={[styles.banner, {height: windowHeight * 0.13}]}>
           <ViewContainer>
             <Header
@@ -126,7 +166,7 @@ const MyStore = () => {
         {/* <Image style={styles.storeImg} source={sharedImages.storeImg} /> */}
         <FlatList
           style={{zIndex: 1000}}
-          data={AllDealsOfTheDay}
+          data={products}
           numColumns={2}
           renderItem={({item}) => (
             <Pressable style={{flex: 1}}>

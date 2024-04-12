@@ -11,6 +11,7 @@ import sharedImages from '@utility/sharedImages';
 import {useLoginMutation} from '@services/auth';
 import {useDispatch} from 'react-redux';
 import {setCredential, setToken} from '@store/auth';
+import {notifyError} from '@utility/notify';
 const SignIn: React.FC = () => {
   const {navigate} = useNavigation<nav<AuthScreenList>>();
   const dispatch = useDispatch();
@@ -24,20 +25,24 @@ const SignIn: React.FC = () => {
     try {
       let resp = await login(info).unwrap();
 
+      console.log(resp?.data, 'RESPONSE');
+
       dispatch(
         setCredential({
           user: {
-            first_name: resp.data?.data?.first_name,
-            last_name: resp.data?.data?.last_name,
-            email: resp.data?.data?.email,
-            id: resp.data?.data?._id,
-            email_verified: resp.data?.data?.email_verified,
+            first_name: resp.data?.user?.first_name,
+            last_name: resp.data?.user?.last_name,
+            email: resp.data?.user?.email,
+            id: resp.data?.user?._id,
+            email_verified: resp.data?.user?.email_verified,
+            storeId: resp.data?.user?.store?._id,
           },
         }),
       );
       dispatch(setToken(resp.data?.accessToken));
     } catch (error) {
-      console.log(error?.data?.message);
+      notifyError('Error', error?.data?.message);
+      console.log(error?.data?.message, 'erroro');
     }
   };
 

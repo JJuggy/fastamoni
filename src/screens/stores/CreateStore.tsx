@@ -11,8 +11,13 @@ import {Paragraph} from '@components/text/text';
 import {AppButton} from '@components/button';
 import {pickImage} from '@utility/helpers';
 import {useCreateStoreMutation} from '@services/stores';
+import mime from 'mime';
+import {notifyError, notifySucess} from '@utility/notify';
+import {useNavigation} from '@react-navigation/native';
+import {HomeNavigatorParams} from '../../types';
 
 const CreateStore = () => {
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   const [create, {isLoading}] = useCreateStoreMutation();
   const [storeInfo, setStoreInfo] = useState({
     name: '',
@@ -35,8 +40,6 @@ const CreateStore = () => {
     if (type === 'logo') {
       pickImage('upload', (err, img) => {
         if (!err) {
-          console.log(img);
-
           setStoreInfo({...storeInfo, logo: img as string});
         }
       });
@@ -54,15 +57,27 @@ const CreateStore = () => {
     const keys = Object.keys(storeInfo);
 
     keys.forEach(key => {
-      formD.append(key, storeInfo[key]);
+      if (key == 'logo' || key == 'banner') {
+        const newImageUri = 'file://' + storeInfo[key].split('file:/').join('');
+        formD.append(key, {
+          uri: newImageUri,
+          type: mime.getType(newImageUri),
+          name: newImageUri.split('/').pop(),
+        });
+      } else {
+        formD.append(key, storeInfo[key]);
+      }
     });
 
     create(formD)
       .unwrap()
       .then(res => {
+        notifySucess('Success', 'Store created ');
+        navigate('HomeScreen');
         console.log(res.data, 'CREATE STORE RESPONSE');
       })
       .catch(err => {
+        notifyError('Error', 'Something went wrong!!');
         console.log(err, 'CREATE STORE RESPONSE');
       });
   };

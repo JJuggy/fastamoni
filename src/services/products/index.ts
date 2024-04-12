@@ -1,10 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {Product} from './interface';
 import {axiosBaseQuery} from '@utility/axiosQuery/axiosBaseQuery';
-
-interface CreateProductArgs {
-  body: Partial<Product>;
-}
+import {Response} from '@store/interfaces';
 
 interface UpdateProductArgs {
   id: number;
@@ -24,21 +21,25 @@ export const productsApi = createApi({
     }),
     getProduct: build.query<Product, number>({
       query: id => ({
-        url: `products/${id}`,
+        url: `/products/${id}`,
         method: 'GET',
       }),
     }),
-    createProduct: build.mutation<Product, CreateProductArgs>({
-      query: ({body}) => ({
-        url: 'products',
+    createProduct: build.mutation<Response, any>({
+      query: body => ({
+        url: '/products/create',
         method: 'POST',
-        body,
+        body: body,
+        headers: {
+          accept: 'application/json',
+          'content-type': 'multipart/form-data',
+        },
       }),
       invalidatesTags: ['Product'],
     }),
     updateProduct: build.mutation<Product, UpdateProductArgs>({
       query: ({id, body}) => ({
-        url: `products/${id}`,
+        url: `/products/${id}`,
         method: 'PUT',
         body,
       }),

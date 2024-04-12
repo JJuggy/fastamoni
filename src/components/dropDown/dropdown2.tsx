@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   options: {
-    backgroundColor: colors.border,
+    backgroundColor: colors.background,
     paddingVertical: 20,
     borderRadius: 10,
     maxHeight: heightPixel(350),
