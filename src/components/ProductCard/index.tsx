@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import React from 'react';
 import sharedImages from '@utility/sharedImages';
 import {FlexedView, PressableView} from '@components/view';
@@ -26,7 +26,7 @@ interface ProductCardProps {
     name: string;
   };
   storeName?: string;
-  productCardWidth: number;
+  fullWidth: boolean;
 }
 const ProductCard = ({
   title,
@@ -43,13 +43,16 @@ const ProductCard = ({
   images,
   store,
   storeName,
-  productCardWidth,
+  fullWidth,
 }: ProductCardProps) => {
+  const {width} = useWindowDimensions();
   return (
     <View
       style={[
         styles.dealcardcontainer,
-        {width: productCardWidth ? productCardWidth : 200},
+        {
+          width: fullWidth ? '100%' : width * 0.43,
+        },
       ]}>
       {images?.[0]?.url != undefined && (
         <Image

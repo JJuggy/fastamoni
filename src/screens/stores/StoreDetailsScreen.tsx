@@ -157,7 +157,7 @@ const StoreDetailsScreen = () => {
           renderItem={({item}) => (
             <Pressable style={{flex: 1}}>
               <ProductCard
-                productCardWidth={180}
+                fullWidth={false}
                 storeName={item.store[0].name}
                 {...item}
               />

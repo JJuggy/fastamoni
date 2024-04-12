@@ -119,7 +119,7 @@ const ProductDetails = () => {
           showsVerticalScrollIndicator={false}>
           {productDetails != undefined && (
             <ProductCard
-              productCardWidth={400}
+              fullWidth={true}
               withStoreRating={true}
               {...productDetails}
             />

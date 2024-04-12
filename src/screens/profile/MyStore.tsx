@@ -162,18 +162,14 @@ const MyStore = () => {
           </ViewContainer>
         </ImageBackground>
       </View>
-      <View style={{flex: 1, zIndex: 100}}>
+      <View style={{zIndex: 100}}>
         {/* <Image style={styles.storeImg} source={sharedImages.storeImg} /> */}
         <FlatList
           contentContainerStyle={{paddingBottom: 100}}
           style={{zIndex: 1000}}
           data={products}
           numColumns={2}
-          renderItem={({item}) => (
-            <Pressable style={{flex: 1}}>
-              <ProductCard {...item} />
-            </Pressable>
-          )}
+          renderItem={({item}) => <ProductCard fullWidth={false} {...item} />}
           ListHeaderComponent={<ListHeader />}
         />
       </View>
