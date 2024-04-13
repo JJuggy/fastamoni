@@ -6,16 +6,47 @@ import OrderItem from '@components/orders/orderItem';
 import {AppButton} from '@components/button';
 import {HomeNavigatorParams, IOrderProps} from 'src/types';
 import {useNavigation} from '@react-navigation/native';
+import {useCart} from '@store/cart/hook';
+import {Paragraph} from '@components/text/text';
+import {Image} from 'react-native';
+import {FlexedView} from '@components/view';
+import sharedImages from '@utility/sharedImages';
 
 const CartTab = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
-  const {orders}: IOrderProps['orders'] = data;
+  const cart = useCart();
+  let totalPrice: number = 0;
+  cart.cart.reduce((total, product) => {
+    return (totalPrice = total + product.price);
+  }, 0);
   return (
     <ScrollView
       style={{
         height: '100%',
       }}>
-      <OrderItem orders={orders} />
+      <OrderItem orders={cart.cart} />
+      <FlexedView style={{marginTop: 25}} justifyContent="space-between">
+        <Paragraph>Total</Paragraph>
+        <FlexedView>
+          <Image
+            tintColor={'#1E89DD'}
+            style={{
+              width: 15,
+              height: 15,
+              marginRight: 5,
+            }}
+            source={sharedImages.icons.naira}
+          />
+          <Paragraph
+            style={{
+              color: '#1E89DD',
+            }}
+            fontSize={19}
+            fontWeight="800">
+            {totalPrice}
+          </Paragraph>
+        </FlexedView>
+      </FlexedView>
       <AppButton
         onPress={() => navigate('Checkout')}
         textStyle={{color: 'white', fontWeight: '700'}}

@@ -21,53 +21,53 @@ export const axiosBaseQuery =
     unknown,
     unknown
   > =>
-  async ({url, method = 'GET', body, headers = {}}) => {
-    // return new Promise(async (resolve, reject) => {
-    //   try {
-    //     const result = await axios({
-    //       url: baseUrl + url,
-    //       method,
-    //       data: body,
-    //       headers: {...baseHeaders, ...headers},
-    //     });
+  ({url, method = 'GET', body, headers = {}}) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await axios({
+          url: baseUrl + url,
+          method,
+          data: body,
+          headers: {...baseHeaders, ...headers},
+        });
 
-    //     resolve({data: result.data, error: null});
-    //   } catch (axiosError) {
-    //     console.log(axiosError, 'this is the axios erro ooooo');
-    //     let err = axiosError as AxiosError;
-    //     if (err) {
-    //       // console.log(err.response, 'another errorr');
-    //       if (err.response?.status === 401) {
-    //         store.dispatch(setCredential({} as Auth));
-    //       }
-    //       throw {
-    //         error: {data: err},
-    //         data: null,
-    //       };
-    //     }
-    //   }
-    // });
-
-    try {
-      const result = await axios({
-        url: baseUrl + url,
-        method,
-        data: body,
-        headers: {...baseHeaders, ...headers},
-      });
-      return {data: result.data, error: null};
-    } catch (axiosError) {
-      console.log(axiosError, 'this is the axios erro ooooo');
-      let err = axiosError as AxiosError;
-      if (err) {
-        console.log(err.response, 'another errorr');
-        if (err.response?.status === 401) {
-          store.dispatch(setCredential({} as Auth));
+        resolve({data: result.data, error: null});
+      } catch (axiosError) {
+        console.log(axiosError, 'this is the axios erro ooooo');
+        let err = axiosError as AxiosError;
+        if (err) {
+          // console.log(err.response, 'another errorr');
+          if (err.response?.status === 401) {
+            store.dispatch(setCredential({} as Auth));
+          }
+          reject({
+            error: {data: err.response?.data},
+            data: null,
+          });
         }
-        return {
-          error: {data: err.response?.data},
-          data: null,
-        };
       }
-    }
+    });
+
+    // try {
+    //   const result = await axios({
+    //     url: baseUrl + url,
+    //     method,
+    //     data: body,
+    //     headers: {...baseHeaders, ...headers},
+    //   });
+    //   return {data: result.data, error: null};
+    // } catch (axiosError) {
+    //   console.log(axiosError, 'this is the axios erro ooooo');
+    //   let err = axiosError as AxiosError;
+    //   if (err) {
+    //     // console.log(err.response, 'another errorr');
+    //     if (err.response?.status === 401) {
+    //       store.dispatch(setCredential({} as Auth));
+    //     }
+    //     return {
+    //       error: {data: err.response?.data},
+    //       data: null,
+    //     };
+    //   }
+    // }
   };

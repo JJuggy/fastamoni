@@ -16,6 +16,7 @@ import {notifyError, notifySucess} from '@utility/notify';
 const SignUp: React.FC = () => {
   const {navigate} = useNavigation<nav<AuthScreenList>>();
   const [signUp, {isLoading}] = useSignUpMutation();
+  const navigation = useNavigation();
   const [info, setInfo] = useState({
     email: '',
     firstname: '',
@@ -160,8 +161,13 @@ const SignUp: React.FC = () => {
             <Spacer height={30} />
             <Pressable onPress={() => navigate('SignIn')} style={styles.login}>
               <FlexedView>
-                <Paragraph>Dont't have an account?</Paragraph>
-                <Paragraph fontWeight="700">Register Now</Paragraph>
+                <Paragraph>Already have an account?</Paragraph>
+                <Pressable
+                  onPress={() => {
+                    navigation.goBack()
+                  }}>
+                  <Paragraph fontWeight="700">Sign In</Paragraph>
+                </Pressable>
               </FlexedView>
             </Pressable>
           </View>

@@ -29,7 +29,7 @@ export const cartApi = createApi({
     }),
     updateCartItem: build.mutation<Carts, UpdateCartItemArgs>({
       query: ({body}) => ({
-        url: '/carts',
+        url: '/cart',
         method: 'PUT',
         body,
       }),

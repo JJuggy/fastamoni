@@ -65,7 +65,7 @@ export const FlexedView = ({children, justifyContent, style}: FlexProps) => {
     </View>
   );
 };
-export const PressableView = ({
+export const  PressableView = ({
   children,
   style,
   onPress,

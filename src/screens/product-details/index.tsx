@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlexedView, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import Header from '@components/header';
@@ -17,24 +17,71 @@ import ProductCard from '@components/ProductCard';
 import data from '../../data';
 import {AppButton} from '@components/button';
 import HomeCard from '@screens/components/HomeCard';
+import {addToCart} from '@store/cart';
+import {useDispatch} from 'react-redux';
+import {useModal} from '@providers/DynamicModalProvider';
+import {
+  useGetProductInfoQuery,
+  useGetSimilarProductsQuery,
+} from '@services/products';
+import {Product} from '@services/products/interface';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
     details: {
-      storeName: string;
+      store: {
+        name: string;
+        rating: number;
+        location: string;
+      };
+      title: string;
+      price: string;
+      grade: string;
+      images: string[];
+      category: {
+        name: string;
+      };
     };
   };
-  const [product, setProduct] = useState({
-    canSeeAddress: false,
-    storeName: 'OJB Declutter',
-    dealName: '3.5Kva Elepaq Gen',
-    price: '150000',
-    location: 'Location',
-    image: sharedImages.homeScreenDealImg,
-    grade: 'B',
+  const dispatch = useDispatch();
+  const {show, close} = useModal();
+  const {productId} = route.params as any;
+  const {data: details} = useGetProductInfoQuery(productId);
+  const [productDetails, setProductDetails] = useState<Product>(details?.data);
+  useEffect(() => {
+    setProductDetails(details?.data);
+  }, [details?.data]);
+  const {data: simProd} = useGetSimilarProductsQuery({
+    title: productDetails?.title ?? '',
+    category: 'electronics' ?? '',
   });
-  const {details} = route.params as ProductDetailsRoute;
-  const {itemInfo, similarProductsInStore} = data;
+  const [similarProducts, setSimilarProducts] = useState(simProd?.data);
+  useEffect(() => {
+    setSimilarProducts(simProd?.data);
+  }, [simProd?.data]);
+  console.log('prodcut details are', productDetails);
+  let itemInfo = [
+    {
+      title: 'Model',
+      description: productDetails?.model_no,
+    },
+    {
+      title: 'Brand',
+      description: productDetails?.brand,
+    },
+    {
+      title: 'Condition',
+      description: productDetails?.condition,
+    },
+    {
+      title: 'Defects',
+      description: productDetails?.defects,
+    },
+    {
+      title: 'Additional Info',
+      description: productDetails?.description,
+    },
+  ];
   return (
     <SafeAreaView
       style={{
@@ -63,15 +110,22 @@ const ProductDetails = () => {
             />
           </FlexedView>
         }
-        title={details.storeName}
+        // title={details.store.name}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <ProductCard
-            withStoreRating={true}
-            productImgHeight={200}
-            {...product}
-          />
+          {productDetails != undefined && (
+            <ProductCard
+              storeName={productDetails.store?.name}
+              discountedPrice={undefined}
+              rating={productDetails.store.rating}
+              productImages={productDetails?.images}
+              canSeeAddress={false}
+              withStoreRating={true}
+              productImgHeight={200}
+              {...productDetails}
+            />
+          )}
 
           <View
             style={{
@@ -121,15 +175,23 @@ const ProductDetails = () => {
                 marginVertical: 12,
                 color: '#737373',
               }}>
-              Similar products in store
+              Similar products
             </Text>
-            {similarProductsInStore.map((item, index) => {
+            {/* {similarProducts?.map((item, index) => {
               return (
                 <View key={index}>
-                  <HomeCard item={item} {...item} />
+                  <HomeCard
+                    showCondition={false}
+                    dealName={item.title}
+                    storeName={item.store[0].name}
+                    price={item.price}
+                    dealThumbnail={item.thumbnail[0]?.url}
+                    item={item}
+                    {...item}
+                  />
                 </View>
               );
-            })}
+            })} */}
           </View>
         </ScrollView>
         <FlexedView
@@ -140,6 +202,19 @@ const ProductDetails = () => {
             zIndex: 100,
           }}>
           <AppButton
+            onPress={() => {
+              return (
+                dispatch(addToCart({product: productDetails})),
+                show({
+                  as: 'bottomSheet',
+                  content: (
+                    <View style={{backgroundColor: 'white', padding: 20}}>
+                      <Text>Added to cart</Text>
+                    </View>
+                  ),
+                })
+              );
+            }}
             icon={
               <Image
                 source={sharedImages.icons.cart}

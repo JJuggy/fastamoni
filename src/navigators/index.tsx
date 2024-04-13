@@ -13,7 +13,7 @@ import UserLoggedIn from './main';
 const {Screen, Navigator} = createNativeStackNavigator<RootScreenList>();
 
 const RootNavigator: React.FC = () => {
-  const {user, didOnboard} = useAuth();
+  const {user, didOnboard, accessToken} = useAuth();
   const {getItem} = useAsyncStorage('@user');
   const {getItem: getOnboard} = useAsyncStorage('onboard');
   const dispatch = useDispatch();
