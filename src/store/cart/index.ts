@@ -15,12 +15,12 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addProduct(state, action: PayloadAction<{product: Cartitem}>) {
+    addToCart(state, action: PayloadAction<{product: Cartitem}>) {
       const {product} = action.payload;
       state.products.push(product);
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
-    removeProduct(state, action: PayloadAction<{product: Cartitem}>) {
+    removeFromCart(state, action: PayloadAction<{product: Cartitem}>) {
       const {product} = action.payload;
       state.products = state.products.filter(item => item !== product);
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
@@ -32,7 +32,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const {addProduct, removeProduct, clearCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, clearCart} = cartSlice.actions;
 export default cartSlice.reducer;
 // Selector function to select cart products from the state
 export const useSelectCart = (state: RootState) => state.cart.products;

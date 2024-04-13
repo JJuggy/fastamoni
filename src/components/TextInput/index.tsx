@@ -22,6 +22,7 @@ interface IProps extends TextInputProps {
   inputStyle?: ViewStyle;
   multiline?: boolean;
   labelStyle?: TextStyle;
+  textLimit?: number;
 }
 
 export const AppTextInput = ({
@@ -32,6 +33,7 @@ export const AppTextInput = ({
   inputStyle,
   multiline = false,
   labelStyle,
+  textLimit,
   ...props
 }: IProps) => {
   const [height, setHeight] = useState(0);
@@ -54,6 +56,7 @@ export const AppTextInput = ({
         ]}>
         {leftIcon && leftIcon}
         <TextInput
+          maxLength={textLimit}
           multiline={multiline}
           onContentSizeChange={event => {
             setHeight(event.nativeEvent.contentSize.height);

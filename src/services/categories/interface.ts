@@ -4,6 +4,7 @@ export interface Category {
   description: string;
   slug: string;
   parentCategoryId: string;
+  icon: any;
 }
 
 export interface CreateCategoryArgs {

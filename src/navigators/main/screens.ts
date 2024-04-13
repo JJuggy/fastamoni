@@ -24,4 +24,13 @@ export type HomeScreenParam = {
   Wallet: undefined;
   RecentlySearched: undefined;
   ReadMoreFaq: undefined;
+  AllCategoriesScreen: {
+    categories: any;
+  };
+  CategoryScreen: {
+    category: any;
+  };
+  AllDealsScreen: {
+    deals: any;
+  };
 };

@@ -5,44 +5,53 @@ import sharedImages from '@utility/sharedImages';
 import {FlexedView, PressableView} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import {Rating} from 'react-native-rating-element';
-import {NAIRA} from '@utility/naira';
+import {store} from '@store/index';
+import {Pressable} from 'react-native';
 interface ProductCardProps {
-  name: string;
-  price: string;
+  title: string;
+  storeName: string;
+  price: number;
   grade: string;
-  pickup_address: string;
+  location?: string;
   discountedPrice?: string;
   canSeeAddress: boolean;
   productImgHeight?: number;
   withStoreRating?: boolean;
-  images?: string[];
-  store?: any;
-  condition?: string;
-  defects?: string;
+  productImages: any;
+  condition: string;
+  rating: number;
+  pickup_state?: string;
+  pickup_city?: string;
+  pickup_address?: string;
 }
 const ProductCard = ({
-  name,
+  title,
+  storeName,
   price,
   grade,
-  pickup_address,
   discountedPrice,
   canSeeAddress,
   productImgHeight = 120,
   withStoreRating = false,
-  images,
-  store,
+  productImages,
   condition,
-  defects,
+  rating,
+  pickup_state,
+  pickup_city,
+  pickup_address,
 }: ProductCardProps) => {
   return (
     <View style={styles.dealcardcontainer}>
-      <Image
-        source={{uri: images?.[0]?.url}}
-        style={{
-          width: '100%',
-          height: productImgHeight,
-        }}
-      />
+      {productImages?.[0]?.url != undefined && (
+        <Image
+          source={{uri: productImages?.[0].url}}
+          style={{
+            width: '100%',
+            height: productImgHeight,
+          }}
+        />
+      )}
+
       <View
         style={{
           flexDirection: 'column',
@@ -59,14 +68,18 @@ const ProductCard = ({
             }}
           />
           <Paragraph
-            style={{
-              marginBottom: 3,
-            }}
-            fontSize={8}>
-            {store?.[0]?.name}
+            style={
+              {
+                // marginBottom: 3,
+              }
+            }
+            fontSize={14}>
+            {storeName}
           </Paragraph>
         </FlexedView>
-        <Paragraph style={{marginVertical: 4}}>{name}</Paragraph>
+        <Paragraph fontWeight="500" style={{marginVertical: 4}}>
+          {title}
+        </Paragraph>
         <Paragraph style={{color: '#125386', marginVertical: 3}}>
           Grade:{grade}
         </Paragraph>
@@ -88,7 +101,7 @@ const ProductCard = ({
             style={{
               color: 'black',
             }}>
-            {canSeeAddress ? pickup_address : '******************'}
+            {pickup_state + ' ' + pickup_city + ' ' + pickup_address}
           </Paragraph>
         </FlexedView>
         <FlexedView
@@ -109,31 +122,24 @@ const ProductCard = ({
               {condition}
             </Paragraph>
           </View>
-          <View
-            style={{
-              backgroundColor: '#BADEFB',
-              padding: 4,
-              borderRadius: 4,
-              marginLeft: 3,
-            }}>
-            <Paragraph
-              fontSize={10}
-              style={{
-                color: 'white',
-              }}>
-              {defects}
-            </Paragraph>
-          </View>
         </FlexedView>
-        <Paragraph
-          fontWeight="500"
-          fontSize={15}
-          style={{
-            color: 'black',
-            marginVertical: 5,
-          }}>
-          {`${NAIRA} ${price}`}
-        </Paragraph>
+        <FlexedView style={{marginBottom: 4}}>
+          <Image
+            style={styles.nairaIconStyle}
+            source={sharedImages.icons['naira']}
+          />
+          <Paragraph
+            fontWeight="700"
+            fontSize={18}
+            style={{
+              color: 'black',
+              marginVertical: 7,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            {price}
+          </Paragraph>
+        </FlexedView>
         <Paragraph
           fontWeight="300"
           fontSize={12}
@@ -165,12 +171,14 @@ const ProductCard = ({
           ) : null}
         </Paragraph>
         {withStoreRating === false ? (
-          <PressableView
+          <Pressable
             onPress={() => null}
             style={{
-              backgroundColor: '#4DABF5',
+              backgroundColor: '#1E89DD',
               borderRadius: 5,
-              paddingVertical: 4,
+              paddingVertical: 7,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
             <FlexedView>
               <Image
@@ -182,11 +190,11 @@ const ProductCard = ({
                   marginRight: 3,
                 }}
               />
-              <Paragraph fontSize={10} style={{color: 'white'}}>
+              <Paragraph fontSize={13} style={{color: 'white'}}>
                 Add to cart
               </Paragraph>
             </FlexedView>
-          </PressableView>
+          </Pressable>
         ) : (
           <View
             style={{
@@ -201,7 +209,7 @@ const ProductCard = ({
               Store rating
             </Paragraph>
             <Rating
-              rated={'4'}
+              rated={rating}
               totalCount={5}
               size={14}
               type="custom"
@@ -234,6 +242,6 @@ const styles = StyleSheet.create({
   nairaIconStyle: {
     width: 12,
     height: 12,
-    marginRight: 5,
+    marginRight: 2,
   },
 });

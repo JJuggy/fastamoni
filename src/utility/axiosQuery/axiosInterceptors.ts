@@ -4,7 +4,7 @@ import {store} from '../../store';
 import {setToken} from '../../store/auth';
 
 export const initInterceptors = () => {
-  // console.log(store.dispatch())
+  console.log('running axios')
   axios.interceptors.request.use(
     async config => {
       const {getItem} = useAsyncStorage('@token');
@@ -18,7 +18,6 @@ export const initInterceptors = () => {
       }
 
       config.headers = {...config.headers};
-
       return config;
     },
     error => {

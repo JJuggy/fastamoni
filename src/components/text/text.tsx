@@ -26,6 +26,15 @@ export const Paragraph = ({
   textAlign = 'left',
   style,
 }: TextProps) => {
+  const capitalize = (str: string) => {
+    if (typeof str !== 'string' || str.length === 0) {
+      return '';
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+  const capitalizedChildren =
+    typeof children === 'string' ? capitalize(children) : children;
+
   return (
     <Text
       style={[
@@ -40,7 +49,7 @@ export const Paragraph = ({
         },
         style,
       ]}>
-      {children}
+      {capitalizedChildren}
     </Text>
   );
 };

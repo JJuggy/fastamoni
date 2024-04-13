@@ -52,8 +52,10 @@ const StoreCard = ({
             {name}
           </Paragraph>
         </FlexedView>
-        <FlexedView style={styles.row}>
-          <Paragraph>{`${rating}`}</Paragraph>
+        <View style={styles.row}>
+          <Paragraph fontSize={12} color="#737373" style={{marginBottom: 3}}>
+            Store rating
+          </Paragraph>
           <Rating
             rated={rating}
             totalCount={5}
@@ -64,11 +66,12 @@ const StoreCard = ({
             readonly // by default is false
             direction="row" // anyOf["row" (default), "row-reverse", "column", "column-reverse"]
           />
-        </FlexedView>
-        {/* <FlexedView style={styles.row}>
+
+          {/* <FlexedView style={styles.row}>
           <Image style={styles.icons} source={sharedImages.icons.location} />
           <Paragraph>{location}</Paragraph>
         </FlexedView> */}
+        </View>
       </View>
     </Pressable>
   );
@@ -79,6 +82,7 @@ export default StoreCard;
 const styles = StyleSheet.create({
   row: {
     marginBottom: 10,
+    marginVertical: 8,
   },
   detailV: {
     padding: widthPixel(10),
@@ -86,7 +90,9 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     marginHorizontal: 5,
-    borderWidth: 2,
+    // borderWidth: 2,
+    borderRadius: 12,
+    backgroundColor: 'white',
     borderColor: colors.border,
     marginBottom: 10,
   },
@@ -94,6 +100,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     resizeMode: 'cover',
+    borderTopRightRadius: 12,
+    borderTopLeftRadius: 12,
   },
   catV: {
     padding: 8,

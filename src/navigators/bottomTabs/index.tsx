@@ -29,6 +29,9 @@ import ProfileDetails from '@screens/profile/ProfileDetails';
 import Wallet from '@screens/profile/wallet';
 import RecentlySearched from '@screens/profile/RecentlySearched';
 import ReadMoreFaq from '@screens/profile/ReadMoreFaq';
+import AllCategoriesScreen from '@screens/home/AllCategoriesScreen';
+import CategoryScreen from '@screens/home/CategoryScreen';
+import AllDealsScreen from '@screens/home/AllDealsScreen/AllDealsScreen';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -97,6 +100,7 @@ const BottomTabNavigator = () => {
             Home: (
               <IconWrapper focused={focused} name="Home">
                 <Image
+                  style={{width: 30, height: 30}}
                   source={sharedImages.icons.home}
                   tintColor={focused ? colors.primary : colors.gray}
                 />
@@ -105,6 +109,7 @@ const BottomTabNavigator = () => {
             Orders: (
               <IconWrapper focused={focused} name="Orders">
                 <Image
+                  style={{width: 30, height: 30}}
                   source={sharedImages.icons.orders}
                   tintColor={focused ? colors.primary : colors.gray}
                 />
@@ -113,6 +118,7 @@ const BottomTabNavigator = () => {
             Profile: (
               <IconWrapper focused={focused} name="Profile">
                 <Image
+                  style={{width: 30, height: 30}}
                   source={sharedImages.icons.profile}
                   tintColor={focused ? colors.primary : colors.gray}
                 />
@@ -121,6 +127,7 @@ const BottomTabNavigator = () => {
             Stores: (
               <IconWrapper focused={focused} name="Stores">
                 <Image
+                  style={{width: 30, height: 30}}
                   source={sharedImages.icons.shop}
                   tintColor={focused ? colors.primary : colors.gray}
                 />
@@ -178,6 +185,10 @@ const HomeNavigator = () => {
         headerShown: false,
       }}>
       <Screen name="HomeScreen" component={HomeScreen} />
+      <Screen name="StoreDetailsScreen" component={StoreDetailsScreen} />
+      <Screen name="AllCategoriesScreen" component={AllCategoriesScreen} />
+      <Screen name="CategoryScreen" component={CategoryScreen} />
+      <Screen name="AllDealsScreen" component={AllDealsScreen} />
     </Navigator>
   );
 };

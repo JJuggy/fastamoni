@@ -23,6 +23,7 @@ import {useLogout} from '@store/auth/hook';
 
 const ProfileDetails = () => {
   const {ProfileDetailOptions} = data;
+
   const {show, close} = useModal();
 
   return (

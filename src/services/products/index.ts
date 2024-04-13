@@ -19,6 +19,24 @@ export const productsApi = createApi({
         method: 'GET',
       }),
     }),
+    getProductInfo: build.query<{data: Product[]}, void>({
+      query: id => ({
+        url: `/products/info/${id}`,
+        method: 'GET',
+      }),
+    }),
+    getSimilarProducts: build.query<
+      {data: Product[]},
+      {
+        title: string;
+        category: any;
+      }
+    >({
+      query: ({title, category}) => ({
+        url: `/products/?category=${category}&title=${title}`,
+        method: 'GET',
+      }),
+    }),
     getProduct: build.query<Product, number>({
       query: id => ({
         url: `/products/${id}`,
@@ -57,6 +75,8 @@ export const productsApi = createApi({
 
 export const {
   useGetProductsQuery,
+  useGetSimilarProductsQuery,
+  useGetProductInfoQuery,
   useGetProductQuery,
   useCreateProductMutation,
   useUpdateProductMutation,

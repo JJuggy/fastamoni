@@ -24,9 +24,7 @@ const SignIn: React.FC = () => {
   const handleLogin = async () => {
     try {
       let resp = await login(info).unwrap();
-
-      console.log(resp?.data, 'RESPONSE');
-
+      console.warn(info);
       dispatch(
         setCredential({
           user: {

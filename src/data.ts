@@ -6,6 +6,7 @@ export default {
       rating: 4.5,
       location: '4, abule oja shina street',
       category: 'Electronic and GAdget',
+      noOfItemSold: 100,
     },
     {
       name: 'Hamed Sapa store',
@@ -13,6 +14,7 @@ export default {
       rating: 4.5,
       location: '4, adesina street olota captain',
       category: 'HouseHold and Offices',
+      noOfItemSold: 100,
     },
   ],
   homeScreenDeals: [
@@ -229,7 +231,7 @@ export default {
     {
       question: 'What is Decluttering?',
       answer:
-        'YDecluttering is the process of removing unnecessary items, belongings, or clutter from a space in order to create a more organized, functional, and aesthetically pleasing environment.',
+        'Decluttering is the process of removing unnecessary items, belongings, or clutter from a space in order to create a more organized, functional, and aesthetically pleasing environment.',
     },
     {
       question: 'What is Commission?',

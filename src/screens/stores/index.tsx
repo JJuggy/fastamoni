@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from '@components/header';
-import {BaseView, Spacer} from '@components/view';
+import {BaseView, Spacer, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import {widthPixel} from '@utility/pxToDpConvert';
 import sharedImages from '@utility/sharedImages';
 import React from 'react';
-import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import StoreCard from '@screens/components/StoreCard';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from '../../types';
@@ -14,10 +22,13 @@ const StoresScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const {data} = useGetStoresQuery();
 
-  console.log(data?.data);
   return (
-    <BaseView>
-      <View style={styles.container}>
+    <SafeAreaView style={{}}>
+      <ViewContainer
+        style={{
+          height: '100%',
+          backgroundColor: '#F5F5F5',
+        }}>
         <Header
           title="Store"
           rightItem={
@@ -29,6 +40,7 @@ const StoresScreen = () => {
           }
         />
         <Spacer />
+
         <FlatList
           data={data?.data}
           numColumns={2}
@@ -42,15 +54,15 @@ const StoresScreen = () => {
             />
           )}
         />
-      </View>
-    </BaseView>
+      </ViewContainer>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: 'red',
     paddingHorizontal: widthPixel(20),
   },
   plus: {

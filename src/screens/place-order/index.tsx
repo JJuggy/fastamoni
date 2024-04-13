@@ -24,6 +24,7 @@ import {notifyError, notifySucess} from '@utility/notify';
 
 const PlaceOrder = () => {
   const {data} = useGetCategoriesQuery();
+  const navigation = useNavigation();
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [createProduct, {isLoading}] = useCreateProductMutation();
   const scrollRef = useRef<ScrollView>(null);
@@ -237,7 +238,7 @@ const PlaceOrder = () => {
                   onChangeText={text => updateItemInfo('brand', text)}
                 />
                 <AppTextInput
-                  placeholder="Model No"
+                  placeholder="Model"
                   value={itemInfo.model_no}
                   keyboardType="number-pad"
                   onChangeText={text => updateItemInfo('model_no', text)}
@@ -255,25 +256,52 @@ const PlaceOrder = () => {
                   ]}
                 />
 
-                <AppTextInput
-                  placeholder="Defects"
-                  value={itemInfo.defects}
-                  onChangeText={text => updateItemInfo('defects', text)}
-                />
-                <AppTextInput
-                  placeholder="Additional Info"
-                  value={itemInfo.additionalInfo}
-                  onChangeText={text => updateItemInfo('additionalInfo', text)}
-                />
-
-                <DropdownSelect
-                  value={itemInfo.state}
-                  onSelect={sel => {
-                    updateItemInfo('state', sel.value);
-                  }}
-                  placeholder="State"
-                  data={stateList}
-                />
+                <View>
+                  <AppTextInput
+                    textLimit={20}
+                    placeholder="Defects"
+                    value={itemInfo.defects}
+                    onChangeText={text => updateItemInfo('defects', text)}
+                  />
+                  <View
+                    style={{
+                      alignItems: 'flex-end',
+                      marginTop: -18,
+                    }}>
+                    <Paragraph fontSize={12} color={colors.gray}>
+                      {itemInfo.defects.length}/20
+                    </Paragraph>
+                  </View>
+                </View>
+                <View style={{marginTop: 12}}>
+                  <AppTextInput
+                    textLimit={20}
+                    placeholder="Additional Info"
+                    value={itemInfo.additionalInfo}
+                    onChangeText={text =>
+                      updateItemInfo('additionalInfo', text)
+                    }
+                  />
+                  <View
+                    style={{
+                      alignItems: 'flex-end',
+                      marginTop: -18,
+                    }}>
+                    <Paragraph fontSize={12} color={colors.gray}>
+                      {itemInfo.additionalInfo.length}/20
+                    </Paragraph>
+                  </View>
+                </View>
+                <View style={{marginTop: 8}}>
+                  <DropdownSelect
+                    value={itemInfo.state}
+                    onSelect={sel => {
+                      updateItemInfo('state', sel.value);
+                    }}
+                    placeholder="State"
+                    data={stateList}
+                  />
+                </View>
 
                 <DropdownSelect
                   value={itemInfo.lga}
@@ -352,6 +380,9 @@ const PlaceOrder = () => {
               <ViewContainer>
                 <FlexedView justifyContent="space-between">
                   <AppButton
+                    onPress={() => {
+                      navigation.goBack();
+                    }}
                     variant="secondary"
                     text="Cancel"
                     style={styles.btn}

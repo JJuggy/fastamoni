@@ -1,12 +1,19 @@
-import {createApi} from '@reduxjs/toolkit/query/react';
+import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {axiosBaseQuery} from '@utility/axiosQuery/axiosBaseQuery';
 import {Response} from '@store/interfaces';
+import {Store, UpdateStoreArgs} from './interface';
 
-export const storeApi = createApi({
-  reducerPath: 'storeApi',
+export const storesApi = createApi({
+  reducerPath: 'storesApi',
   baseQuery: axiosBaseQuery({baseHeaders: {}}),
   tagTypes: ['Store'],
   endpoints: build => ({
+    getTopStores: build.query<{data: Store[]}, void>({
+      query: () => ({
+        url: '/store/top-stores',
+        method: 'GET',
+      }),
+    }),
     getStores: build.query<Response, void>({
       query: () => ({
         url: '/store',
@@ -41,14 +48,32 @@ export const storeApi = createApi({
         url: `/store/store-products/${id}`,
         method: 'GET',
       }),
+      invalidatesTags: ['Store'],
+    }),
+    updateStore: build.mutation<Store, UpdateStoreArgs>({
+      query: ({id, body}) => ({
+        url: `/stores/${id}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['Store'],
+    }),
+    deleteStore: build.mutation<void, number>({
+      query: id => ({
+        url: `/stores/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Store'],
     }),
   }),
 });
-
 export const {
-  useGetStoresQuery,
+  useGetTopStoresQuery,
   useGetStoreQuery,
+  useGetStoresQuery,
   useCreateStoreMutation,
+  useUpdateStoreMutation,
+  useDeleteStoreMutation,
   useGetStoreMetricQuery,
   useGetStoreProductsQuery,
-} = storeApi;
+} = storesApi;
