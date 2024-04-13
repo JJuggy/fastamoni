@@ -14,9 +14,9 @@ export const storesApi = createApi({
         method: 'GET',
       }),
     }),
-    getStores: build.query<Store, number>({
-      query: id => ({
-        url: `/store`,
+    getStores: build.query<Response, void>({
+      query: () => ({
+        url: '/store',
         method: 'GET',
       }),
     }),
