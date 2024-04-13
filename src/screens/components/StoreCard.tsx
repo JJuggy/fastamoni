@@ -17,15 +17,14 @@ interface CardProps {
   item: {
     name: string;
     rating: number;
-    category: string;
-    verified: boolean;
-    location: string;
+    category?: string;
+    logo?: any;
   };
   onPress: () => void;
 }
 
 const StoreCard = ({
-  item: {category, verified, rating, location, name},
+  item: {category, rating, name, logo},
   onPress,
 }: CardProps) => {
   const {width} = useWindowDimensions();
@@ -33,18 +32,23 @@ const StoreCard = ({
     <Pressable
       onPress={onPress}
       style={[styles.container, {width: width * 0.43}]}>
-      <Image source={sharedImages.storeImg} style={styles.storeBanner} />
+      <Image
+        defaultSource={sharedImages.storeBanner}
+        source={{uri: logo?.url}}
+        style={styles.storeBanner}
+      />
       <View style={styles.catV}>
         <Paragraph fontSize={14} textAlign="center">
-          {category}
+          {category ?? ''}
         </Paragraph>
       </View>
       <View style={styles.detailV}>
         <FlexedView style={styles.row}>
-          {verified && (
-            <Image style={styles.icons} source={sharedImages.icons.verify} />
-          )}
-          <Paragraph color={colors.dark_blue} fontWeight="600">
+          <Image style={styles.icons} source={sharedImages.icons.verify} />
+          <Paragraph
+            style={{flex: 1}}
+            color={colors.dark_blue}
+            fontWeight="600">
             {name}
           </Paragraph>
         </FlexedView>
@@ -61,10 +65,10 @@ const StoreCard = ({
             direction="row" // anyOf["row" (default), "row-reverse", "column", "column-reverse"]
           />
         </FlexedView>
-        <FlexedView style={styles.row}>
+        {/* <FlexedView style={styles.row}>
           <Image style={styles.icons} source={sharedImages.icons.location} />
           <Paragraph>{location}</Paragraph>
-        </FlexedView>
+        </FlexedView> */}
       </View>
     </Pressable>
   );
@@ -80,10 +84,11 @@ const styles = StyleSheet.create({
     padding: widthPixel(10),
   },
   container: {
-    flex: 1,
+    // flex: 1,
     marginHorizontal: 5,
     borderWidth: 2,
     borderColor: colors.border,
+    marginBottom: 10,
   },
   storeBanner: {
     width: '100%',

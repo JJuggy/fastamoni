@@ -5,14 +5,16 @@ import {widthPixel} from '@utility/pxToDpConvert';
 import sharedImages from '@utility/sharedImages';
 import React from 'react';
 import {FlatList, Image, Pressable, StyleSheet, View} from 'react-native';
-import data from '../../data';
 import StoreCard from '@screens/components/StoreCard';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from '../../types';
+import {useGetStoresQuery} from '@services/stores';
 
 const StoresScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
-  const {stores} = data;
+  const {data} = useGetStoresQuery();
+
+  console.log(data?.data);
   return (
     <BaseView>
       <View style={styles.container}>
@@ -28,7 +30,7 @@ const StoresScreen = () => {
         />
         <Spacer />
         <FlatList
-          data={stores}
+          data={data?.data}
           numColumns={2}
           keyExtractor={(_, ind) => ind.toString()}
           renderItem={({item}) => (

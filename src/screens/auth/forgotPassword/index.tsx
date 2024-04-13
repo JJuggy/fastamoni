@@ -68,7 +68,7 @@ const ForgotPassword: React.FC = () => {
             <Paragraph fontSize={23} lineHeight={26} fontWeight="700">
               Forgot Password?
             </Paragraph>
-            <Pressable>
+            <Pressable onPress={goBack}>
               <Paragraph>Back</Paragraph>
             </Pressable>
           </FlexedView>

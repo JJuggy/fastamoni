@@ -7,7 +7,7 @@ export const storeApi = createApi({
   baseQuery: axiosBaseQuery({baseHeaders: {}}),
   tagTypes: ['Store'],
   endpoints: build => ({
-    getStores: build.query({
+    getStores: build.query<Response, void>({
       query: () => ({
         url: '/store',
         method: 'GET',

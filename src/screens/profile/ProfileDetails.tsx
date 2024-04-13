@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Image,
   Pressable,
@@ -17,9 +19,12 @@ import {useModal} from '@providers/DynamicModalProvider';
 import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
 import data from '../../data';
+import {useLogout} from '@store/auth/hook';
+
 const ProfileDetails = () => {
   const {ProfileDetailOptions} = data;
   const {show, close} = useModal();
+
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -340,6 +345,8 @@ const EditPasswordModal = () => {
   );
 };
 const SignOutModal = () => {
+  const logout = useLogout();
+  const {close} = useModal();
   return (
     <View
       style={{
@@ -363,8 +370,19 @@ const SignOutModal = () => {
           fontWeight="700">
           Are you sure you want to Sign Out?
         </Paragraph>
-        <AppButton style={{marginVertical: 20}} text="Yes" />
-        <AppButton style={{backgroundColor: '#BADEFB'}} text="No" />
+        <AppButton
+          style={{marginVertical: 20}}
+          text="Yes"
+          onPress={() => {
+            close();
+            logout();
+          }}
+        />
+        <AppButton
+          style={{backgroundColor: '#BADEFB'}}
+          text="No"
+          onPress={close}
+        />
       </View>
     </View>
   );
