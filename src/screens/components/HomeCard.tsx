@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {FlexedView, PressableView} from '@components/view';
@@ -193,7 +194,7 @@ const HomeCard = ({
             <FlexedView style={{marginBottom: 4}}>
               <Image
                 style={styles.nairaIconStyle}
-                source={sharedImages.icons['naira']}
+                source={sharedImages.icons.naira}
               />
               <Paragraph
                 fontWeight="700"
