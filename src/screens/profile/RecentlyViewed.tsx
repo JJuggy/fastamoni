@@ -27,7 +27,7 @@ const RecentlyViewed = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {homeScreenDeals.map((item, index) => (
             <Pressable key={index} style={{flex: 1, marginBottom: 20}}>
-              <HomeCard {...item} />
+              <HomeCard {...item} item={item} />
             </Pressable>
           ))}
         </ScrollView>
