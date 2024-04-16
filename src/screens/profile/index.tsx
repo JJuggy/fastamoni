@@ -12,17 +12,19 @@ import {HomeNavigatorParams} from '../../types';
 
 import {AppButton} from '@components/button';
 import {useAuth} from '@store/auth/hook';
+import {useGetUserProfileQuery} from '@services/user';
 
 const ProfileScreen = () => {
   const {user} = useAuth();
+  const {data: userProfile} = useGetUserProfileQuery();
+  console.log('the user is', userProfile);
   const {navigate} = useNavigation<HomeNavigatorParams>();
-  console.log('the user is', user);
   const storesOption = [
     {
       icon: sharedImages.icons.person_round_black,
       label: 'Profile Details',
       url: 'ProfileDetails',
-      detail: user,
+      detail: userProfile.data,
     },
     {
       icon: sharedImages.icons.shop,
