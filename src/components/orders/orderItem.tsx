@@ -4,28 +4,30 @@ import React from 'react';
 import {Paragraph} from '@components/text/text';
 import {FlexedView} from '@components/view';
 import sharedImages from '@utility/sharedImages';
-import {IOrder, IOrderProps} from 'src/types';
+import {Cartitem} from '@services/carts/interface';
 
-const OrderItem = ({orders}: IOrderProps) => {
+const OrderItem = ({orders}: {orders: Cartitem[]}) => {
   const [numberOfOrders, setNumberOfOrders] = React.useState(1);
-  console.log('the store name ', orders);
-  return orders?.map((order: IOrder, index: number) => {
+  return orders?.map((order: Cartitem, index: number) => {
     return (
       <View key={index}>
         <View style={styles.container}>
           <FlexedView justifyContent="space-between">
             <FlexedView>
-              <Image
-                source={{uri: order.thumbnail[0].url}}
-                style={{
-                  width: 90,
-                  height: 90,
-                  borderRadius: 20,
-                }}
-              />
+              {order.product.images.length != 0 && (
+                <Image
+                  source={{uri: order.product.images[0]?.url}}
+                  style={{
+                    width: 90,
+                    height: 90,
+                    borderRadius: 20,
+                  }}
+                />
+              )}
+
               <View style={{flexDirection: 'column', marginLeft: 12}}>
                 <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                  {order.store[0].name}
+                  {order.product.store?.[0]?.name}
                 </Paragraph>
                 <Paragraph
                   fontWeight="500"
@@ -34,7 +36,7 @@ const OrderItem = ({orders}: IOrderProps) => {
                     color: '#494949',
                     marginVertical: 5,
                   }}>
-                  {order.title}
+                  {order.product.title}
                 </Paragraph>
                 <Paragraph
                   style={{
@@ -51,7 +53,7 @@ const OrderItem = ({orders}: IOrderProps) => {
                     }}
                     source={sharedImages.icons.naira}
                   />
-                  {order.price}
+                  {order.product.price}
                 </Paragraph>
               </View>
             </FlexedView>

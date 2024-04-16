@@ -1,21 +1,38 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import React from 'react';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {FlexedView, ViewContainer} from '@components/view';
 import Header from '@components/header';
 import {Image} from 'react-native';
 import sharedImages from '@utility/sharedImages';
 import colors from '@utility/colors';
 import {useGetSimilarProductsQuery} from '@services/products';
+import ProductCard from '@components/ProductCard';
+import {Paragraph} from '@components/text/text';
+import {AppButton} from '@components/button';
+import {NavigationProp} from '@react-navigation/native';
 
 const CategoryScreen = () => {
   const route = useRoute();
   const {category} = route.params as any;
+  type CategoryScreenNavProps = {
+    HomeScreen: undefined;
+  };
+  type navType = NavigationProp<CategoryScreenNavProps>;
+  const navigation: navType = useNavigation();
   const {data: products} = useGetSimilarProductsQuery({
-    title: 'gle',
-    category: 'electronics',
+    title: '',
+    category: category,
   });
-  console.log('products', products);
+  const {width} = useWindowDimensions();
   return (
     <SafeAreaView
       style={{
@@ -45,10 +62,51 @@ const CategoryScreen = () => {
             />
           </FlexedView>
         }
-        // title={details.store.name}
       />
       <ViewContainer style={{backgroundColor: '#F5F5F5', height: '100%'}}>
-        <Text>The category screen</Text>
+        {products?.data.length != 0 ? (
+          <FlatList
+            contentContainerStyle={{paddingBottom: 100}}
+            style={{zIndex: 1000}}
+            data={products?.data}
+            numColumns={2}
+            renderItem={({item}) => (
+              <Pressable style={{flex: 1}}>
+                <ProductCard fullWidth={false} {...item} />
+              </Pressable>
+            )}
+          />
+        ) : (
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 40,
+            }}>
+            <Image
+              source={sharedImages.emptyCat}
+              style={{
+                height: 300,
+                width: '100%',
+                marginBottom: 40,
+              }}
+            />
+            <Paragraph fontWeight="600" color="#B1B1B1">
+              There is currently no item in this Category
+            </Paragraph>
+            <AppButton
+              style={{
+                width: '100%',
+                marginTop: 30,
+              }}
+              variant="primary"
+              text="Back to Home"
+              onPress={() => {
+                navigation.navigate('HomeScreen');
+              }}
+            />
+          </View>
+        )}
       </ViewContainer>
     </SafeAreaView>
   );

@@ -166,7 +166,7 @@ const OngoingTab = ({type}: {type: string | undefined}) => {
               <Paragraph fontSize={16} fontWeight="600">
                 Your Order
               </Paragraph>
-              <OrderItem orders={orders} />
+              {/* <OrderItem orders={orders} /> */}
             </View>
           </View>
         )}

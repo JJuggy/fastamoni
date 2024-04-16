@@ -19,12 +19,13 @@ interface CardProps {
     rating: number;
     category?: string;
     logo?: any;
+    total_sales: number;
   };
   onPress: () => void;
 }
 
 const StoreCard = ({
-  item: {category, rating, name, logo},
+  item: {category, rating, name, logo, total_sales},
   onPress,
 }: CardProps) => {
   const {width} = useWindowDimensions();
@@ -37,11 +38,7 @@ const StoreCard = ({
         source={{uri: logo?.url}}
         style={styles.storeBanner}
       />
-      <View style={styles.catV}>
-        <Paragraph fontSize={14} textAlign="center">
-          {category ?? ''}
-        </Paragraph>
-      </View>
+
       <View style={styles.detailV}>
         <FlexedView style={styles.row}>
           <Image style={styles.icons} source={sharedImages.icons.verify} />
@@ -66,12 +63,10 @@ const StoreCard = ({
             readonly // by default is false
             direction="row" // anyOf["row" (default), "row-reverse", "column", "column-reverse"]
           />
-
-          {/* <FlexedView style={styles.row}>
-          <Image style={styles.icons} source={sharedImages.icons.location} />
-          <Paragraph>{location}</Paragraph>
-        </FlexedView> */}
         </View>
+        <Paragraph style={{marginTop: 'auto'}} fontSize={12}>
+          {total_sales} Items sold
+        </Paragraph>
       </View>
     </Pressable>
   );

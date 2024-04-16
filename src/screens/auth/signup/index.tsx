@@ -24,6 +24,7 @@ const SignUp: React.FC = () => {
     password: '',
     confirmPassword: '',
     businessName: '',
+    phoneNumber: '',
   });
   const [showPassword, setShowPassword] = useState({
     password: false,
@@ -90,6 +91,11 @@ const SignUp: React.FC = () => {
               onChangeText={text => onChangeText('lastname', text)}
             />
             <AppTextInput
+              label="Phone Number"
+              value={info.phoneNumber}
+              onChangeText={text => onChangeText('phoneNumber', text)}
+            />
+            <AppTextInput
               label="Password"
               value={info.password}
               secureTextEntry={showPassword.password}
@@ -153,7 +159,8 @@ const SignUp: React.FC = () => {
                 !info.email ||
                 !info.password ||
                 !info.firstname ||
-                !info.lastname
+                !info.lastname ||
+                !info.phoneNumber
               }
               onPress={submit}
               isLoading={isLoading}
@@ -164,7 +171,7 @@ const SignUp: React.FC = () => {
                 <Paragraph>Already have an account?</Paragraph>
                 <Pressable
                   onPress={() => {
-                    navigation.goBack()
+                    navigation.goBack();
                   }}>
                   <Paragraph fontWeight="700">Sign In</Paragraph>
                 </Pressable>

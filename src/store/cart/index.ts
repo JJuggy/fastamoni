@@ -20,7 +20,10 @@ const cartSlice = createSlice({
       state.products.push(product);
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
-    removeFromCart(state, action: PayloadAction<{product: Cartitem}>) {
+    removeFromCart(
+      state,
+      action: PayloadAction<{product: {product: Cartitem}}>,
+    ) {
       const {product} = action.payload;
       state.products = state.products.filter(item => item !== product);
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
@@ -29,10 +32,16 @@ const cartSlice = createSlice({
       state.products = [];
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
+    updateCart(state, action: PayloadAction<{products: Cartitem[]}>) {
+      const {products} = action.payload;
+      state.products = products;
+      AsyncStorage.setItem('@cart', JSON.stringify(state.products));
+    },
   },
 });
 
-export const {addToCart, removeFromCart, clearCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, clearCart, updateCart} =
+  cartSlice.actions;
 export default cartSlice.reducer;
 // Selector function to select cart products from the state
 export const useSelectCart = (state: RootState) => state.cart.products;

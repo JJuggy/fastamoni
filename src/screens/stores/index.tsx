@@ -21,7 +21,7 @@ import {useGetStoresQuery} from '@services/stores';
 const StoresScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const {data} = useGetStoresQuery();
-
+  console.log('the stores is', data);
   return (
     <SafeAreaView style={{}}>
       <ViewContainer
@@ -30,7 +30,7 @@ const StoresScreen = () => {
           backgroundColor: '#F5F5F5',
         }}>
         <Header
-          title="Store"
+          title="Stores"
           rightItem={
             <Pressable
               onPress={() => navigate('CreateStore')}
@@ -49,7 +49,7 @@ const StoresScreen = () => {
             <StoreCard
               item={item}
               onPress={() =>
-                navigate('StoreDetailsScreen', {productId: item.name})
+                navigate('StoreDetailsScreen', {storeId: item._id})
               }
             />
           )}

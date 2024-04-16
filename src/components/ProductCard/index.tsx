@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import React from 'react';
 import sharedImages from '@utility/sharedImages';
 import {FlexedView, PressableView} from '@components/view';
@@ -9,12 +9,10 @@ import {store} from '@store/index';
 import {Pressable} from 'react-native';
 interface ProductCardProps {
   title: string;
-  storeName: string;
   price: number;
   grade: string;
   location?: string;
   discountedPrice?: string;
-  canSeeAddress: boolean;
   productImgHeight?: number;
   withStoreRating?: boolean;
   productImages: any;
@@ -23,28 +21,42 @@ interface ProductCardProps {
   pickup_state?: string;
   pickup_city?: string;
   pickup_address?: string;
+  images: any;
+  store: {
+    name: string;
+  };
+  storeName?: string;
+  fullWidth: boolean;
 }
 const ProductCard = ({
   title,
-  storeName,
   price,
   grade,
   discountedPrice,
-  canSeeAddress,
-  productImgHeight = 120,
+  productImgHeight = 180,
   withStoreRating = false,
-  productImages,
   condition,
   rating,
   pickup_state,
   pickup_city,
   pickup_address,
+  images,
+  store,
+  storeName,
+  fullWidth,
 }: ProductCardProps) => {
+  const {width} = useWindowDimensions();
   return (
-    <View style={styles.dealcardcontainer}>
-      {productImages?.[0]?.url != undefined && (
+    <View
+      style={[
+        styles.dealcardcontainer,
+        {
+          width: fullWidth ? '100%' : width * 0.43,
+        },
+      ]}>
+      {images?.[0]?.url != undefined && (
         <Image
-          source={{uri: productImages?.[0].url}}
+          source={{uri: images?.[0].url}}
           style={{
             width: '100%',
             height: productImgHeight,
@@ -74,7 +86,7 @@ const ProductCard = ({
               }
             }
             fontSize={14}>
-            {storeName}
+            {store.name !== undefined ? store.name : storeName}
           </Paragraph>
         </FlexedView>
         <Paragraph fontWeight="500" style={{marginVertical: 4}}>
