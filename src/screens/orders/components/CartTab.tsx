@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {ScrollView, StyleSheet} from 'react-native';
+import {Pressable, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 import data from '../../../data';
 import OrderItem from '@components/orders/orderItem';
@@ -12,14 +12,30 @@ import {Image} from 'react-native';
 import {FlexedView} from '@components/view';
 import sharedImages from '@utility/sharedImages';
 import {View} from 'react-native';
+import {useClearCartMutation} from '@services/carts';
+import {useDispatch} from 'react-redux';
+import {clearCart} from '@store/cart';
 
 const CartTab = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
+  const [clearCartItems] = useClearCartMutation();
+  const dispatch = useDispatch();
+
+  const clearUserCart = () => {
+    clearCartItems()
+      .unwrap()
+      .then(() => {
+        dispatch(clearCart());
+      })
+      .catch(err => {
+        console.log(err, 'CLEAR ERRO');
+      });
+  };
 
   const cart = useCart();
   let totalPrice: number = 0;
   cart.cart.reduce((total, product: any) => {
-    return (totalPrice = total + product?.product.price);
+    return (totalPrice = total + product?.product.price * product?.quantity);
   }, 0);
   return (
     <ScrollView
@@ -58,6 +74,9 @@ const CartTab = () => {
         </View>
       ) : (
         <>
+          <Pressable onPress={clearUserCart}>
+            <Paragraph>CLEAR CART</Paragraph>
+          </Pressable>
           <OrderItem orders={cart.cart} />
           <FlexedView style={{marginTop: 25}} justifyContent="space-between">
             <Paragraph>Total</Paragraph>
@@ -77,7 +96,7 @@ const CartTab = () => {
                 }}
                 fontSize={19}
                 fontWeight="800">
-                {totalPrice}
+                {totalPrice.toLocaleString()}
               </Paragraph>
             </FlexedView>
           </FlexedView>

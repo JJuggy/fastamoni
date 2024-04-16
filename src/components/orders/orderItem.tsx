@@ -5,18 +5,68 @@ import {Paragraph} from '@components/text/text';
 import {FlexedView} from '@components/view';
 import sharedImages from '@utility/sharedImages';
 import {Cartitem} from '@services/carts/interface';
+import {useDispatch} from 'react-redux';
+import {updateCart} from '@store/cart';
+import {NAIRA} from '@utility/naira';
+import {useUpdateCartItemMutation} from '@services/carts';
 
 const OrderItem = ({orders}: {orders: Cartitem[]}) => {
-  const [numberOfOrders, setNumberOfOrders] = React.useState(1);
+  const dispatch = useDispatch();
+  const [saveCartToServer] = useUpdateCartItemMutation();
+
+  // console.log(orders, 'ORDERSSS');
+
+  const saveCartItems = (items: Cartitem[]) => {
+    const dataToSubmit = items.map(c => ({
+      productId: c.product?._id,
+      quantity: c.quantity,
+      product_title: c.product_title,
+    }));
+
+    console.log(dataToSubmit, 'hwats to submoit');
+
+    saveCartToServer({
+      body: {
+        items: dataToSubmit,
+      },
+    })
+      .unwrap()
+      .then(() => {
+        console.log('saved');
+      })
+      .catch(err => {
+        console.log(err, 'not saved');
+      });
+  };
+
+  const updateItem = (type: 'inc' | 'dec', item: Cartitem) => {
+    let itemToEdit = {...item};
+    let ordersClone = [...orders];
+    if (type === 'dec' && itemToEdit.quantity === 1) {
+      console.log('enteered here');
+      return;
+    }
+
+    itemToEdit.quantity =
+      type === 'dec' ? itemToEdit.quantity - 1 : itemToEdit.quantity + 1;
+
+    const index = ordersClone.findIndex(
+      prod => prod.productId === itemToEdit.productId,
+    );
+    ordersClone[index] = itemToEdit;
+    dispatch(updateCart({products: ordersClone}));
+    saveCartItems(ordersClone);
+  };
+
   return orders?.map((order: Cartitem, index: number) => {
     return (
       <View key={index}>
         <View style={styles.container}>
           <FlexedView justifyContent="space-between">
             <FlexedView>
-              {order.product.images.length != 0 && (
+              {order?.product?.images?.length != 0 && (
                 <Image
-                  source={{uri: order.product.images[0]?.url}}
+                  source={{uri: order.product?.images?.[0]?.url}}
                   style={{
                     width: 90,
                     height: 90,
@@ -27,7 +77,7 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
 
               <View style={{flexDirection: 'column', marginLeft: 12}}>
                 <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                  {order.product.store?.[0]?.name}
+                  {order.product?.store?.[0]?.name ?? 'N?A'}
                 </Paragraph>
                 <Paragraph
                   fontWeight="500"
@@ -36,7 +86,7 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
                     color: '#494949',
                     marginVertical: 5,
                   }}>
-                  {order.product.title}
+                  {order.product?.title}
                 </Paragraph>
                 <Paragraph
                   style={{
@@ -44,16 +94,7 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
                   }}
                   fontSize={19}
                   fontWeight="800">
-                  <Image
-                    tintColor={'#1E89DD'}
-                    style={{
-                      width: 15,
-                      height: 15,
-                      marginRight: 5,
-                    }}
-                    source={sharedImages.icons.naira}
-                  />
-                  {order.product.price}
+                  {`${NAIRA} ${order.product?.price}`}
                 </Paragraph>
               </View>
             </FlexedView>
@@ -72,7 +113,7 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
                   justifyContent: 'center',
                 }}
                 onPress={() => {
-                  numberOfOrders > 0 && setNumberOfOrders(num => num - 1);
+                  updateItem('dec', order);
                 }}>
                 <Image
                   tintColor={'#1E89DD'}
@@ -89,11 +130,11 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
                 style={{
                   marginHorizontal: 10,
                 }}>
-                {numberOfOrders}
+                {order.quantity}
               </Paragraph>
               <Pressable
                 onPress={() => {
-                  setNumberOfOrders(num => num + 1);
+                  updateItem('inc', order);
                 }}>
                 <Image
                   tintColor={'#1E89DD'}

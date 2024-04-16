@@ -17,15 +17,24 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action: PayloadAction<{product: Cartitem}>) {
       const {product} = action.payload;
-      state.products.push(product);
+      console.log(product, 'PRODUCDT TO DDDA');
+      const index = state.products.findIndex(
+        prod => prod.productId === product.productId,
+      );
+
+      if (index < 0) {
+        state.products.push(product);
+      } else {
+        state.products[index] = product;
+      }
+      // console.log(state.products, ':EBGTH');
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
-    removeFromCart(
-      state,
-      action: PayloadAction<{product: {product: Cartitem}}>,
-    ) {
+    removeFromCart(state, action: PayloadAction<{product: Cartitem}>) {
       const {product} = action.payload;
-      state.products = state.products.filter(item => item !== product);
+      state.products = state.products.filter(
+        item => item.productId !== product.productId,
+      );
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
     clearCart(state) {
@@ -33,7 +42,9 @@ const cartSlice = createSlice({
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },
     updateCart(state, action: PayloadAction<{products: Cartitem[]}>) {
+      console.log('Called');
       const {products} = action.payload;
+      // console.log(products, 'new Products');
       state.products = products;
       AsyncStorage.setItem('@cart', JSON.stringify(state.products));
     },

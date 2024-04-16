@@ -7,4 +7,3 @@ export const useCart = () => {
   const cart = useAppSelector(useSelectCart);
   return useMemo(() => ({cart}), [cart]);
 };
-

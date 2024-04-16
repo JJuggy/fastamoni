@@ -24,7 +24,7 @@ const ProfileScreen = () => {
       icon: sharedImages.icons.person_round_black,
       label: 'Profile Details',
       url: 'ProfileDetails',
-      detail: userProfile.data,
+      detail: userProfile?.data,
     },
     {
       icon: sharedImages.icons.shop,

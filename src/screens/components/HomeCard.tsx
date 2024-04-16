@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
@@ -79,6 +80,7 @@ const HomeCard = ({
             product: item,
             quantity: 1,
             product_title: item.title,
+            productId: item?._id,
           },
         }),
       ),
