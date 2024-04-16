@@ -26,6 +26,12 @@ export const storesApi = createApi({
         method: 'GET',
       }),
     }),
+    getStoreProducts: build.query<Response, string>({
+      query: id => ({
+        url: `/store/store-products/${id}`,
+        method: 'GET',
+      }),
+    }),
     createStore: build.mutation<Response, FormData>({
       query: body => ({
         url: '/store/update',
@@ -42,13 +48,6 @@ export const storesApi = createApi({
         url: '/store/performance',
         method: 'GET',
       }),
-    }),
-    getStoreProducts: build.query<Response, string>({
-      query: id => ({
-        url: `/store/store-products/${id}`,
-        method: 'GET',
-      }),
-      invalidatesTags: ['Store'],
     }),
     updateStore: build.mutation<Store, UpdateStoreArgs>({
       query: ({id, body}) => ({

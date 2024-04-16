@@ -49,7 +49,6 @@ const PlaceOrder = () => {
     pickup_address: '',
     quantity: '',
   });
-
   const categoryOptions = useMemo(() => {
     return data?.data?.map(ct => ({
       label: ct?.name,
@@ -388,6 +387,9 @@ const PlaceOrder = () => {
                     style={styles.btn}
                   />
                   <AppButton
+                    disabled={Object.values(itemInfo).some(
+                      (item: any) => item == '',
+                    )}
                     variant="primary"
                     text="Upload"
                     style={styles.btn}

@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {FlexedView, ViewContainer} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import sharedImages from '@utility/sharedImages';
@@ -20,12 +20,34 @@ import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
 import data from '../../data';
 import {useLogout} from '@store/auth/hook';
-
+import {useRoute} from '@react-navigation/native';
+import {
+  useUpdateUserInfoMutation,
+  useUpdateUserPasswordMutation,
+} from '@services/user';
 const ProfileDetails = () => {
-  const {ProfileDetailOptions} = data;
-
+  const route = useRoute();
+  const {detail} = route.params;
   const {show, close} = useModal();
+  const ProfileDetailOptions = [
+    {
+      label: 'Account Name',
+      detail: `${detail.first_name} ${detail.last_name}`,
+    },
+    {
+      label: 'Phone Number',
+      detail: `${'09058196256'} `,
+    },
 
+    {
+      label: 'Email Address',
+      detail: `${detail.email} `,
+    },
+    {
+      label: 'Password',
+      detail: '*********',
+    },
+  ];
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -206,6 +228,23 @@ const ProfileDetailView = ({
   );
 };
 const AccountNameModal = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
+  const handleInput = (field, value) => {
+    if (field == 'First Name') {
+      setFirstName(value);
+    } else {
+      setLastName(value);
+    }
+  };
+  const handleSubmit = () => {
+    console.log('the dets', firstName, lastName);
+    updateUserInfo({
+      first_name: firstName,
+      last_name: lastName,
+    });
+  };
   return (
     <View
       style={{
@@ -221,31 +260,43 @@ const AccountNameModal = () => {
           paddingVertical: 20,
         }}>
         <AppTextInput
+          value={firstName}
+          onChangeText={text => handleInput('First Name', text)}
           inputStyle={{
             backgroundColor: '#E1E1E1',
           }}
           labelStyle={{
             fontWeight: '700',
           }}
-          value="Dada"
           label="First Name"
         />
         <AppTextInput
+          value={lastName}
+          onChangeText={text => handleInput('Last Name', text)}
           inputStyle={{
             backgroundColor: '#E1E1E1',
           }}
           labelStyle={{
             fontWeight: '700',
           }}
-          value="Dada"
           label="Last Name"
         />
-        <AppButton text="Update account name" />
+        <AppButton
+          isLoading={isLoading}
+          onPress={() => {
+            return handleSubmit();
+          }}
+          text="Update account name"
+        />
       </View>
     </View>
   );
 };
 const PhoneNumberModal = () => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const handleSubmit = () => {
+    console.log('the phone number', phoneNumber);
+  };
   return (
     <View
       style={{
@@ -267,15 +318,21 @@ const PhoneNumberModal = () => {
           labelStyle={{
             fontWeight: '700',
           }}
-          value="Dada"
+          value={phoneNumber}
+          onChangeText={text => setPhoneNumber(text)}
           label="Phone Number"
         />
-        <AppButton text="Update phone number" />
+        <AppButton onPress={handleSubmit} text="Update phone number" />
       </View>
     </View>
   );
 };
 const EmailAddressModal = () => {
+  const [email, setEmail] = useState('');
+  const handleSubmit = () => {
+    console.log('the email', email);
+  };
+
   return (
     <View
       style={{
@@ -291,21 +348,31 @@ const EmailAddressModal = () => {
           paddingVertical: 20,
         }}>
         <AppTextInput
+          value={email}
+          onChangeText={text => setEmail(text)}
           inputStyle={{
             backgroundColor: '#E1E1E1',
           }}
           labelStyle={{
             fontWeight: '700',
           }}
-          value="JuggyJs@gmail.com"
           label="Email Address"
         />
-        <AppButton text="Update email address" />
+        <AppButton onPress={handleSubmit} text="Update email address" />
       </View>
     </View>
   );
 };
 const EditPasswordModal = () => {
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [updateUserPassword, {isLoading}] = useUpdateUserPasswordMutation();
+  const handleSubmit = () => {
+    updateUserPassword({
+      old_password: oldPassword,
+      new_password: newPassword,
+    });
+  };
   return (
     <View
       style={{
@@ -327,7 +394,8 @@ const EditPasswordModal = () => {
           labelStyle={{
             fontWeight: '700',
           }}
-          value="********"
+          value={oldPassword}
+          onChangeText={text => setOldPassword(text)}
           label="Password"
         />
         <AppTextInput
@@ -337,10 +405,16 @@ const EditPasswordModal = () => {
           labelStyle={{
             fontWeight: '700',
           }}
-          value=" ********"
-          label="Confirm Password"
+          value={newPassword}
+          onChangeText={text => setNewPassword(text)}
+          label="New Password"
         />
-        <AppButton text="Update password" />
+        <AppButton
+          isLoading={isLoading}
+          // disabled={oldPassword != confirmPassword || password == ''}
+          onPress={handleSubmit}
+          text="Update password"
+        />
       </View>
     </View>
   );

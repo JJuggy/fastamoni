@@ -6,6 +6,7 @@ export default {
   homeScreenDealImg: require('../assets/img/homeDeal.png'),
   topDealImg: require('../assets/img/topDeal.png'),
   noDealImg: require('../assets/img/noDeal.png'),
+  emptyCat: require('../assets/img/empty-cat.png'),
   icons: {
     home: require('../assets/icons/home.png'),
     orders: require('../assets/icons/orders.png'),

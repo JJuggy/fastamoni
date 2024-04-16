@@ -26,7 +26,7 @@ const Dots: React.FC<Iprops> = ({
 
   return (
     <View style={[styles.container]}>
-      {slides.map((ob, i) => {
+      {slides?.map((ob, i) => {
         const getWidth = scrollX?.interpolate({
           inputRange: [(i - 1) * width, i * width, (i + 1) * width],
           outputRange: [10, 30, 10],

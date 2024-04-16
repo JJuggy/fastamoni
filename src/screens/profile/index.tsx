@@ -12,10 +12,46 @@ import {HomeNavigatorParams} from '../../types';
 
 import {AppButton} from '@components/button';
 import {useAuth} from '@store/auth/hook';
+import {useGetUserProfileQuery} from '@services/user';
 
 const ProfileScreen = () => {
   const {user} = useAuth();
+  const {data: userProfile} = useGetUserProfileQuery();
+  console.log('the user is', userProfile);
   const {navigate} = useNavigation<HomeNavigatorParams>();
+  const storesOption = [
+    {
+      icon: sharedImages.icons.person_round_black,
+      label: 'Profile Details',
+      url: 'ProfileDetails',
+      detail: userProfile?.data,
+    },
+    {
+      icon: sharedImages.icons.shop,
+      label: 'Store Details',
+      url: 'MyStore',
+    },
+    {
+      icon: sharedImages.icons.wallet,
+      label: 'Wallet',
+      url: 'Wallet',
+    },
+    {
+      icon: sharedImages.icons.receipt,
+      label: 'Transaction History',
+      url: 'TransactionHistory',
+    },
+    {
+      icon: sharedImages.icons.eyeOpen,
+      label: 'Recently Viewed',
+      url: 'RecentlyViewed',
+    },
+    {
+      icon: sharedImages.icons.search_black,
+      label: 'Recently Searched',
+      url: 'RecentlySearched',
+    },
+  ];
   return (
     <BaseView>
       <ViewContainer>
@@ -48,13 +84,19 @@ const ProfileScreen = () => {
                   marginRight: 10,
                 }}
               />
-              <Paragraph fontSize={18}>My Stores</Paragraph>
+              <Paragraph fontWeight="600" fontSize={14}>
+                My Store
+              </Paragraph>
             </FlexedView>
           </ViewContainer>
           <ViewContainer>
             {storesOption.map(op => (
               <Pressable
-                onPress={() => navigate(op.url)}
+                onPress={() =>
+                  navigate(op.url, {
+                    detail: op.detail,
+                  })
+                }
                 key={op.label}
                 style={styles.option}>
                 <FlexedView justifyContent="space-between">
@@ -133,39 +175,6 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
-
-const storesOption = [
-  {
-    icon: sharedImages.icons.person_round_black,
-    label: 'Profile Details',
-    url: 'ProfileDetails',
-  },
-  {
-    icon: sharedImages.icons.shop,
-    label: 'Store Details',
-    url: 'MyStore',
-  },
-  {
-    icon: sharedImages.icons.wallet,
-    label: 'Wallet',
-    url: 'Wallet',
-  },
-  {
-    icon: sharedImages.icons.receipt,
-    label: 'Transaction History',
-    url: 'TransactionHistory',
-  },
-  {
-    icon: sharedImages.icons.eyeOpen,
-    label: 'Recently Viewed',
-    url: 'RecentlyViewed',
-  },
-  {
-    icon: sharedImages.icons.search_black,
-    label: 'Recently Searched',
-    url: 'RecentlySearched',
-  },
-];
 
 const aboutOption = [
   {

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -31,18 +31,35 @@ import {useGetProductsQuery} from '@services/products';
 import {useGetCategoriesQuery} from '@services/categories';
 import {useCart} from '@store/cart/hook';
 import {useGetTopStoresQuery} from '@services/stores';
+import {useGetCartQuery} from '@services/carts';
+import {addToCart, updateCart} from '@store/cart';
+import {useDispatch} from 'react-redux';
+import {Text} from 'react-native';
 
 const HomeScreen: React.FC = ({}) => {
   const {data: allProducts, refetch} = useGetProductsQuery();
   const {data: allCategories} = useGetCategoriesQuery();
   const {data: topStores} = useGetTopStoresQuery();
+  const dispatch = useDispatch();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
+  const {data: cartItems} = useGetCartQuery();
+
+  // console.log(cartItems?.data?.items, 'items in the cart at starts');
+
   useEffect(() => {
     setHomeDeals(allProducts?.data);
   }, [allProducts?.data]);
   const cart = useCart();
   const {homeTopDeals} = data;
-  console.log('homedeal', homeDeals);
+  useMemo(() => {
+    cartItems?.data != undefined &&
+      dispatch(
+        updateCart({
+          products: cartItems?.data.items,
+        }),
+      );
+  }, [cartItems?.data.items[0]]);
+
   useEffect(() => {
     const focusSubscription = navigation.addListener('focus', () => {
       refetch();
@@ -88,19 +105,29 @@ const HomeScreen: React.FC = ({}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              {cart.cart.length != 0 && (
+              {cart.cart !== undefined && (
                 <View
                   style={{
                     position: 'absolute',
                     top: -5,
                     right: 0,
+                    height: 16,
+                    width: 16,
+                    borderRadius: 8,
+                    backgroundColor: colors.white,
+                    borderWidth: 1,
+                    borderColor: colors.primary,
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}>
-                  <Paragraph
-                    color={colors.primary}
-                    fontSize={17}
-                    fontWeight="600">
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: '600',
+                      color: colors.primary,
+                    }}>
                     {cart.cart.length}
-                  </Paragraph>
+                  </Text>
                 </View>
               )}
 
@@ -326,7 +353,7 @@ const HomeScreen: React.FC = ({}) => {
               customColor={true}
               inActiveColor="#BADEFB"
               activeColor={colors.primary}
-              slides={homeTopDeals as any}
+              slides={topStores?.data as any}
               index={currentIndex}
               scrollX={scrollX}
             />

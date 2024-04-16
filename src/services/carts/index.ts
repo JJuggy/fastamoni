@@ -1,6 +1,7 @@
 import {createApi} from '@reduxjs/toolkit/dist/query/react';
 import {Carts, CreateCartItemArgs, UpdateCartItemArgs} from './interface';
 import {axiosBaseQuery} from '@utility/axiosQuery/axiosBaseQuery';
+import {Response} from '@store/interfaces';
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
@@ -27,7 +28,7 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
-    updateCartItem: build.mutation<Carts, UpdateCartItemArgs>({
+    updateCartItem: build.mutation<Response, UpdateCartItemArgs>({
       query: ({body}) => ({
         url: '/cart',
         method: 'PUT',
@@ -42,6 +43,12 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
+    clearCart: build.mutation<void, void>({
+      query: () => ({
+        url: '/cart/clear',
+        method: 'PUT',
+      }),
+    }),
   }),
 });
 
@@ -51,4 +58,5 @@ export const {
   useCreateCartItemMutation,
   useUpdateCartItemMutation,
   useDeleteCartItemMutation,
+  useClearCartMutation,
 } = cartApi;
