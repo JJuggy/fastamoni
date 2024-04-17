@@ -32,11 +32,11 @@ const ProfileDetails = () => {
   const ProfileDetailOptions = [
     {
       label: 'Account Name',
-      detail: `${detail.first_name} ${detail.last_name}`,
+      detail: `${detail?.first_name} ${detail?.last_name}`,
     },
     {
       label: 'Phone Number',
-      detail: `${'09058196256'} `,
+      detail: `${detail.phone_number != '' ? detail.phone_number : '+234'} `,
     },
 
     {
@@ -227,7 +227,7 @@ const ProfileDetailView = ({
     </FlexedView>
   );
 };
-const AccountNameModal = () => {
+const AccountNameModal = ({refreshMtd}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
@@ -240,10 +240,15 @@ const AccountNameModal = () => {
   };
   const handleSubmit = () => {
     console.log('the dets', firstName, lastName);
+
     updateUserInfo({
       first_name: firstName,
       last_name: lastName,
-    });
+    })
+      .unwrap()
+      .then(() => {
+        refreshMtd();
+      });
   };
   return (
     <View

@@ -16,7 +16,7 @@ import {useGetUserProfileQuery} from '@services/user';
 
 const ProfileScreen = () => {
   const {user} = useAuth();
-  const {data: userProfile} = useGetUserProfileQuery();
+  const {data: userProfile, refetch} = useGetUserProfileQuery();
   console.log('the user is', userProfile);
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const storesOption = [
@@ -65,11 +65,14 @@ const ProfileScreen = () => {
           <ViewContainer style={styles.profileH}>
             <FlexedView>
               <View>
-                <Paragraph
-                  color={
-                    colors.white
-                  }>{`Welcome ${user?.first_name}`}</Paragraph>
-                <Paragraph color={colors.white}>{user?.email}</Paragraph>
+                <Paragraph color={colors.white}>{`Welcome ${
+                  userProfile?.data.first_name +
+                  ' ' +
+                  userProfile?.data.last_name
+                }`}</Paragraph>
+                <Paragraph color={colors.white}>
+                  {userProfile?.data?.email}
+                </Paragraph>
               </View>
             </FlexedView>
           </ViewContainer>
