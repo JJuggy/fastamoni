@@ -56,5 +56,6 @@ export default {
     thumbsUp: require('../assets/icons/thumbs-up.png'),
     thumbsDown: require('../assets/icons/thumbs-down.png'),
     device: require('../assets/icons/device.png'),
+    checkCircle: require('../assets/icons/check-circle.png'),
   },
 };

@@ -92,7 +92,7 @@ const OrdersScreen = () => {
         </FlexedView>
         <Spacer />
         {currentTab === 'My cart' && getView('My cart')}
-        {currentTab === 'Ongoing' && getView('Ongoing', 'buyer')}
+        {currentTab === 'Ongoing' && getView('Ongoing', 'seller')}
         {currentTab === 'Completed' && getView('Completed')}
       </ViewContainer>
     </SafeAreaView>

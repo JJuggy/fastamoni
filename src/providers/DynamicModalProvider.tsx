@@ -9,7 +9,7 @@ import React, {
 import Modal from 'react-native-modal';
 
 type ModalConfig = {
-  as: 'fullscreen' | 'bottomSheet' | 'normal';
+  as: 'fullscreen' | 'bottomSheet' | 'normal' | 'topSheet';
   content: ReactElement;
 };
 
@@ -47,7 +47,11 @@ const DynamicModalProvider = ({children}: PropsWithChildren) => {
           margin: 0,
           flex: 1,
           justifyContent:
-            modalConfig.as === 'bottomSheet' ? 'flex-end' : 'center',
+            modalConfig.as === 'bottomSheet'
+              ? 'flex-end'
+              : modalConfig.as === 'topSheet'
+              ? 'flex-start'
+              : 'center',
         }}
         isVisible={showModal}
         onBackdropPress={close}
