@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
@@ -19,12 +19,27 @@ const ProfileScreen = () => {
   const {data: userProfile, refetch} = useGetUserProfileQuery();
   console.log('the user is', userProfile);
   const {navigate} = useNavigation<HomeNavigatorParams>();
+  const [userProfileData, setUserProfileData] =
+    React.useState<any>(userProfile);
+  useEffect(() => {
+    setUserProfileData(userProfile?.data);
+  }, [userProfile]);
+  console.log('userProfileData', userProfileData);
+  const handleUpdateUserDetail = (data: any) => {
+    setUserProfileData(({field, value}: any) => {
+      return {
+        ...field,
+        [value]: data,
+      };
+    });
+  };
   const storesOption = [
     {
       icon: sharedImages.icons.person_round_black,
       label: 'Profile Details',
       url: 'ProfileDetails',
-      detail: userProfile?.data,
+      detail: userProfileData,
+      updateDetail: handleUpdateUserDetail,
     },
     {
       icon: sharedImages.icons.shop,

@@ -22,9 +22,9 @@ export interface homeCardProps {
   location?: string;
   dealThumbnail: string;
   showCondition: boolean;
-  pickup_state: string;
-  pickup_city: string;
-  pickup_address: string;
+  pickup_state?: string;
+  pickup_city?: string;
+  pickup_address?: string;
 }
 const HomeCard = ({
   item,

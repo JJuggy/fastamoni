@@ -36,12 +36,12 @@ const ProfileDetails = () => {
     },
     {
       label: 'Phone Number',
-      detail: `${detail.phone_number != '' ? detail.phone_number : '+234'} `,
+      detail: `${detail?.phone_number != '' ? detail?.phone_number : '+234'} `,
     },
 
     {
       label: 'Email Address',
-      detail: `${detail.email} `,
+      detail: `${detail?.email} `,
     },
     {
       label: 'Password',

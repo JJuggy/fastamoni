@@ -15,6 +15,7 @@ export interface Product {
   store: {
     name: string;
     rating: number;
+    _id:string
   };
   grade: string;
   stock?: string | number;

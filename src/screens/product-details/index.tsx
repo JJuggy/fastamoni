@@ -13,7 +13,11 @@ import {FlexedView, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
-import {useRoute} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import ProductCard from '@components/ProductCard';
 import data from '../../data';
 import {AppButton} from '@components/button';
@@ -29,22 +33,13 @@ import {Product} from '@services/products/interface';
 const ProductDetails = () => {
   const route = useRoute();
   type ProductDetailsRoute = {
-    details: {
-      store: {
-        name: string;
-        rating: number;
-        location: string;
-      };
-      title: string;
-      price: string;
-      grade: string;
-      images: string[];
-      category: {
-        name: string;
-      };
+    StoreDetailsScreen: {
+      storeId: string;
     };
   };
+  type YourNavigationType = NavigationProp<ProductDetailsRoute>;
   const dispatch = useDispatch();
+  const navigation: YourNavigationType = useNavigation();
   const {show, close} = useModal();
   const {productId} = route.params as any;
   const {data: details} = useGetProductInfoQuery(productId);
@@ -60,7 +55,7 @@ const ProductDetails = () => {
   useEffect(() => {
     setSimilarProducts(simProd?.data);
   }, [simProd?.data]);
-  console.log('simProd', similarProducts);
+  console.log('productDetails', productDetails);
   let itemInfo = [
     {
       title: 'Model',
@@ -182,8 +177,7 @@ const ProductDetails = () => {
                     showCondition={false}
                     dealName={item.title}
                     storeName={item.store[0].name}
-                    price={item.price}
-                    dealThumbnail={item.thumbnail[0]?.url}
+                    dealThumbnail={item.images[0]?.url}
                     item={item}
                     {...item}
                   />
@@ -238,6 +232,11 @@ const ProductDetails = () => {
             text="Add to cart"
           />
           <Pressable
+            onPress={() => {
+              navigation.navigate('StoreDetailsScreen', {
+                storeId: productDetails.store._id,
+              });
+            }}
             style={{
               borderRadius: 10,
               marginVertical: 10,
