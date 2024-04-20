@@ -239,7 +239,6 @@ const AccountNameModal = () => {
     }
   };
   const handleSubmit = () => {
-    console.log('the dets', firstName, lastName);
     updateUserInfo({
       first_name: firstName,
       last_name: lastName,
@@ -294,8 +293,11 @@ const AccountNameModal = () => {
 };
 const PhoneNumberModal = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
-    console.log('the phone number', phoneNumber);
+    updateUserInfo({
+      phone_number: phoneNumber,
+    }).unwrap();
   };
   return (
     <View
@@ -322,15 +324,22 @@ const PhoneNumberModal = () => {
           onChangeText={text => setPhoneNumber(text)}
           label="Phone Number"
         />
-        <AppButton onPress={handleSubmit} text="Update phone number" />
+        <AppButton
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Update phone number"
+        />
       </View>
     </View>
   );
 };
 const EmailAddressModal = () => {
   const [email, setEmail] = useState('');
+  const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
-    console.log('the email', email);
+    updateUserInfo({
+      email: email,
+    }).unwrap();
   };
 
   return (
@@ -358,7 +367,11 @@ const EmailAddressModal = () => {
           }}
           label="Email Address"
         />
-        <AppButton onPress={handleSubmit} text="Update email address" />
+        <AppButton
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Update email address"
+        />
       </View>
     </View>
   );
