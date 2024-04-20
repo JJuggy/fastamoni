@@ -17,7 +17,7 @@ import {useGetUserProfileQuery} from '@services/user';
 const ProfileScreen = () => {
   const {user} = useAuth();
   const {data: userProfile, refetch} = useGetUserProfileQuery();
-  console.log('the user is', userProfile);
+  console.log('the user ', userProfile);
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [userProfileData, setUserProfileData] =
     React.useState<any>(userProfile);

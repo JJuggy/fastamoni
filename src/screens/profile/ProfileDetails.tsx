@@ -27,7 +27,7 @@ import {
 } from '@services/user';
 const ProfileDetails = () => {
   const route = useRoute();
-  const {detail} = route.params;
+  const {detail} = route.params as any;
   const {show, close} = useModal();
   const ProfileDetailOptions = [
     {
@@ -53,9 +53,9 @@ const ProfileDetails = () => {
       <ViewContainer>
         <Header title="Profile Details" />
         <View>
-          {ProfileDetailOptions.map((option, index) =>
-            ProfileDetailView(option),
-          )}
+          {ProfileDetailOptions.map((option, index) => (
+            <View key={index}>{ProfileDetailView(option)}</View>
+          ))}
         </View>
       </ViewContainer>
       <Pressable
@@ -227,11 +227,11 @@ const ProfileDetailView = ({
     </FlexedView>
   );
 };
-const AccountNameModal = ({refreshMtd}) => {
+const AccountNameModal = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
-  const handleInput = (field, value) => {
+  const handleInput = (field: string, value: string) => {
     if (field == 'First Name') {
       setFirstName(value);
     } else {
@@ -240,15 +240,10 @@ const AccountNameModal = ({refreshMtd}) => {
   };
   const handleSubmit = () => {
     console.log('the dets', firstName, lastName);
-
     updateUserInfo({
       first_name: firstName,
       last_name: lastName,
-    })
-      .unwrap()
-      .then(() => {
-        refreshMtd();
-      });
+    }).unwrap();
   };
   return (
     <View

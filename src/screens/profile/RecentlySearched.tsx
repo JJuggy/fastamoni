@@ -50,7 +50,7 @@ const RecentlySearched = () => {
                   paddingVertical: 10,
                   borderRadius: 5,
                 }}>
-                <Paragraph color="#131313">{item}</Paragraph>
+                <Paragraph color="#131313">{item.keyword}</Paragraph>
                 <Image
                   source={sharedImages.icons.recent}
                   style={styles.icons}
