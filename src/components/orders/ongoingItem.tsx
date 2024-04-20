@@ -14,16 +14,23 @@ import {Text} from 'react-native';
 
 const OngoingItem = ({
   orders,
-  type = 'buyer',
+  type,
+  changeCurrentTab,
 }: {
   orders: Cartitem[];
   type: string;
+  changeCurrentTab: any;
 }) => {
-  console.log('order', orders);
+  const [inputCodeValue, setInputCodeValue] = React.useState(['', '', '', '']);
+  const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
   return orders?.map((order: Cartitem, index: number) => {
     return (
       <View key={index}>
-        <View style={styles.container}>
+        <Pressable
+          onPress={() => {
+            changeCurrentTab('MoreOngoingDets', type);
+          }}
+          style={styles.container}>
           <FlexedView justifyContent="space-between">
             <FlexedView>
               {order?.product?.images?.length != 0 && (
@@ -92,7 +99,7 @@ const OngoingItem = ({
                 right: 0,
               }}>
               {type == 'buyer'
-                ? [1, 2, 3, 4].map((cd, idx) => (
+                ? code.map((cd, idx) => (
                     <View
                       style={{
                         borderRadius: 6,
@@ -138,7 +145,7 @@ const OngoingItem = ({
                   ))}
             </View>
           </FlexedView>
-        </View>
+        </Pressable>
       </View>
     );
   });
