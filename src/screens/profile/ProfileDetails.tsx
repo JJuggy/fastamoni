@@ -29,19 +29,28 @@ const ProfileDetails = () => {
   const route = useRoute();
   const {detail} = route.params as any;
   const {show, close} = useModal();
+  const [name, setName] = useState({
+    firstName: detail?.first_name,
+    lastName: detail?.last_name,
+  });
+  const [phoneNumber, setPhoneNumber] = useState(detail?.phone_number);
+  const [email, setEmail] = useState(detail?.email);
   const ProfileDetailOptions = [
     {
       label: 'Account Name',
-      detail: `${detail?.first_name} ${detail?.last_name}`,
+      detail: `${name.firstName} ${name.lastName}`,
+      updateName: setName,
     },
     {
       label: 'Phone Number',
-      detail: `${detail?.phone_number != '' ? detail?.phone_number : '+234'} `,
+      detail: `${phoneNumber != '' ? phoneNumber : '+234'} `,
+      updatePhoneNumber: setPhoneNumber,
     },
 
     {
       label: 'Email Address',
-      detail: `${detail?.email} `,
+      detail: `${email} `,
+      updateEmail: setEmail,
     },
     {
       label: 'Password',
@@ -54,7 +63,7 @@ const ProfileDetails = () => {
         <Header title="Profile Details" />
         <View>
           {ProfileDetailOptions.map((option, index) => (
-            <View key={index}>{ProfileDetailView(option)}</View>
+            <View key={index}>{ProfileDetailView(option as any)}</View>
           ))}
         </View>
       </ViewContainer>
@@ -151,9 +160,15 @@ const ProfileDetails = () => {
 const ProfileDetailView = ({
   label,
   detail,
+  updateName,
+  updatePhoneNumber,
+  updateEmail,
 }: {
   label: string;
   detail: string;
+  updateName?: () => void;
+  updatePhoneNumber: () => void;
+  updateEmail: () => void;
 }) => {
   const {show, close} = useModal();
   const handleShowEditModal = (tab: string) => {
@@ -161,19 +176,19 @@ const ProfileDetailView = ({
       case 'Account Name':
         show({
           as: 'normal',
-          content: <AccountNameModal />,
+          content: <AccountNameModal updateName={updateName} />,
         });
         break;
       case 'Phone Number':
         show({
           as: 'normal',
-          content: <PhoneNumberModal />,
+          content: <PhoneNumberModal updatePhoneNumber={updatePhoneNumber} />,
         });
         break;
       case 'Email Address':
         show({
           as: 'normal',
-          content: <EmailAddressModal />,
+          content: <EmailAddressModal updateEmail={updateEmail} />,
         });
         break;
       case 'Password':
@@ -227,15 +242,23 @@ const ProfileDetailView = ({
     </FlexedView>
   );
 };
-const AccountNameModal = () => {
+const AccountNameModal = ({updateName}: any) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleInput = (field: string, value: string) => {
     if (field == 'First Name') {
       setFirstName(value);
+      updateName({
+        firstName: value,
+        lastName: lastName,
+      });
     } else {
       setLastName(value);
+      updateName({
+        firstName: firstName,
+        lastName: value,
+      });
     }
   };
   const handleSubmit = () => {
@@ -291,13 +314,14 @@ const AccountNameModal = () => {
     </View>
   );
 };
-const PhoneNumberModal = () => {
+const PhoneNumberModal = ({updatePhoneNumber}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
     updateUserInfo({
       phone_number: phoneNumber,
     }).unwrap();
+    updatePhoneNumber(phoneNumber);
   };
   return (
     <View
@@ -333,13 +357,14 @@ const PhoneNumberModal = () => {
     </View>
   );
 };
-const EmailAddressModal = () => {
+const EmailAddressModal = ({updateEmail}: any) => {
   const [email, setEmail] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
     updateUserInfo({
       email: email,
     }).unwrap();
+    updateEmail(email);
   };
 
   return (

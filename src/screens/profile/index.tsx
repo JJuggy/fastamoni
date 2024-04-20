@@ -11,35 +11,18 @@ import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from '../../types';
 
 import {AppButton} from '@components/button';
-import {useAuth} from '@store/auth/hook';
 import {useGetUserProfileQuery} from '@services/user';
 
 const ProfileScreen = () => {
-  const {user} = useAuth();
-  const {data: userProfile, refetch} = useGetUserProfileQuery();
+  const {data: userProfile} = useGetUserProfileQuery();
   console.log('the user', userProfile);
   const {navigate} = useNavigation<HomeNavigatorParams>();
-  const [userProfileData, setUserProfileData] =
-    React.useState<any>(userProfile);
-  useEffect(() => {
-    setUserProfileData(userProfile?.data);
-  }, [userProfile]);
-  console.log('userProfileData', userProfileData);
-  const handleUpdateUserDetail = (data: any) => {
-    setUserProfileData(({field, value}: any) => {
-      return {
-        ...field,
-        [value]: data,
-      };
-    });
-  };
   const storesOption = [
     {
       icon: sharedImages.icons.person_round_black,
       label: 'Profile Details',
       url: 'ProfileDetails',
-      detail: userProfileData,
-      updateDetail: handleUpdateUserDetail,
+      detail: userProfile?.data,
     },
     {
       icon: sharedImages.icons.shop,
