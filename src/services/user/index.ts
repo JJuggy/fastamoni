@@ -28,24 +28,10 @@ export const UserApi = createApi({
       }),
       invalidatesTags: ['userProfile'],
     }),
-    getUserSearchHistory: builder.query<Response, string>({
-      query: query => ({
-        url: `/search-history?keyword=${query}`,
-        method: 'GET',
-      }),
-    }),
-    clearUserSearchHistory: builder.mutation<Response, void>({
-      query: () => ({
-        url: '/search-history/clear',
-        method: 'DELETE',
-      }),
-    }),
   }),
 });
 export const {
   useGetUserProfileQuery,
   useUpdateUserPasswordMutation,
   useUpdateUserInfoMutation,
-  useClearUserSearchHistoryMutation,
-  useGetUserSearchHistoryQuery,
 } = UserApi;
