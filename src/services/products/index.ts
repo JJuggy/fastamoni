@@ -25,6 +25,12 @@ export const productsApi = createApi({
         method: 'GET',
       }),
     }),
+    getRecentlyViewed: build.query<{data: any}, void>({
+      query: () => ({
+        url: '/products/recently-viewed',
+        method: 'GET',
+      }),
+    }),
     getSimilarProducts: build.query<
       {data: Product[]},
       {
@@ -77,6 +83,7 @@ export const {
   useGetProductsQuery,
   useGetSimilarProductsQuery,
   useGetProductInfoQuery,
+  useGetRecentlyViewedQuery,
   useGetProductQuery,
   useCreateProductMutation,
   useUpdateProductMutation,

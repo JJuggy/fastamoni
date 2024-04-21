@@ -14,19 +14,22 @@ import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useCart} from '@store/cart/hook';
+import MoreOngoingDets from './components/moreOngoingDets';
+import {current} from '@reduxjs/toolkit';
 
-const getView = (screen: string, type?: string) => {
+const getView = (screen: string, changeCurrentTab?: any) => {
   switch (screen) {
     case 'My cart':
       return <CartTab />;
     case 'Ongoing':
-      return <OngoingTab type={type} />;
+      return <OngoingTab changeCurrentTab={changeCurrentTab} />;
     case 'Completed':
       return <CompletedTab />;
     default:
       null;
   }
 };
+
 const OrdersScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
@@ -34,14 +37,17 @@ const OrdersScreen = () => {
   // const {tab} = route?.params as {tab: string | undefined};
   const [currentTab, setCurrentTab] = useState('My cart');
   // // const {type} = route.params as {type: string};
-
   // useEffect(() => {
   //   const focusSubscription = navigation.addListener('focus', () => {
   //     setCurrentTab(tab);
   //   });
   //   return focusSubscription;
   // }, [navigation, tab]);
-
+  const changeCurrentTab = (tab: string, type: string) => {
+    setCurrentTab(tab);
+    setCustomerType(type);
+  };
+  const [customerType, setCustomerType] = useState('buyer');
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -65,12 +71,19 @@ const OrdersScreen = () => {
             onPress={() => {
               setCurrentTab('Ongoing');
             }}
-            textStyle={{color: currentTab === 'Ongoing' ? 'white' : '#707070'}}
+            textStyle={{
+              color:
+                currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
+                  ? 'white'
+                  : '#707070',
+            }}
             style={{
               borderRadius: 18,
               padding: 14,
               backgroundColor:
-                currentTab === 'Ongoing' ? colors.primary : '#D2D2D2',
+                currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
+                  ? colors.primary
+                  : '#D2D2D2',
             }}>
             Ongoing
           </PressableView>
@@ -92,8 +105,11 @@ const OrdersScreen = () => {
         </FlexedView>
         <Spacer />
         {currentTab === 'My cart' && getView('My cart')}
-        {currentTab === 'Ongoing' && getView('Ongoing', 'buyer')}
-        {currentTab === 'Completed' && getView('Completed')}
+        {currentTab === 'Ongoing' && getView('Ongoing', changeCurrentTab)}
+        {currentTab === 'Completed' && getView('Completed', changeCurrentTab)}
+        {currentTab === 'MoreOngoingDets' && (
+          <MoreOngoingDets customerType={customerType} />
+        )}
       </ViewContainer>
     </SafeAreaView>
   );

@@ -22,9 +22,9 @@ export interface homeCardProps {
   location?: string;
   dealThumbnail: string;
   showCondition: boolean;
-  pickup_state: string;
-  pickup_city: string;
-  pickup_address: string;
+  pickup_state?: string;
+  pickup_city?: string;
+  pickup_address?: string;
 }
 const HomeCard = ({
   item,
@@ -85,10 +85,28 @@ const HomeCard = ({
         }),
       ),
         show({
-          as: 'bottomSheet',
+          as: 'topSheet',
           content: (
-            <View style={{backgroundColor: 'white', padding: 20}}>
-              <Text>Added to cart</Text>
+            <View
+              style={{
+                backgroundColor: '#1E89DD',
+                padding: 20,
+                paddingTop: 60,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  style={styles.icons}
+                  source={sharedImages.icons.checkCircle}
+                  tintColor={colors.white}
+                />
+                <Text style={{color: 'white'}}>Cart successfully updated</Text>
+              </View>
             </View>
           ),
         });

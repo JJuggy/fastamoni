@@ -27,21 +27,30 @@ import {
 } from '@services/user';
 const ProfileDetails = () => {
   const route = useRoute();
-  const {detail} = route.params;
+  const {detail} = route.params as any;
   const {show, close} = useModal();
+  const [name, setName] = useState({
+    firstName: detail?.first_name,
+    lastName: detail?.last_name,
+  });
+  const [phoneNumber, setPhoneNumber] = useState(detail?.phone_number);
+  const [email, setEmail] = useState(detail?.email);
   const ProfileDetailOptions = [
     {
       label: 'Account Name',
-      detail: `${detail.first_name} ${detail.last_name}`,
+      detail: `${name.firstName} ${name.lastName}`,
+      updateName: setName,
     },
     {
       label: 'Phone Number',
-      detail: `${'09058196256'} `,
+      detail: `${phoneNumber != '' ? phoneNumber : '+234'} `,
+      updatePhoneNumber: setPhoneNumber,
     },
 
     {
       label: 'Email Address',
-      detail: `${detail.email} `,
+      detail: `${email} `,
+      updateEmail: setEmail,
     },
     {
       label: 'Password',
@@ -53,9 +62,9 @@ const ProfileDetails = () => {
       <ViewContainer>
         <Header title="Profile Details" />
         <View>
-          {ProfileDetailOptions.map((option, index) =>
-            ProfileDetailView(option),
-          )}
+          {ProfileDetailOptions.map((option, index) => (
+            <View key={index}>{ProfileDetailView(option as any)}</View>
+          ))}
         </View>
       </ViewContainer>
       <Pressable
@@ -151,9 +160,15 @@ const ProfileDetails = () => {
 const ProfileDetailView = ({
   label,
   detail,
+  updateName,
+  updatePhoneNumber,
+  updateEmail,
 }: {
   label: string;
   detail: string;
+  updateName?: () => void;
+  updatePhoneNumber: () => void;
+  updateEmail: () => void;
 }) => {
   const {show, close} = useModal();
   const handleShowEditModal = (tab: string) => {
@@ -161,25 +176,32 @@ const ProfileDetailView = ({
       case 'Account Name':
         show({
           as: 'normal',
-          content: <AccountNameModal />,
+          content: <AccountNameModal updateName={updateName} close={close} />,
         });
         break;
       case 'Phone Number':
         show({
           as: 'normal',
-          content: <PhoneNumberModal />,
+          content: (
+            <PhoneNumberModal
+              updatePhoneNumber={updatePhoneNumber}
+              close={close}
+            />
+          ),
         });
         break;
       case 'Email Address':
         show({
           as: 'normal',
-          content: <EmailAddressModal />,
+          content: (
+            <EmailAddressModal updateEmail={updateEmail} close={close} />
+          ),
         });
         break;
       case 'Password':
         show({
           as: 'normal',
-          content: <EditPasswordModal />,
+          content: <EditPasswordModal close={close} />,
         });
         break;
       default:
@@ -227,23 +249,34 @@ const ProfileDetailView = ({
     </FlexedView>
   );
 };
-const AccountNameModal = () => {
+const AccountNameModal = ({updateName, close}: any) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
-  const handleInput = (field, value) => {
+  const handleInput = (field: string, value: string) => {
     if (field == 'First Name') {
       setFirstName(value);
+      updateName({
+        firstName: value,
+        lastName: lastName,
+      });
     } else {
       setLastName(value);
+      updateName({
+        firstName: firstName,
+        lastName: value,
+      });
     }
   };
   const handleSubmit = () => {
-    console.log('the dets', firstName, lastName);
     updateUserInfo({
       first_name: firstName,
       last_name: lastName,
-    });
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
   };
   return (
     <View
@@ -292,10 +325,18 @@ const AccountNameModal = () => {
     </View>
   );
 };
-const PhoneNumberModal = () => {
+const PhoneNumberModal = ({updatePhoneNumber, close}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
-    console.log('the phone number', phoneNumber);
+    updateUserInfo({
+      phone_number: phoneNumber,
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
+    updatePhoneNumber(phoneNumber);
   };
   return (
     <View
@@ -322,15 +363,27 @@ const PhoneNumberModal = () => {
           onChangeText={text => setPhoneNumber(text)}
           label="Phone Number"
         />
-        <AppButton onPress={handleSubmit} text="Update phone number" />
+        <AppButton
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Update phone number"
+        />
       </View>
     </View>
   );
 };
-const EmailAddressModal = () => {
+const EmailAddressModal = ({updateEmail, close}: any) => {
   const [email, setEmail] = useState('');
+  const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
-    console.log('the email', email);
+    updateUserInfo({
+      email: email,
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
+    updateEmail(email);
   };
 
   return (
@@ -358,12 +411,16 @@ const EmailAddressModal = () => {
           }}
           label="Email Address"
         />
-        <AppButton onPress={handleSubmit} text="Update email address" />
+        <AppButton
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Update email address"
+        />
       </View>
     </View>
   );
 };
-const EditPasswordModal = () => {
+const EditPasswordModal = ({close}: any) => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [updateUserPassword, {isLoading}] = useUpdateUserPasswordMutation();
@@ -371,7 +428,11 @@ const EditPasswordModal = () => {
     updateUserPassword({
       old_password: oldPassword,
       new_password: newPassword,
-    });
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
   };
   return (
     <View
