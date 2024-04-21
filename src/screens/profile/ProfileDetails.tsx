@@ -176,25 +176,32 @@ const ProfileDetailView = ({
       case 'Account Name':
         show({
           as: 'normal',
-          content: <AccountNameModal updateName={updateName} />,
+          content: <AccountNameModal updateName={updateName} close={close} />,
         });
         break;
       case 'Phone Number':
         show({
           as: 'normal',
-          content: <PhoneNumberModal updatePhoneNumber={updatePhoneNumber} />,
+          content: (
+            <PhoneNumberModal
+              updatePhoneNumber={updatePhoneNumber}
+              close={close}
+            />
+          ),
         });
         break;
       case 'Email Address':
         show({
           as: 'normal',
-          content: <EmailAddressModal updateEmail={updateEmail} />,
+          content: (
+            <EmailAddressModal updateEmail={updateEmail} close={close} />
+          ),
         });
         break;
       case 'Password':
         show({
           as: 'normal',
-          content: <EditPasswordModal />,
+          content: <EditPasswordModal close={close} />,
         });
         break;
       default:
@@ -242,7 +249,7 @@ const ProfileDetailView = ({
     </FlexedView>
   );
 };
-const AccountNameModal = ({updateName}: any) => {
+const AccountNameModal = ({updateName, close}: any) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
@@ -265,7 +272,11 @@ const AccountNameModal = ({updateName}: any) => {
     updateUserInfo({
       first_name: firstName,
       last_name: lastName,
-    }).unwrap();
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
   };
   return (
     <View
@@ -314,13 +325,17 @@ const AccountNameModal = ({updateName}: any) => {
     </View>
   );
 };
-const PhoneNumberModal = ({updatePhoneNumber}: any) => {
+const PhoneNumberModal = ({updatePhoneNumber, close}: any) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
     updateUserInfo({
       phone_number: phoneNumber,
-    }).unwrap();
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
     updatePhoneNumber(phoneNumber);
   };
   return (
@@ -357,13 +372,17 @@ const PhoneNumberModal = ({updatePhoneNumber}: any) => {
     </View>
   );
 };
-const EmailAddressModal = ({updateEmail}: any) => {
+const EmailAddressModal = ({updateEmail, close}: any) => {
   const [email, setEmail] = useState('');
   const [updateUserInfo, {isLoading}] = useUpdateUserInfoMutation();
   const handleSubmit = () => {
     updateUserInfo({
       email: email,
-    }).unwrap();
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
     updateEmail(email);
   };
 
@@ -401,7 +420,7 @@ const EmailAddressModal = ({updateEmail}: any) => {
     </View>
   );
 };
-const EditPasswordModal = () => {
+const EditPasswordModal = ({close}: any) => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [updateUserPassword, {isLoading}] = useUpdateUserPasswordMutation();
@@ -409,7 +428,11 @@ const EditPasswordModal = () => {
     updateUserPassword({
       old_password: oldPassword,
       new_password: newPassword,
-    });
+    })
+      .unwrap()
+      .then(() => {
+        close();
+      });
   };
   return (
     <View
