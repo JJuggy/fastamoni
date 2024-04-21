@@ -41,9 +41,15 @@ export const historyApi = createApi({
         },
       }),
     }),
-    deleteHistory: build.mutation<Response, any>({
+    deleteHistory: build.mutation<Response, string>({
       query: id => ({
-        url: `/history/delete/${id}`,
+        url: `/search-history/remove/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+    clearHistory: build.mutation<Response, void>({
+      query: () => ({
+        url: '/search-history/clear',
         method: 'DELETE',
       }),
     }),
@@ -56,4 +62,5 @@ export const {
   useCreateHistoryMutation,
   useUpdateHistoryMutation,
   useDeleteHistoryMutation,
+  useClearHistoryMutation,
 } = historyApi;
