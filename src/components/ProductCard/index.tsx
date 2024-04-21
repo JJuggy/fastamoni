@@ -15,9 +15,8 @@ interface ProductCardProps {
   discountedPrice?: string;
   productImgHeight?: number;
   withStoreRating?: boolean;
-  productImages: any;
   condition: string;
-  rating: number;
+  rating?: number;
   pickup_state?: string;
   pickup_city?: string;
   pickup_address?: string;

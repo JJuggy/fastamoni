@@ -9,6 +9,7 @@ import {useDispatch} from 'react-redux';
 import {updateCart} from '@store/cart';
 import {NAIRA} from '@utility/naira';
 import {useUpdateCartItemMutation} from '@services/carts';
+import colors from '@utility/colors';
 
 const OrderItem = ({orders}: {orders: Cartitem[]}) => {
   const dispatch = useDispatch();
@@ -58,6 +59,14 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
     saveCartItems(ordersClone);
   };
 
+  const removeItem = (item: Cartitem) => {
+    let ordersClone = [...orders];
+
+    let newOrders = ordersClone.filter(o => o.productId !== item.productId);
+    dispatch(updateCart({products: newOrders}));
+    saveCartItems(newOrders);
+  };
+
   return orders?.map((order: Cartitem, index: number) => {
     return (
       <View key={index}>
@@ -98,54 +107,64 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
                 </Paragraph>
               </View>
             </FlexedView>
-            <View
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 7,
-                flexDirection: 'row',
-                paddingHorizontal: 6,
-                marginTop: 'auto',
-                paddingVertical: 4,
-              }}>
+            <View>
               <Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                onPress={() => {
-                  updateItem('dec', order);
-                }}>
+                onPress={() => removeItem(order)}
+                style={styles.closeIcon}>
                 <Image
-                  tintColor={'#1E89DD'}
-                  style={{
-                    width: 15,
-                    height: 2,
-                    marginRight: 5,
-                  }}
-                  source={sharedImages.icons.minus}
+                  tintColor={colors.primary}
+                  source={sharedImages.icons.close}
                 />
               </Pressable>
-              <Paragraph
-                fontSize={16}
+              <View
                 style={{
-                  marginHorizontal: 10,
+                  backgroundColor: 'white',
+                  borderRadius: 7,
+                  flexDirection: 'row',
+                  paddingHorizontal: 6,
+                  marginTop: 'auto',
+                  paddingVertical: 4,
                 }}>
-                {order.quantity}
-              </Paragraph>
-              <Pressable
-                onPress={() => {
-                  updateItem('inc', order);
-                }}>
-                <Image
-                  tintColor={'#1E89DD'}
+                <Pressable
                   style={{
-                    width: 16,
-                    height: 16,
-                    marginLeft: 5,
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
-                  source={sharedImages.icons.add}
-                />
-              </Pressable>
+                  onPress={() => {
+                    updateItem('dec', order);
+                  }}>
+                  <Image
+                    tintColor={'#1E89DD'}
+                    style={{
+                      width: 15,
+                      height: 2,
+                      marginRight: 5,
+                    }}
+                    source={sharedImages.icons.minus}
+                  />
+                </Pressable>
+                <Paragraph
+                  fontSize={16}
+                  style={{
+                    marginHorizontal: 10,
+                  }}>
+                  {order.quantity}
+                </Paragraph>
+                <Pressable
+                  onPress={() => {
+                    updateItem('inc', order);
+                  }}>
+                  <Image
+                    tintColor={'#1E89DD'}
+                    style={{
+                      width: 16,
+                      height: 16,
+                      marginLeft: 5,
+                    }}
+                    source={sharedImages.icons.add}
+                  />
+                </Pressable>
+              </View>
             </View>
           </FlexedView>
         </View>
@@ -163,5 +182,15 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingVertical: 12,
     paddingHorizontal: 12,
+  },
+  closeIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    backgroundColor: colors.white,
+    marginBottom: 20,
   },
 });
