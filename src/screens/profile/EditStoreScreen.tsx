@@ -10,6 +10,10 @@ import {useGetStoreQuery} from '@services/stores';
 import {useAuth} from '@store/auth/hook';
 import Header from '@components/header';
 import {pickImage} from '@utility/helpers';
+import {useModal} from '@providers/DynamicModalProvider';
+import {AppTextInput} from '@components/TextInput';
+import {AppButton} from '@components/button';
+import {store} from '@store/index';
 
 const EditStoreScreen = () => {
   const {user} = useAuth();
@@ -20,7 +24,6 @@ const EditStoreScreen = () => {
     logo: storeDetail?.data.logo.url,
     banner: storeDetail?.data.banner.url,
   });
-  console.log('storeDetail', storeDetail);
   const uploadImage = (type: 'logo' | 'banner') => {
     if (type === 'logo') {
       pickImage('upload', (err, img) => {
@@ -36,6 +39,74 @@ const EditStoreScreen = () => {
       });
     }
   };
+  const EditStoreView = ({
+    label,
+    detail,
+  }: {
+    label: string;
+    detail: string;
+    updateName?: () => void;
+    updatePhoneNumber: () => void;
+    updateEmail: () => void;
+  }) => {
+    const {show, close} = useModal();
+    const handleShowEditModal = (tab: string) => {
+      switch (tab) {
+        case 'Store Name':
+          show({
+            as: 'normal',
+            content: (
+              <EditStoreNameModal
+                storeInfo={storeInfo}
+                setStoreInfo={setStoreInfo}
+                close={close}
+              />
+            ),
+          });
+        default:
+          break;
+      }
+    };
+    return (
+      <FlexedView
+        style={{
+          backgroundColor: colors.white,
+          padding: 6,
+          paddingVertical: 16,
+          marginVertical: 8,
+          paddingHorizontal: 12,
+        }}
+        justifyContent="space-between">
+        <View
+          style={{
+            flexDirection: 'column',
+          }}>
+          <Paragraph
+            color="#737373"
+            style={{
+              marginBottom: 6,
+            }}
+            fontWeight="500">
+            {label}
+          </Paragraph>
+          <Paragraph color="#737373" fontWeight="300">
+            {detail}
+          </Paragraph>
+        </View>
+        <Pressable
+          onPress={() => {
+            handleShowEditModal(label);
+          }}>
+          <Image
+            tintColor={'#737373'}
+            style={{width: 20, height: 20}}
+            source={sharedImages.icons.editPencil}
+          />
+        </Pressable>
+      </FlexedView>
+    );
+  };
+
   return (
     <SafeAreaView style={{height: '100%'}}>
       <ViewContainer>
@@ -93,52 +164,39 @@ const EditStoreScreen = () => {
 };
 
 export default EditStoreScreen;
-const EditStoreView = ({
-  label,
-  detail,
-}: {
-  label: string;
-  detail: string;
-  updateName?: () => void;
-  updatePhoneNumber: () => void;
-  updateEmail: () => void;
-}) => {
+
+const EditStoreNameModal = ({setStoreInfo, storeInfo}: any) => {
+  const [storeName, setStoreName] = useState('');
+  const handleSubmit = () => {};
+
   return (
-    <FlexedView
+    <View
       style={{
-        backgroundColor: colors.white,
-        padding: 6,
-        paddingVertical: 16,
-        marginVertical: 8,
-        paddingHorizontal: 12,
-      }}
-      justifyContent="space-between">
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
       <View
         style={{
-          flexDirection: 'column',
+          backgroundColor: colors.white,
+          width: '90%',
+          borderRadius: 15,
+          padding: 12,
+          paddingVertical: 20,
         }}>
-        <Paragraph
-          color="#737373"
-          style={{
-            marginBottom: 6,
+        <AppTextInput
+          value={storeName}
+          onChangeText={text => setStoreName(text)}
+          inputStyle={{
+            backgroundColor: '#E1E1E1',
           }}
-          fontWeight="500">
-          {label}
-        </Paragraph>
-        <Paragraph color="#737373" fontWeight="300">
-          {detail}
-        </Paragraph>
+          labelStyle={{
+            fontWeight: '700',
+          }}
+          label="Store Name"
+        />
+        <AppButton onPress={handleSubmit} text="Update store name" />
       </View>
-      <View>
-        <Pressable>
-          <Image
-            tintColor={'#737373'}
-            style={{width: 20, height: 20}}
-            source={sharedImages.icons.editPencil}
-          />
-        </Pressable>
-      </View>
-    </FlexedView>
+    </View>
   );
 };
 const styles = StyleSheet.create({});
