@@ -32,6 +32,7 @@ import ReadMoreFaq from '@screens/profile/ReadMoreFaq';
 import AllCategoriesScreen from '@screens/home/AllCategoriesScreen';
 import CategoryScreen from '@screens/home/CategoryScreen';
 import AllDealsScreen from '@screens/home/AllDealsScreen/AllDealsScreen';
+import EditStoreScreen from '@screens/profile/EditStoreScreen';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -165,6 +166,7 @@ const ProfileStack = () => {
         headerShown: false,
       }}>
       <Screen name="ProfileScreen" component={ProfileScreen} />
+      <Screen name="EditStoreScreen" component={EditStoreScreen} />
       <Screen name="TransactionHistory" component={TransactionHistory} />
       <Screen name="RecentlyViewed" component={RecentlyViewed} />
       <Screen name="MyStore" component={MyStore} />

@@ -37,7 +37,7 @@ import {useDispatch} from 'react-redux';
 import {Text} from 'react-native';
 
 const HomeScreen: React.FC = ({}) => {
-  const {data: allProducts, refetch} = useGetProductsQuery();
+  const {data: allProducts, refetch} = useGetProductsQuery({title: ''});
   const {data: allCategories} = useGetCategoriesQuery();
   const {data: topStores} = useGetTopStoresQuery();
   const dispatch = useDispatch();

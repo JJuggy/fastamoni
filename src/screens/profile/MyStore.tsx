@@ -52,7 +52,7 @@ const MyStore = () => {
 
   console.log(products, 'storeProducts');
 
-  const {goBack} = useNavigation<HomeNavigatorParams>();
+  const {goBack, navigate} = useNavigation<HomeNavigatorParams>();
 
   const ListHeader = () => {
     return (
@@ -150,7 +150,11 @@ const MyStore = () => {
                 </Pressable>
               }
               rightItem={
-                <Pressable onPress={goBack} style={[styles.backBtn]}>
+                <Pressable
+                  onPress={() => {
+                    navigate('EditStoreScreen');
+                  }}
+                  style={[styles.backBtn]}>
                   <Image
                     tintColor={colors.white}
                     source={sharedImages.icons.settings}

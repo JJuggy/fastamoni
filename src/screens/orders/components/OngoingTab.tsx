@@ -30,7 +30,7 @@ const OngoingTab = ({changeCurrentTab}: any) => {
     <SafeAreaView>
       <ScrollView style={{height: '100%'}}>
         <Spacer />
-        {cart.cart.length > 0 ? (
+        {cart.cart.length == 0 ? (
           <View
             style={{
               alignItems: 'center',

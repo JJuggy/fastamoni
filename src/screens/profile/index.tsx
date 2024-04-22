@@ -25,11 +25,6 @@ const ProfileScreen = () => {
       detail: userProfile?.data,
     },
     {
-      icon: sharedImages.icons.shop,
-      label: 'Store Details',
-      url: 'MyStore',
-    },
-    {
       icon: sharedImages.icons.wallet,
       label: 'Wallet',
       url: 'Wallet',
@@ -75,20 +70,25 @@ const ProfileScreen = () => {
             </FlexedView>
           </ViewContainer>
           <ViewContainer style={styles.grayHeading}>
-            <FlexedView>
-              <Image
-                tintColor={colors.black}
-                source={sharedImages.icons.shop}
-                style={{
-                  height: widthPixel(30),
-                  width: widthPixel(30),
-                  marginRight: 10,
-                }}
-              />
-              <Paragraph fontWeight="600" fontSize={14}>
-                My Store
-              </Paragraph>
-            </FlexedView>
+            <Pressable onPress={() => navigate('MyStore')}>
+              <FlexedView justifyContent="space-between">
+                <FlexedView>
+                  <Image
+                    tintColor={colors.black}
+                    source={sharedImages.icons.shop}
+                    style={{
+                      height: widthPixel(30),
+                      width: widthPixel(30),
+                      marginRight: 10,
+                    }}
+                  />
+                  <Paragraph fontWeight="600" fontSize={14}>
+                    My Store
+                  </Paragraph>
+                </FlexedView>
+                <Image source={sharedImages.icons.chevron_right} />
+              </FlexedView>
+            </Pressable>
           </ViewContainer>
           <ViewContainer>
             {storesOption.map(op => (
