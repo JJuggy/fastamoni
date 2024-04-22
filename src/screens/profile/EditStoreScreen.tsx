@@ -14,6 +14,7 @@ import {useModal} from '@providers/DynamicModalProvider';
 import {AppTextInput} from '@components/TextInput';
 import {AppButton} from '@components/button';
 import {store} from '@store/index';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 const EditStoreScreen = () => {
   const {user} = useAuth();
@@ -24,6 +25,11 @@ const EditStoreScreen = () => {
     logo: storeDetail?.data.logo.url,
     banner: storeDetail?.data.banner.url,
   });
+  const {show, close} = useModal();
+  const copyToClipboard = (text: string) => {
+    console.warn('copying', text);
+    Clipboard.setString(text);
+  };
   const uploadImage = (type: 'logo' | 'banner') => {
     if (type === 'logo') {
       pickImage('upload', (err, img) => {
@@ -39,9 +45,28 @@ const EditStoreScreen = () => {
       });
     }
   };
+  const handleShowEditModal = (tab: string) => {
+    switch (tab) {
+      case 'Store Name':
+        show({
+          as: 'normal',
+          content: (
+            <EditStoreNameModal
+              storeInfo={storeInfo}
+              setStoreInfo={setStoreInfo}
+              close={close}
+            />
+          ),
+        });
+      default:
+        break;
+    }
+  };
   const EditStoreView = ({
     label,
     detail,
+    icon,
+    action,
   }: {
     label: string;
     detail: string;
@@ -49,24 +74,6 @@ const EditStoreScreen = () => {
     updatePhoneNumber: () => void;
     updateEmail: () => void;
   }) => {
-    const {show, close} = useModal();
-    const handleShowEditModal = (tab: string) => {
-      switch (tab) {
-        case 'Store Name':
-          show({
-            as: 'normal',
-            content: (
-              <EditStoreNameModal
-                storeInfo={storeInfo}
-                setStoreInfo={setStoreInfo}
-                close={close}
-              />
-            ),
-          });
-        default:
-          break;
-      }
-    };
     return (
       <FlexedView
         style={{
@@ -95,12 +102,12 @@ const EditStoreScreen = () => {
         </View>
         <Pressable
           onPress={() => {
-            handleShowEditModal(label);
+            action(label);
           }}>
           <Image
             tintColor={'#737373'}
             style={{width: 20, height: 20}}
-            source={sharedImages.icons.editPencil}
+            source={icon}
           />
         </Pressable>
       </FlexedView>
@@ -111,8 +118,18 @@ const EditStoreScreen = () => {
     <SafeAreaView style={{height: '100%'}}>
       <ViewContainer>
         <Header title="Store Details" />
-        <EditStoreView label={'Store Name'} detail={storeInfo.name} />
-        <EditStoreView label={'Store URL'} detail={storeDetail?.data.name} />
+        <EditStoreView
+          icon={sharedImages.icons.editPencil}
+          label={'Store Name'}
+          detail={storeInfo.name}
+          action={label => handleShowEditModal(label)}
+        />
+        <EditStoreView
+          icon={sharedImages.icons.copy}
+          label={'Store URL'}
+          detail={storeDetail?.data.name}
+          action={label => copyToClipboard('Store url ')}
+        />
         <View
           style={{
             backgroundColor: colors.white,
