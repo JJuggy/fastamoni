@@ -58,5 +58,6 @@ export default {
     device: require('../assets/icons/device.png'),
     checkCircle: require('../assets/icons/check-circle.png'),
     cancelRed: require('../assets/icons/cancel-red.png'),
+    blueCheckSuccess: require('../assets/icons/blue-check-success.png'),
   },
 };
