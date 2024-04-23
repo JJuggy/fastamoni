@@ -85,7 +85,7 @@ const CreateStore = () => {
   return (
     <BaseView background={colors.background}>
       <View style={styles.container}>
-        <Header title="Create store" />
+        <Header title="Set Up store" />
         <View style={{flex: 1}}>
           <ScrollView
             contentContainerStyle={{paddingBottom: 200}}
@@ -167,7 +167,7 @@ const CreateStore = () => {
             <Spacer height={35} />
             <AppButton
               variant="primary"
-              text="Create Store"
+              text="Set up"
               onPress={createStore}
               isLoading={isLoading}
             />

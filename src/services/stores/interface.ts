@@ -10,6 +10,5 @@ export interface CreateStoreArgs {
 }
 
 export interface UpdateStoreArgs {
-  id: number;
   body: Partial<Store>;
 }

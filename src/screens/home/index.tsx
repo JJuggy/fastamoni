@@ -44,7 +44,7 @@ const HomeScreen: React.FC = ({}) => {
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
   const {data: cartItems} = useGetCartQuery();
 
-  console.log(homeDeals, 'homeDeals');
+  console.log(allCategories, 'allCategories');
 
   useEffect(() => {
     setHomeDeals(allProducts?.data);

@@ -57,16 +57,18 @@ const ProfileScreen = () => {
           contentContainerStyle={{paddingBottom: 150}}>
           <ViewContainer style={styles.profileH}>
             <FlexedView>
-              <View>
-                <Paragraph color={colors.white}>{`Welcome ${
-                  userProfile?.data.first_name +
-                  ' ' +
-                  userProfile?.data.last_name
-                }`}</Paragraph>
-                <Paragraph color={colors.white}>
-                  {userProfile?.data?.email}
-                </Paragraph>
-              </View>
+              {userProfile?.data != undefined && (
+                <View>
+                  <Paragraph color={colors.white}>{`Welcome ${
+                    userProfile?.data.first_name +
+                    ' ' +
+                    userProfile?.data.last_name
+                  }`}</Paragraph>
+                  <Paragraph color={colors.white}>
+                    {userProfile?.data?.email}
+                  </Paragraph>
+                </View>
+              )}
             </FlexedView>
           </ViewContainer>
           <ViewContainer style={styles.grayHeading}>

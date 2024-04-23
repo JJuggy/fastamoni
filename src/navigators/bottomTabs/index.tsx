@@ -161,12 +161,13 @@ const BottomTabNavigator = () => {
 const ProfileStack = () => {
   return (
     <Navigator
-      initialRouteName="ProfileScreen"
+    initialRouteName="ProfileScreen"
       screenOptions={{
         headerShown: false,
       }}>
       <Screen name="ProfileScreen" component={ProfileScreen} />
       <Screen name="EditStoreScreen" component={EditStoreScreen} />
+      <Screen name="CreateStore" component={CreateStore} />
       <Screen name="TransactionHistory" component={TransactionHistory} />
       <Screen name="RecentlyViewed" component={RecentlyViewed} />
       <Screen name="MyStore" component={MyStore} />
