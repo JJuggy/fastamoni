@@ -26,6 +26,7 @@ import {useAuth} from '@store/auth/hook';
 const PlaceOrder = () => {
   const {data} = useGetCategoriesQuery();
   const {user} = useAuth();
+  console.log('the user is', user);
   const navigation = useNavigation();
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [createProduct, {isLoading}] = useCreateProductMutation();

@@ -57,5 +57,6 @@ export default {
     thumbsDown: require('../assets/icons/thumbs-down.png'),
     device: require('../assets/icons/device.png'),
     checkCircle: require('../assets/icons/check-circle.png'),
+    cancelRed: require('../assets/icons/cancel-red.png'),
   },
 };

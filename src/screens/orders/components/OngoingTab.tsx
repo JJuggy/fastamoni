@@ -63,7 +63,7 @@ const OngoingTab = ({changeCurrentTab}: any) => {
         ) : (
           <OngoingItem
             changeCurrentTab={changeCurrentTab}
-            type="seller"
+            type="buyer"
             orders={cart.cart}
           />
         )}
