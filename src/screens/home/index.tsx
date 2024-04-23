@@ -154,7 +154,7 @@ const HomeScreen: React.FC = ({}) => {
             }}
             justifyContent="center">
             <AppTextInput
-              onPressIn={() => {
+              onFocus={() => {
                 navigation.navigate('SearchScreen');
               }}
               leftIcon={

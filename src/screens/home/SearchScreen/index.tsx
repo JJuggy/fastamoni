@@ -33,13 +33,6 @@ const SearchScreen = () => {
   const [searchResult, setSearchResult] = React.useState([]);
   const [searchText, setSearchText] = React.useState('');
   const [debounceValue, setDebounceValue] = React.useState('');
-  const [recentlySearched, setRecentlySearched] = React.useState([
-    'Iphone',
-    'Brown Table',
-    'Generator',
-    'Laptop',
-    'Hisense Tv',
-  ]);
   const {data, isLoading, refetch} = useGetProductsQuery(
     {title: debounceValue},
     {
