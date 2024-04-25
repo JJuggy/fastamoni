@@ -65,7 +65,7 @@ const CompletedTab = () => {
     );
   };
   return (
-    <ScrollView style={{height: '100%'}}>
+    <ScrollView>
       {completedOrders.map((completedOrder: ICompleteOrder, index: number) => {
         return completeView(completedOrder, index);
       })}

@@ -28,7 +28,7 @@ const OngoingTab = ({changeCurrentTab}: any) => {
   const cart = useCart();
   return (
     <SafeAreaView>
-      <ScrollView style={{height: '100%'}}>
+      <ScrollView style={{}}>
         <Spacer />
         {cart.cart.length == 0 ? (
           <View
