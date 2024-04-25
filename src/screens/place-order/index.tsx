@@ -21,9 +21,12 @@ import mime from 'mime';
 import {grades} from './options';
 import {useGetCategoriesQuery} from '@services/categories';
 import {notifyError, notifySucess} from '@utility/notify';
+import {useAuth} from '@store/auth/hook';
 
 const PlaceOrder = () => {
   const {data} = useGetCategoriesQuery();
+  const {user} = useAuth();
+  console.log('the user is', user);
   const navigation = useNavigation();
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [createProduct, {isLoading}] = useCreateProductMutation();
@@ -35,7 +38,6 @@ const PlaceOrder = () => {
     condition: '',
     images: [] as string[],
     price: '',
-
     state: '',
     lga: '',
     model_no: '',
@@ -157,19 +159,25 @@ const PlaceOrder = () => {
         name: newImageUri.split('/').pop(),
       });
     });
-
-    createProduct(formD)
-      .unwrap()
-      .then(res => {
-        console.log(res.data, 'CREATE STORE RESPONSE');
-        notifySucess('Success', 'Product created successfully');
-        resetState();
-        navigate('HomeScreen');
-      })
-      .catch(err => {
-        notifyError('Error', 'Something broke');
-        console.log(err, 'CREATE STORE RESPONSE');
-      });
+    {
+      false
+        ? createProduct(formD)
+            .unwrap()
+            .then(res => {
+              console.log(res.data, 'CREATE STORE RESPONSE');
+              notifySucess('Success', 'Product created successfully');
+              resetState();
+              navigate('HomeScreen');
+            })
+            .catch(err => {
+              notifyError('Error', 'Something broke');
+              console.log(err, 'CREATE STORE RESPONSE');
+            })
+        : notifyError(
+            'Error',
+            'Please update your store details before uploading products',
+          );
+    }
   };
 
   return (
@@ -354,7 +362,7 @@ const PlaceOrder = () => {
                   keyboardType="number-pad"
                   onChangeText={text => updateItemInfo('price', text)}
                 />
-                <AppTextInput placeholder="Commision 20%" editable={false} />
+                <AppTextInput placeholder="Commision 10%" editable={false} />
                 <AppTextInput
                   placeholder="Pickup address"
                   value={itemInfo.pickup_address}
@@ -370,7 +378,7 @@ const PlaceOrder = () => {
                     style={{flex: 1, marginLeft: 10}}
                     fontSize={12}
                     color={colors.gray}>
-                    A 20% commission would be charged upon successful sale of
+                    A 10% commission would be charged upon successful sale of
                     this product
                   </Paragraph>
                 </FlexedView>

@@ -37,14 +37,14 @@ import {useDispatch} from 'react-redux';
 import {Text} from 'react-native';
 
 const HomeScreen: React.FC = ({}) => {
-  const {data: allProducts, refetch} = useGetProductsQuery();
+  const {data: allProducts, refetch} = useGetProductsQuery({title: ''});
   const {data: allCategories} = useGetCategoriesQuery();
   const {data: topStores} = useGetTopStoresQuery();
   const dispatch = useDispatch();
   const [homeDeals, setHomeDeals] = useState(allProducts?.data);
   const {data: cartItems} = useGetCartQuery();
 
-  console.log(homeDeals, 'homeDeals');
+  console.log(allCategories, 'allCategories');
 
   useEffect(() => {
     setHomeDeals(allProducts?.data);
@@ -154,7 +154,7 @@ const HomeScreen: React.FC = ({}) => {
             }}
             justifyContent="center">
             <AppTextInput
-              onPressIn={() => {
+              onFocus={() => {
                 navigation.navigate('SearchScreen');
               }}
               leftIcon={

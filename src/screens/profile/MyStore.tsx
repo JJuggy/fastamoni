@@ -32,6 +32,7 @@ import {
   useGetStoreQuery,
 } from '@services/stores';
 import {useAuth} from '@store/auth/hook';
+import {Text} from 'react-native';
 
 const MyStore = () => {
   const {user} = useAuth();
@@ -50,9 +51,9 @@ const MyStore = () => {
   const metric = storeMetrics?.data;
   const products = storeProducts?.data?.products;
 
-  console.log(products, 'storeProducts');
+  console.log(storeProducts, 'storeProducts');
 
-  const {goBack} = useNavigation<HomeNavigatorParams>();
+  const {goBack, navigate} = useNavigation<HomeNavigatorParams>();
 
   const ListHeader = () => {
     return (
@@ -66,7 +67,7 @@ const MyStore = () => {
               <Paragraph fontSize={17} color={colors.black} fontWeight="600">
                 {storeInfo?.name}
               </Paragraph>
-              <Paragraph>store</Paragraph>
+              <Paragraph fontWeight="300">Your store activity</Paragraph>
             </View>
             <View style={{alignItems: 'center'}}>
               <Pressable>
@@ -79,54 +80,78 @@ const MyStore = () => {
                   }}
                 />
               </Pressable>
-              <Paragraph>4/30 posts</Paragraph>
+              <Paragraph fontWeight="300">4/30 posts</Paragraph>
             </View>
           </FlexedView>
         </ViewContainer>
-        <ViewContainer>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View
-              style={[
-                styles.metric,
-                {backgroundColor: randomColor(metricColors)},
-              ]}>
-              <Paragraph textAlign="center">Item Sold</Paragraph>
-              <Paragraph mt={5} textAlign="center">
-                {metric?.items_sold}
-              </Paragraph>
-            </View>
-            <View
-              style={[
-                styles.metric,
-                {backgroundColor: randomColor(metricColors)},
-              ]}>
-              <Paragraph textAlign="center">Total Sales</Paragraph>
-              <Paragraph mt={5} textAlign="center">
-                {metric?.total_sales}
-              </Paragraph>
-            </View>
-            <View
-              style={[
-                styles.metric,
-                {backgroundColor: randomColor(metricColors)},
-              ]}>
-              <Paragraph textAlign="center">Sales Rating</Paragraph>
-              <Paragraph mt={5} textAlign="center">
-                {metric?.rating}
-              </Paragraph>
-            </View>
-            <View
-              style={[
-                styles.metric,
-                {backgroundColor: randomColor(metricColors)},
-              ]}>
-              <Paragraph textAlign="center">Profile Impression</Paragraph>
-              <Paragraph mt={5} textAlign="center">
-                {metric?.profile_views}
-              </Paragraph>
-            </View>
-          </ScrollView>
-        </ViewContainer>
+        <View
+          style={{
+            backgroundColor: colors.white,
+            maxWidth: '95%',
+            alignSelf: 'center',
+            flexDirection: 'column',
+            padding: 10,
+            borderRadius: 10,
+          }}>
+          <FlexedView
+            justifyContent="space-between"
+            style={{marginVertical: 5}}>
+            <Paragraph fontSize={15} fontWeight="600">
+              Performance metrics
+            </Paragraph>
+            <Paragraph fontSize={10} fontWeight="300">
+              Last 7 days
+            </Paragraph>
+          </FlexedView>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderRadius: 10,
+            }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View
+                style={[
+                  styles.metric,
+                  {backgroundColor: randomColor(metricColors)},
+                ]}>
+                <Paragraph textAlign="center">Item Sold</Paragraph>
+                <Paragraph mt={5} textAlign="center">
+                  {metric?.items_sold}
+                </Paragraph>
+              </View>
+              <View
+                style={[
+                  styles.metric,
+                  {backgroundColor: randomColor(metricColors)},
+                ]}>
+                <Paragraph textAlign="center">Total Sales</Paragraph>
+                <Paragraph mt={5} textAlign="center">
+                  {metric?.total_sales}
+                </Paragraph>
+              </View>
+              <View
+                style={[
+                  styles.metric,
+                  {backgroundColor: randomColor(metricColors)},
+                ]}>
+                <Paragraph textAlign="center">Sales Rating</Paragraph>
+                <Paragraph mt={5} textAlign="center">
+                  {metric?.rating}
+                </Paragraph>
+              </View>
+              <View
+                style={[
+                  styles.metric,
+                  {backgroundColor: randomColor(metricColors)},
+                ]}>
+                <Paragraph textAlign="center">Profile Impression</Paragraph>
+                <Paragraph mt={5} textAlign="center">
+                  {metric?.profile_views}
+                </Paragraph>
+              </View>
+            </ScrollView>
+          </View>
+        </View>
         <Spacer />
       </View>
     );
@@ -150,7 +175,11 @@ const MyStore = () => {
                 </Pressable>
               }
               rightItem={
-                <Pressable onPress={goBack} style={[styles.backBtn]}>
+                <Pressable
+                  onPress={() => {
+                    navigate('CreateStore');
+                  }}
+                  style={[styles.backBtn]}>
                   <Image
                     tintColor={colors.white}
                     source={sharedImages.icons.settings}
@@ -209,7 +238,7 @@ const styles = StyleSheet.create({
   metric: {
     marginHorizontal: 5,
     padding: 8,
-    borderRadius: 10,
+    borderRadius: 13,
     paddingHorizontal: 15,
   },
 });

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '@components/header';
 import {
@@ -9,18 +9,14 @@ import {
   ViewContainer,
 } from '@components/view';
 import colors from '@utility/colors';
-import CartTab from './components/CartTab';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useCart} from '@store/cart/hook';
 import MoreOngoingDets from './components/moreOngoingDets';
-import {current} from '@reduxjs/toolkit';
+import {View} from 'react-native';
 
 const getView = (screen: string, changeCurrentTab?: any) => {
   switch (screen) {
-    case 'My cart':
-      return <CartTab />;
     case 'Ongoing':
       return <OngoingTab changeCurrentTab={changeCurrentTab} />;
     case 'Completed':
@@ -35,7 +31,7 @@ const OrdersScreen = () => {
   const navigation = useNavigation();
 
   // const {tab} = route?.params as {tab: string | undefined};
-  const [currentTab, setCurrentTab] = useState('My cart');
+  const [currentTab, setCurrentTab] = useState('Ongoing');
   // // const {type} = route.params as {type: string};
   // useEffect(() => {
   //   const focusSubscription = navigation.addListener('focus', () => {
@@ -52,21 +48,10 @@ const OrdersScreen = () => {
     <SafeAreaView>
       <ViewContainer>
         <Header title="Orders" />
-
-        <FlexedView style={{marginTop: 15}} justifyContent="space-between">
-          <PressableView
-            onPress={() => {
-              setCurrentTab('My cart');
-            }}
-            textStyle={{color: currentTab === 'My cart' ? 'white' : '#707070'}}
-            style={{
-              borderRadius: 18,
-              padding: 14,
-              backgroundColor:
-                currentTab === 'My cart' ? colors.primary : '#D2D2D2',
-            }}>
-            My cart
-          </PressableView>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          style={{marginTop: 15}}
+          horizontal={true}>
           <PressableView
             onPress={() => {
               setCurrentTab('Ongoing');
@@ -84,8 +69,23 @@ const OrdersScreen = () => {
                 currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
                   ? colors.primary
                   : '#D2D2D2',
+              marginRight: 5,
             }}>
             Ongoing
+          </PressableView>
+          <PressableView
+            onPress={() => {
+              setCurrentTab('Pending');
+            }}
+            textStyle={{color: currentTab === 'Pending' ? 'white' : '#707070'}}
+            style={{
+              borderRadius: 18,
+              padding: 14,
+              backgroundColor:
+                currentTab === 'Pending' ? colors.primary : '#D2D2D2',
+              marginRight: 5,
+            }}>
+            Pending
           </PressableView>
           <PressableView
             textStyle={{
@@ -99,17 +99,37 @@ const OrdersScreen = () => {
               padding: 14,
               backgroundColor:
                 currentTab === 'Completed' ? colors.primary : '#D2D2D2',
+              marginRight: 5,
             }}>
             Completed
           </PressableView>
-        </FlexedView>
+          <PressableView
+            onPress={() => {
+              setCurrentTab('Cancelled');
+            }}
+            textStyle={{
+              color: currentTab === 'Cancelled' ? 'white' : '#707070',
+            }}
+            style={{
+              borderRadius: 18,
+              padding: 14,
+              backgroundColor:
+                currentTab === 'Cancelled' ? colors.primary : '#D2D2D2',
+              marginRight: 5,
+            }}>
+            Cancelled
+          </PressableView>
+        </ScrollView>
         <Spacer />
-        {currentTab === 'My cart' && getView('My cart')}
-        {currentTab === 'Ongoing' && getView('Ongoing', changeCurrentTab)}
-        {currentTab === 'Completed' && getView('Completed', changeCurrentTab)}
-        {currentTab === 'MoreOngoingDets' && (
-          <MoreOngoingDets customerType={customerType} />
-        )}
+        <View>
+          {currentTab === 'Pending' && getView('Pending')}
+          {currentTab === 'Ongoing' && getView('Ongoing', changeCurrentTab)}
+          {currentTab === 'Completed' && getView('Completed', changeCurrentTab)}
+          {currentTab === 'Cancelled' && getView('Cancelled', changeCurrentTab)}
+          {currentTab === 'MoreOngoingDets' && (
+            <MoreOngoingDets customerType={customerType} />
+          )}
+        </View>
       </ViewContainer>
     </SafeAreaView>
   );

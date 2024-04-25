@@ -12,9 +12,11 @@ import Header from '@components/header';
 import data from '../../data';
 import {Paragraph} from '@components/text/text';
 import {heightPixel} from '@utility/pxToDpConvert';
+import {useNavigation} from '@react-navigation/native';
 
 const TransactionHistory = () => {
   const {transactionHistory} = data;
+  const {navigate} = useNavigation();
   return (
     <BaseView>
       <ViewContainer>
@@ -43,7 +45,11 @@ const TransactionHistory = () => {
                     textAlign="right">
                     {item.status === 'cancelled' ? item.status : item.order}
                   </Paragraph>
-                  <Pressable>
+                  <Pressable
+                    onPress={() => {
+                      // Navigate to TransactionDetail
+                      navigate('TransactionDetail');
+                    }}>
                     <Paragraph
                       color={colors.gray}
                       fontWeight="400"

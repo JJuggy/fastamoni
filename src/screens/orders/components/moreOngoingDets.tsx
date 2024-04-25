@@ -7,10 +7,13 @@ import {Image} from 'react-native';
 import sharedImages from '@utility/sharedImages';
 import colors from '@utility/colors';
 import CodeInputField from '@components/code-field';
+import {useModal} from '@providers/DynamicModalProvider';
+import {AppButton} from '@components/button';
 
 const MoreOngoingDets = ({customerType = 'buyer'}) => {
   const [inputCodeValue, setInputCodeValue] = React.useState(['', '', '', '']);
   const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
+  const {show, close} = useModal();
   return (
     <View>
       {customerType === 'buyer' ? (
@@ -99,15 +102,57 @@ const MoreOngoingDets = ({customerType = 'buyer'}) => {
                   </FlexedView>
                 </Pressable>
               ) : (
-                <Paragraph
-                  style={{
-                    color: '#DE3D31',
-                    backgroundColor: colors.white,
-                    marginLeft: 'auto',
-                    padding: 6,
+                <Pressable
+                  onPress={() => {
+                    show({
+                      as: 'normal',
+                      content: (
+                        <View
+                          style={{
+                            width: '80%',
+                            backgroundColor: 'white',
+                            borderRadius: 12,
+                            padding: 12,
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            alignSelf: 'center',
+                            paddingVertical: 12,
+                            minHeight: 150,
+                          }}>
+                          <Image
+                            style={{alignSelf: 'center', height: 30, width: 30}}
+                            source={sharedImages.icons.cancelRed}
+                          />
+                          <View style={{marginVertical: 12}}>
+                            <Paragraph style={{textAlign: 'center'}}>
+                              Are you sure you want to cancel order?
+                            </Paragraph>
+                            <Paragraph
+                              style={{textAlign: 'center'}}
+                              color="#F44336"
+                              fontSize={12}
+                              fontWeight="300">
+                              You will be charged 10% cancellation fee?
+                            </Paragraph>
+                          </View>
+                          <AppButton
+                            text="Proceed"
+                            style={{backgroundColor: 'red', marginTop: 'auto'}}
+                          />
+                        </View>
+                      ),
+                    });
                   }}>
-                  Cancel Order
-                </Paragraph>
+                  <Paragraph
+                    style={{
+                      color: '#DE3D31',
+                      backgroundColor: colors.white,
+                      marginLeft: 'auto',
+                      padding: 6,
+                    }}>
+                    Cancel Order
+                  </Paragraph>
+                </Pressable>
               )}
             </Pressable>
           </View>
