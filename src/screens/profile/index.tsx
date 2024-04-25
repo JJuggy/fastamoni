@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
@@ -72,33 +72,40 @@ const ProfileScreen = () => {
           contentContainerStyle={{paddingBottom: 150}}>
           <ViewContainer style={styles.profileH}>
             <FlexedView>
-              <View>
-                <Paragraph color={colors.white}>{`Welcome ${
-                  userProfile?.data.first_name +
-                  ' ' +
-                  userProfile?.data.last_name
-                }`}</Paragraph>
-                <Paragraph color={colors.white}>
-                  {userProfile?.data?.email}
-                </Paragraph>
-              </View>
+              {userProfile?.data != undefined && (
+                <View>
+                  <Paragraph color={colors.white}>{`Welcome ${
+                    userProfile?.data.first_name +
+                    ' ' +
+                    userProfile?.data.last_name
+                  }`}</Paragraph>
+                  <Paragraph color={colors.white}>
+                    {userProfile?.data?.email}
+                  </Paragraph>
+                </View>
+              )}
             </FlexedView>
           </ViewContainer>
           <ViewContainer style={styles.grayHeading}>
-            <FlexedView>
-              <Image
-                tintColor={colors.black}
-                source={sharedImages.icons.shop}
-                style={{
-                  height: widthPixel(30),
-                  width: widthPixel(30),
-                  marginRight: 10,
-                }}
-              />
-              <Paragraph fontWeight="600" fontSize={14}>
-                My Store
-              </Paragraph>
-            </FlexedView>
+            <Pressable onPress={() => navigate('MyStore')}>
+              <FlexedView justifyContent="space-between">
+                <FlexedView>
+                  <Image
+                    tintColor={colors.black}
+                    source={sharedImages.icons.shop}
+                    style={{
+                      height: widthPixel(30),
+                      width: widthPixel(30),
+                      marginRight: 10,
+                    }}
+                  />
+                  <Paragraph fontWeight="600" fontSize={14}>
+                    My Store
+                  </Paragraph>
+                </FlexedView>
+                <Image source={sharedImages.icons.chevron_right} />
+              </FlexedView>
+            </Pressable>
           </ViewContainer>
           <ViewContainer>
             {storesOption.map(op => (

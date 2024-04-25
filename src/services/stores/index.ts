@@ -50,10 +50,14 @@ export const storesApi = createApi({
       }),
     }),
     updateStore: build.mutation<Store, UpdateStoreArgs>({
-      query: ({id, body}) => ({
-        url: `/stores/${id}`,
-        method: 'PUT',
-        body,
+      query: body => ({
+        url: `/store/update`,
+        method: 'PATCH',
+        headers: {
+          accept: 'application/json',
+          'content-type': 'multipart/form-data',
+        },
+        body: body,
       }),
       invalidatesTags: ['Store'],
     }),

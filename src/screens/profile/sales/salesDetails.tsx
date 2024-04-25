@@ -8,6 +8,7 @@ import sharedImages from '@utility/sharedImages';
 import colors from '@utility/colors';
 import CodeInputField from '@components/code-field';
 import Header from '@components/header';
+import {AppButton} from '@components/button';
 
 const SaleDetail = () => {
   const [inputCodeValue, setInputCodeValue] = React.useState(['', '', '', '']);
@@ -30,8 +31,8 @@ const SaleDetail = () => {
           <Spacer />
 
           <CodeInputField setInputCode={setInputCodeValue} />
-
           <Spacer />
+          <AppButton text="Confirm" />
         </View>
       </ViewContainer>
     </BaseView>
