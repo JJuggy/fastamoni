@@ -3,6 +3,8 @@ import React from 'react';
 import {FlexedView, Spacer} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import data from '../../../data';
+import {Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 interface ICompleteOrder {
   orderNumber: string;
@@ -14,7 +16,7 @@ interface ICompleteOrder {
 }
 const CompletedTab = () => {
   const {completedOrders} = data;
-
+  const {navigate} = useNavigation();
   const completeView = (details: ICompleteOrder, index: number) => {
     return (
       <FlexedView
@@ -49,9 +51,15 @@ const CompletedTab = () => {
             </Paragraph>
           )}
           <Spacer />
-          <Paragraph color="#737373" fontSize={12} fontWeight="300">
-            View details
-          </Paragraph>
+          <Pressable
+            onPress={() => {
+              // Navigate to TransactionDetail
+              navigate('TransactionDetail');
+            }}>
+            <Paragraph color="#737373" fontSize={12} fontWeight="300">
+              View details
+            </Paragraph>
+          </Pressable>
         </View>
       </FlexedView>
     );
