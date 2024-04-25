@@ -10,13 +10,8 @@ import {
 import React, {useEffect, useRef} from 'react';
 import {Paragraph} from '@components/text/text';
 import {FlexedView, Spacer} from '@components/view';
-import colors from '@utility/colors';
 import sharedImages from '@utility/sharedImages';
-import OrderItem from '@components/orders/orderItem';
 import data from '../../../data';
-import {IOrder, IOrderProps} from 'src/types';
-import CodeInputField from '@components/code-field';
-import {Linking} from 'react-native';
 import OngoingItem from '@components/orders/ongoingItem';
 import {useCart} from '@store/cart/hook';
 import {AppButton} from '@components/button';
@@ -28,7 +23,7 @@ const OngoingTab = ({changeCurrentTab}: any) => {
   const cart = useCart();
   return (
     <SafeAreaView>
-      <ScrollView style={{}}>
+      <ScrollView >
         <Spacer />
         {cart.cart.length == 0 ? (
           <View
