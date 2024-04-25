@@ -8,6 +8,8 @@ import FilterScreen from '@screens/filter';
 import ProductDetails from '@screens/product-details';
 import Checkout from '@screens/orders/Checkout';
 import ProfileDetails from '@screens/profile/ProfileDetails';
+import Cart from '@screens/profile/Cart';
+import Sales from '@screens/profile/sales';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
@@ -24,6 +26,8 @@ const UserLoggedIn = () => {
       <Screen name="SearchScreen" component={SearchScreen} />
       <Screen name="ProductDetails" component={ProductDetails} />
       <Screen name="Checkout" component={Checkout} />
+      <Screen name="Cart" component={Cart} />
+      <Screen name="Sales" component={Sales} />
     </Navigator>
   );
 };

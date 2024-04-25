@@ -33,4 +33,6 @@ export type HomeScreenParam = {
   AllDealsScreen: {
     deals: any;
   };
+  Cart: undefined;
+  Sales: undefined;
 };

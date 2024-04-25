@@ -19,7 +19,7 @@ export const productsApi = createApi({
         title?: string;
       }
     >({
-      query: ({title}) => ({
+      query: ({title = ''}) => ({
         url: `/products?title=${title}`,
         method: 'GET',
       }),

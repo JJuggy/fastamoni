@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingVertical: 12,
     paddingHorizontal: 12,
+    marginBottom: 15,
   },
   closeIcon: {
     width: 30,
