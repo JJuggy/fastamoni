@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
 import Header from '@components/header';
 import sharedImages from '@utility/sharedImages';
@@ -23,6 +23,21 @@ const ProfileScreen = () => {
       label: 'Profile Details',
       url: 'ProfileDetails',
       detail: userProfile?.data,
+    },
+    {
+      icon: sharedImages.icons.shop,
+      label: 'Store Details',
+      url: 'MyStore',
+    },
+    {
+      icon: sharedImages.icons.cart,
+      label: 'My Cart',
+      url: 'Cart',
+    },
+    {
+      icon: sharedImages.icons.orders,
+      label: 'My Sales',
+      url: 'Sales',
     },
     {
       icon: sharedImages.icons.wallet,
