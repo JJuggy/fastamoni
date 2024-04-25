@@ -35,4 +35,5 @@ export type HomeScreenParam = {
   };
   Cart: undefined;
   Sales: undefined;
+  SaleDetail: {id: string | number};
 };

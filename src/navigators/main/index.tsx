@@ -10,6 +10,7 @@ import Checkout from '@screens/orders/Checkout';
 import ProfileDetails from '@screens/profile/ProfileDetails';
 import Cart from '@screens/profile/Cart';
 import Sales from '@screens/profile/sales';
+import SaleDetail from '@screens/profile/sales/salesDetails';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
@@ -28,6 +29,7 @@ const UserLoggedIn = () => {
       <Screen name="Checkout" component={Checkout} />
       <Screen name="Cart" component={Cart} />
       <Screen name="Sales" component={Sales} />
+      <Screen name="SaleDetail" component={SaleDetail} />
     </Navigator>
   );
 };
