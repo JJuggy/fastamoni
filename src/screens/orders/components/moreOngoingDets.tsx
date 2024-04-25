@@ -15,28 +15,16 @@ const MoreOngoingDets = ({customerType = 'buyer'}) => {
   const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
   const {show, close} = useModal();
   return (
-    <View>
-      {customerType === 'buyer' ? (
+    <View style={{marginTop:25}}>
+      {
         <Paragraph fontSize={12}>
           Provide the Seller with the code after inspection and you're satisfied
           with the item, to finalize purchase.
         </Paragraph>
-      ) : (
-        <>
-          <Paragraph fontSize={12}>
-            Payment has been made for your item. Buyer is enroute to your
-            location.
-          </Paragraph>
-          <Paragraph fontSize={13} fontWeight="600" color={colors.primary}>
-            Input the code from the buyer to finalize purchase.
-          </Paragraph>
-        </>
-      )}
+      }
       <Spacer />
 
-      {customerType !== 'buyer' ? (
-        <CodeInputField setInputCode={setInputCodeValue} />
-      ) : (
+      {
         <FlexedView
           style={{paddingHorizontal: 35}}
           justifyContent="space-between">
@@ -60,7 +48,7 @@ const MoreOngoingDets = ({customerType = 'buyer'}) => {
             </View>
           ))}
         </FlexedView>
-      )}
+      }
 
       <Spacer />
       {customerType === 'buyer' && (

@@ -34,6 +34,8 @@ import CategoryScreen from '@screens/home/CategoryScreen';
 import AllDealsScreen from '@screens/home/AllDealsScreen/AllDealsScreen';
 import EditStoreScreen from '@screens/profile/EditStoreScreen';
 import TransactionDetail from '@screens/profile/TransactionDetail';
+import MoreOngoingDets from '@screens/orders/components/moreOngoingDets';
+import OrderDetails from '@screens/orders/order-details';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -166,6 +168,7 @@ const OrdersStack = () => {
         headerShown: false,
       }}>
       <Screen name="OrdersScreen" component={OrdersScreen} />
+      <Screen name="OrderDetails" component={OrderDetails} />
       <Screen name="TransactionDetail" component={TransactionDetail} />
     </Navigator>
   );
