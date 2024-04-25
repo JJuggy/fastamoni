@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useRef, useEffect} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 

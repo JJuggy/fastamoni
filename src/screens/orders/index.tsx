@@ -124,8 +124,9 @@ const OrdersScreen = () => {
         <View>
           {currentTab === 'Pending' && getView('Pending')}
           {currentTab === 'Ongoing' && getView('Ongoing', changeCurrentTab)}
-          {currentTab === 'Completed' && getView('Completed', changeCurrentTab)}
           {currentTab === 'Cancelled' && getView('Cancelled', changeCurrentTab)}
+          {currentTab === 'Completed' && getView('Completed', changeCurrentTab)}
+
           {currentTab === 'MoreOngoingDets' && (
             <MoreOngoingDets customerType={customerType} />
           )}
