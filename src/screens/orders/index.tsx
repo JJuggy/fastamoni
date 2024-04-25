@@ -9,13 +9,10 @@ import {
   ViewContainer,
 } from '@components/view';
 import colors from '@utility/colors';
-import CartTab from './components/CartTab';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useCart} from '@store/cart/hook';
 import MoreOngoingDets from './components/moreOngoingDets';
-import {current} from '@reduxjs/toolkit';
 import {View} from 'react-native';
 
 const getView = (screen: string, changeCurrentTab?: any) => {
