@@ -1,26 +1,19 @@
-import {
-  Image,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native';
+import {Spacer} from '@components/view';
 import {Paragraph} from '@components/text/text';
-import {FlexedView, Spacer} from '@components/view';
 import sharedImages from '@utility/sharedImages';
-import data from '../../../data';
-import OngoingItem from '@components/orders/ongoingItem';
-import {useCart} from '@store/cart/hook';
 import {AppButton} from '@components/button';
 import {useNavigation} from '@react-navigation/native';
+import {useCart} from '@store/cart/hook';
+import OngoingItem from '@components/orders/ongoingItem';
 
-const OngoingTab = ({changeCurrentTab}: any) => {
-  const {orders}: any = data;
+const PendingTab = () => {
   const {navigate} = useNavigation();
   const cart = useCart();
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -56,17 +49,13 @@ const OngoingTab = ({changeCurrentTab}: any) => {
             />
           </View>
         ) : (
-          <OngoingItem
-            type="buyer"
-            orders={cart.cart}
-            tab="ongoing"
-          />
+          <OngoingItem type="buyer" orders={cart.cart} tab="pending" />
         )}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default OngoingTab;
+export default PendingTab;
 
 const styles = StyleSheet.create({});

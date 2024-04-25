@@ -11,7 +11,7 @@ import {NAIRA} from '@utility/naira';
 import {useUpdateCartItemMutation} from '@services/carts';
 import colors from '@utility/colors';
 
-const OrderItem = ({orders}: {orders: Cartitem[]}) => {
+const orderItem = ({orders}: {orders: Cartitem[]}) => {
   const dispatch = useDispatch();
   const [saveCartToServer] = useUpdateCartItemMutation();
 
@@ -173,7 +173,7 @@ const OrderItem = ({orders}: {orders: Cartitem[]}) => {
   });
 };
 
-export default OrderItem;
+export default orderItem;
 
 const styles = StyleSheet.create({
   container: {

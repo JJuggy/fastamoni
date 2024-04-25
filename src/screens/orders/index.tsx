@@ -14,13 +14,19 @@ import CompletedTab from './components/CompletedTab';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import MoreOngoingDets from './components/moreOngoingDets';
 import {View} from 'react-native';
+import PendingTab from './components/PendingTab';
+import CancelledTab from './components/CancelledTab';
 
 const getView = (screen: string, changeCurrentTab?: any) => {
   switch (screen) {
     case 'Ongoing':
-      return <OngoingTab changeCurrentTab={changeCurrentTab} />;
+      return <OngoingTab />;
     case 'Completed':
       return <CompletedTab />;
+    case 'Pending':
+      return <PendingTab />;
+    case 'Cancelled':
+      return <CancelledTab />;
     default:
       null;
   }
@@ -29,16 +35,9 @@ const getView = (screen: string, changeCurrentTab?: any) => {
 const OrdersScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
-
-  // const {tab} = route?.params as {tab: string | undefined};
   const [currentTab, setCurrentTab] = useState('Ongoing');
-  // // const {type} = route.params as {type: string};
-  // useEffect(() => {
-  //   const focusSubscription = navigation.addListener('focus', () => {
-  //     setCurrentTab(tab);
-  //   });
-  //   return focusSubscription;
-  // }, [navigation, tab]);
+
+
   const changeCurrentTab = (tab: string, type: string) => {
     setCurrentTab(tab);
     setCustomerType(type);
@@ -123,12 +122,9 @@ const OrdersScreen = () => {
         <Spacer />
         <View>
           {currentTab === 'Pending' && getView('Pending')}
-          {currentTab === 'Ongoing' && getView('Ongoing', changeCurrentTab)}
-          {currentTab === 'Completed' && getView('Completed', changeCurrentTab)}
-          {currentTab === 'Cancelled' && getView('Cancelled', changeCurrentTab)}
-          {currentTab === 'MoreOngoingDets' && (
-            <MoreOngoingDets customerType={customerType} />
-          )}
+          {currentTab === 'Ongoing' && getView('Ongoing')}
+          {currentTab === 'Completed' && getView('Completed')}
+          {currentTab === 'Cancelled' && getView('Cancelled')}
         </View>
       </ViewContainer>
     </SafeAreaView>

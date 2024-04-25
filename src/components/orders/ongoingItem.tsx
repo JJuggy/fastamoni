@@ -11,24 +11,28 @@ import {NAIRA} from '@utility/naira';
 import {useUpdateCartItemMutation} from '@services/carts';
 import colors from '@utility/colors';
 import {Text} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const OngoingItem = ({
   orders,
   type,
-  changeCurrentTab,
+  tab,
 }: {
   orders: Cartitem[];
   type: string;
-  changeCurrentTab: any;
+  tab: string;
 }) => {
   const [inputCodeValue, setInputCodeValue] = React.useState(['', '', '', '']);
   const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
+  const {navigate} = useNavigation();
   return orders?.map((order: Cartitem, index: number) => {
     return (
       <View key={index}>
         <Pressable
           onPress={() => {
-            changeCurrentTab('MoreOngoingDets', type);
+            navigate('OrderDetails', {
+              tab: tab,
+            });
           }}
           style={styles.container}>
           <FlexedView justifyContent="space-between">
@@ -89,61 +93,6 @@ const OngoingItem = ({
                 </Paragraph>
               </View>
             </FlexedView>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                height: '100%',
-                position: 'absolute',
-                top: 0,
-                right: 0,
-              }}>
-              {type == 'buyer'
-                ? code.map((cd, idx) => (
-                    <View
-                      style={{
-                        borderRadius: 6,
-                        width: 25,
-                        height: 25,
-                        backgroundColor: '#00ABC1',
-                        marginLeft: 3,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: 'white',
-                          fontSize: 12,
-                          fontWeight: '500',
-                        }}>
-                        {cd}
-                      </Text>
-                    </View>
-                  ))
-                : ['', '', '', ''].map((cd, idx) => (
-                    <View
-                      style={{
-                        borderRadius: 6,
-                        width: 25,
-                        height: 25,
-                        backgroundColor: 'transparent',
-                        marginLeft: 3,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderColor: '#4DABF5',
-                        borderWidth: 1,
-                      }}>
-                      <Text
-                        style={{
-                          color: 'white',
-                          fontSize: 12,
-                          fontWeight: '500',
-                        }}>
-                        {cd}
-                      </Text>
-                    </View>
-                  ))}
-            </View>
           </FlexedView>
         </Pressable>
       </View>
