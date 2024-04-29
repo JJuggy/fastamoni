@@ -1,13 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import {SafeAreaView, ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Header from '@components/header';
-import {
-  FlexedView,
-  PressableView,
-  Spacer,
-  ViewContainer,
-} from '@components/view';
+import {PressableView, Spacer, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import OngoingTab from './components/OngoingTab';
 import CompletedTab from './components/CompletedTab';

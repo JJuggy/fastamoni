@@ -1,10 +1,12 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {FlexedView, Spacer} from '@components/view';
 import {Paragraph} from '@components/text/text';
 import data from '../../../data';
 import {Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {HomeNavigatorParams} from 'src/types';
 
 interface ICompleteOrder {
   orderNumber: string;
@@ -16,7 +18,7 @@ interface ICompleteOrder {
 }
 const CompletedTab = () => {
   const {completedOrders} = data;
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   const completeView = (details: ICompleteOrder, index: number) => {
     return (
       <FlexedView

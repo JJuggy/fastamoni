@@ -75,6 +75,7 @@ const HomeScreen: React.FC = ({}) => {
       setCurrentIndex(newIndex as number);
     },
   ).current;
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ViewContainer>
