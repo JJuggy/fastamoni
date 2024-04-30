@@ -1,26 +1,17 @@
-/* eslint-disable react-native/no-inline-styles */
-import {
-  Image,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useEffect, useRef} from 'react';
-import {Paragraph} from '@components/text/text';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
 import {FlexedView, Spacer} from '@components/view';
-import sharedImages from '@utility/sharedImages';
+import {Paragraph} from '@components/text/text';
 import data from '../../../data';
-import OngoingItem from '@components/orders/ongoingItem';
-import {useCart} from '@store/cart/hook';
-import {AppButton} from '@components/button';
+import {Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-
-const OngoingTab = ({changeCurrentTab}: any) => {
-  const {orders}: any = data;
-  const {navigate} = useNavigation();
+import {Image} from 'react-native';
+import sharedImages from '@utility/sharedImages';
+import {AppButton} from '@components/button';
+import OngoingItem from '@components/orders/ongoingItem';
+import {SafeAreaView} from 'react-native';
+import {useCart} from '@store/cart/hook';
+const CancelledTab = () => {
   const cart = useCart();
   return (
     <SafeAreaView>
@@ -57,17 +48,13 @@ const OngoingTab = ({changeCurrentTab}: any) => {
             />
           </View>
         ) : (
-          <OngoingItem
-            type="buyer"
-            orders={cart.cart}
-            tab="ongoing"
-          />
+          <OngoingItem type="buyer" orders={cart.cart} tab="cancelled" />
         )}
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default OngoingTab;
+export default CancelledTab;
 
 const styles = StyleSheet.create({});
