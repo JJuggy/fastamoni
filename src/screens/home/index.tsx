@@ -94,9 +94,7 @@ const HomeScreen: React.FC = ({}) => {
           rightItem={
             <Pressable
               onPress={() => {
-                navigation.navigate('Orders', {
-                  type: 'buyer',
-                });
+                navigation.navigate('Cart');
               }}
               style={{
                 backgroundColor: '#BADEFB',

@@ -62,7 +62,6 @@ const CompletedTab = () => {
           <Spacer />
           <Pressable
             onPress={() => {
-              // Navigate to TransactionDetail
               navigate('TransactionDetail');
             }}>
             <Paragraph color="#737373" fontSize={12} fontWeight="300">

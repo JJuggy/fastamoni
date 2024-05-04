@@ -57,11 +57,7 @@ const OngoingTab = ({changeCurrentTab}: any) => {
             />
           </View>
         ) : (
-          <OngoingItem
-            type="buyer"
-            orders={cart.cart}
-            tab="ongoing"
-          />
+          <OngoingItem type="buyer" orders={cart.cart} tab="ongoing" />
         )}
       </ScrollView>
     </SafeAreaView>
