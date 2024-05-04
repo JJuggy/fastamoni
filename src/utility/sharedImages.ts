@@ -59,5 +59,6 @@ export default {
     checkCircle: require('../assets/icons/check-circle.png'),
     cancelRed: require('../assets/icons/cancel-red.png'),
     blueCheckSuccess: require('../assets/icons/blue-check-success.png'),
+    cancelBall: require('../assets/icons/cancelBall.png'),
   },
 };

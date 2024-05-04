@@ -1,6 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
-import {SafeAreaView, ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import React, {useState} from 'react';
 import Header from '@components/header';
 import {
   FlexedView,
@@ -9,40 +18,44 @@ import {
   ViewContainer,
 } from '@components/view';
 import colors from '@utility/colors';
-import OngoingTab from './components/OngoingTab';
-import CompletedTab from './components/CompletedTab';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import MoreOngoingDets from './components/moreOngoingDets';
+import {useNavigation} from '@react-navigation/native';
 import {View} from 'react-native';
-import PendingTab from './components/PendingTab';
-import CancelledTab from './components/CancelledTab';
-
-const getView = (screen: string, changeCurrentTab?: any) => {
-  switch (screen) {
-    case 'Ongoing':
-      return <OngoingTab />;
-    case 'Completed':
-      return <CompletedTab />;
-    case 'Pending':
-      return <PendingTab />;
-    case 'Cancelled':
-      return <CancelledTab />;
-    default:
-      null;
-  }
-};
+import {useGetOrdersQuery} from '@services/orders';
+import {Paragraph} from '@components/text/text';
+import {AppButton} from '@components/button';
+import sharedImages from '@utility/sharedImages';
+import {NAIRA} from '@utility/naira';
+import {demoOrders} from '../../data';
+import {HomeNavigatorParams} from 'src/types';
 
 const OrdersScreen = () => {
-  const route = useRoute();
-  const navigation = useNavigation();
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   const [currentTab, setCurrentTab] = useState('Ongoing');
+  const {data} = useGetOrdersQuery(currentTab.toUpperCase());
 
+  const getStatusColor = (status: string) => {
+    let color = '';
+    switch (status) {
+      case 'PENDING':
+        color = 'orange';
+        break;
+      case 'COMPLETED':
+        color = colors.success;
+        break;
+      case 'ONGOING':
+        color = colors.warning;
+        break;
+      case 'CANCELLED':
+        color = colors.red;
+        break;
 
-  const changeCurrentTab = (tab: string, type: string) => {
-    setCurrentTab(tab);
-    setCustomerType(type);
+      default:
+        break;
+    }
+
+    return color;
   };
-  const [customerType, setCustomerType] = useState('buyer');
+
   return (
     <SafeAreaView>
       <ViewContainer>
@@ -120,15 +133,84 @@ const OrdersScreen = () => {
           </PressableView>
         </ScrollView>
         <Spacer />
-        <View>
+        <FlatList
+          data={demoOrders}
+          renderItem={({item}) => (
+            <Pressable
+              onPress={() => navigate('OrderDetail', {orderId: '36r364'})}>
+              <FlexedView style={styles.item} justifyContent="space-between">
+                <View>
+                  <Paragraph fontSize={17}>{item?.product_title}</Paragraph>
+                  <Paragraph mt={5}>{item?.order_no}</Paragraph>
+                </View>
+                <View>
+                  <Paragraph
+                    textAlign="right"
+                    fontSize={
+                      17
+                    }>{`${NAIRA} ${item?.total_amount.toLocaleString()}`}</Paragraph>
+                  <Paragraph
+                    fontWeight="500"
+                    textAlign="right"
+                    mt={5}
+                    color={getStatusColor(item?.status)}>
+                    {item?.status}
+                  </Paragraph>
+                </View>
+              </FlexedView>
+            </Pressable>
+          )}
+          ListEmptyComponent={() => (
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: 40,
+              }}>
+              <Image
+                source={sharedImages.emptyCat}
+                style={{
+                  height: 300,
+                  width: '100%',
+                  marginBottom: 40,
+                }}
+              />
+              <Paragraph fontWeight="600" color="#B1B1B1">
+                There is currently no item in this Category
+              </Paragraph>
+              <AppButton
+                style={{
+                  width: '100%',
+                  marginTop: 30,
+                }}
+                variant="primary"
+                text="Back to Home"
+                onPress={() => {
+                  navigate('HomeScreen');
+                }}
+              />
+            </View>
+          )}
+        />
+        {/* <View>
           {currentTab === 'Pending' && getView('Pending')}
           {currentTab === 'Ongoing' && getView('Ongoing')}
           {currentTab === 'Completed' && getView('Completed')}
           {currentTab === 'Cancelled' && getView('Cancelled')}
-        </View>
+        </View> */}
       </ViewContainer>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  item: {
+    paddingVertical: 20,
+    marginBottom: 20,
+    backgroundColor: colors.white,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+  },
+});
 
 export default OrdersScreen;

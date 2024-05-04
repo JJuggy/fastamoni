@@ -75,6 +75,7 @@ const HomeScreen: React.FC = ({}) => {
       setCurrentIndex(newIndex as number);
     },
   ).current;
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ViewContainer>
@@ -93,9 +94,7 @@ const HomeScreen: React.FC = ({}) => {
           rightItem={
             <Pressable
               onPress={() => {
-                navigation.navigate('Orders', {
-                  type: 'buyer',
-                });
+                navigation.navigate('Cart');
               }}
               style={{
                 backgroundColor: '#BADEFB',
