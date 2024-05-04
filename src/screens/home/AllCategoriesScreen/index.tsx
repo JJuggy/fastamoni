@@ -13,6 +13,7 @@ import colors from '@utility/colors';
 const AllCategoriesScreen = () => {
   const route = useRoute();
   const {categories} = route.params as any;
+  const navigation = useNavigation();
   console.log('the cat, ', categories);
   return (
     <SafeAreaView
@@ -36,11 +37,13 @@ const AllCategoriesScreen = () => {
               source={sharedImages.icons.search}
               tintColor={'white'}
             />
-            <Image
-              style={styles.icon}
-              source={sharedImages.icons.cart}
-              tintColor={'white'}
-            />
+            <Pressable onPress={() => navigation.navigate('Cart')}>
+              <Image
+                style={styles.icon}
+                source={sharedImages.icons.cart}
+                tintColor={'white'}
+              />
+            </Pressable>
           </FlexedView>
         }
         // title={details.store.name}

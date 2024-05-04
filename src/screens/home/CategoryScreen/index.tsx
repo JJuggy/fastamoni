@@ -55,11 +55,13 @@ const CategoryScreen = () => {
               source={sharedImages.icons.search}
               tintColor={'white'}
             />
-            <Image
-              style={styles.icon}
-              source={sharedImages.icons.cart}
-              tintColor={'white'}
-            />
+            <Pressable onPress={() => navigation.navigate('Cart')}>
+              <Image
+                style={styles.icon}
+                source={sharedImages.icons.cart}
+                tintColor={'white'}
+              />
+            </Pressable>
           </FlexedView>
         }
       />

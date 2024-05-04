@@ -170,8 +170,8 @@ const HomeScreen: React.FC = ({}) => {
                 backgroundColor: colors.white,
                 borderWidth: 0,
               }}
-              placeholder="Search any product"
-              placeholderTextColor={colors.gray}
+              placeholder="Search any product..."
+              placeholderTextColor={'#BEBEBE'}
               containerStyle={{
                 width: '70%',
                 marginBottom: 0,
@@ -193,7 +193,7 @@ const HomeScreen: React.FC = ({}) => {
               <FlexedView style={{}}>
                 <Paragraph
                   style={{
-                    color: colors.gray,
+                    color: '#BEBEBE',
                   }}>
                   Filter
                 </Paragraph>
@@ -219,7 +219,7 @@ const HomeScreen: React.FC = ({}) => {
               }}>
               <Paragraph
                 fontWeight="700"
-                fontSize={20}
+                fontSize={18}
                 style={{
                   color: colors.white,
                 }}>
@@ -227,19 +227,19 @@ const HomeScreen: React.FC = ({}) => {
               </Paragraph>
               <FlexedView
                 style={{
-                  marginTop: 3,
+                  marginTop: 5,
                 }}>
                 <Image
                   source={sharedImages.icons.clock}
                   tintColor={colors.white}
                   style={{
-                    width: 20,
-                    height: 20,
+                    width: 15,
+                    height: 15,
                   }}
                 />
                 <Paragraph
                   fontWeight="400"
-                  fontSize={15}
+                  fontSize={12}
                   style={{
                     color: colors.white,
                   }}>
@@ -254,22 +254,26 @@ const HomeScreen: React.FC = ({}) => {
                 borderColor: colors.white,
                 padding: 4,
                 borderRadius: 4,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <Paragraph
                 fontWeight="600"
+                fontSize={12}
                 style={{
                   color: colors.white,
                 }}>
                 View all
               </Paragraph>
-              <Image
+              {/* <Image
                 source={sharedImages.icons.arrowRight}
                 tintColor={colors.white}
                 style={{
-                  width: 15,
-                  height: 15,
+                  width: 12,
+                  height: 12,
                 }}
-              />
+              /> */}
             </PressableView>
           </FlexedView>
           <View
