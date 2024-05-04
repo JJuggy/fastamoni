@@ -11,9 +11,10 @@ import {Pressable} from 'react-native';
 import data from '../../data';
 import {ScrollView} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AppTextInput} from '@components/TextInput';
 const Faq = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-
+  const [searchFaq, setSearchFaq] = useState('');
   return (
     <BaseView background={colors.background}>
       <ViewContainer>
@@ -32,6 +33,20 @@ const Faq = () => {
           />
         </FlexedView>
         <Spacer />
+        <AppTextInput
+          onChangeText={text => setSearchFaq(text)}
+          value={searchFaq}
+          placeholderTextColor={'#B1B1B1'}
+          placeholder="Type your search here"
+          containerStyle={{borderWidth: 0, borderColor: 'transparent'}}
+          leftIcon={
+            <Image
+              source={sharedImages.icons.search}
+              style={{width: 16, height: 16}}
+              tintColor={'#B1B1B1'}
+            />
+          }
+        />
         <View
           style={{
             maxWidth: '70%',

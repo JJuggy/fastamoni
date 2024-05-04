@@ -15,8 +15,6 @@ const orderItem = ({orders}: {orders: Cartitem[]}) => {
   const dispatch = useDispatch();
   const [saveCartToServer] = useUpdateCartItemMutation();
 
-  // console.log(orders, 'ORDERSSS');
-
   const saveCartItems = (items: Cartitem[]) => {
     const dataToSubmit = items.map(c => ({
       productId: c.product?._id,
