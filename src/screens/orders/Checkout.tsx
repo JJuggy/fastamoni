@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   BaseView,
   Divider,
@@ -27,10 +27,14 @@ import {windowHeight, writeToClipboard} from '@utility/helpers';
 import {HomeNavigatorParams} from 'src/types';
 import {useNavigation} from '@react-navigation/native';
 import {useCart} from '@store/cart/hook';
+import {Paystack, paystackProps} from 'react-native-paystack-webview';
+import {useCreateOrderMutation} from '@services/orders';
 
 const Checkout = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [payMethod, setPayMethod] = useState('card');
+  const paystackWebViewRef = useRef<paystackProps.PayStackRef>();
+  const [createOrder, {data: paymentInformation}] = useCreateOrderMutation();
   const {close, show} = useModal();
   const {cart} = useCart();
   const itemDiscount = 20000;
@@ -95,20 +99,40 @@ const Checkout = () => {
       </BaseView>
     );
   };
-
   const pay = () => {
     if (payMethod === 'transfer') {
       show({
         as: 'fullscreen',
         content: <TransferModalV />,
       });
+    } else if (payMethod === 'card') {
+      createOrder();
     }
   };
+  useEffect(() => {
+    if (paymentInformation?.data.payment.reference) {
+      paystackWebViewRef.current?.startTransaction();
+    }
+  }, [paymentInformation?.data.payment.reference]);
 
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
         <Header title="Checkout" />
+        {paymentInformation?.data.payment.reference != undefined && (
+          <Paystack
+            paystackKey={'pk_test_9a0d8de922a74f89c633dfa2f555fba40099a97d'}
+            billingEmail="primebazaar@gmail.com"
+            amount={paymentInformation?.data.payment.amount}
+            onCancel={e => {
+              // handle response here
+            }}
+            onSuccess={res => {
+              navigate('OrdersScreen');
+            }}
+            ref={paystackWebViewRef as any}
+          />
+        )}
         <Spacer />
         <View style={{flex: 1}}>
           <ScrollView showsVerticalScrollIndicator={false}>

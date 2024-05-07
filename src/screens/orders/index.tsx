@@ -32,11 +32,10 @@ const OrdersScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [currentTab, setCurrentTab] = useState('Ongoing');
   const {data} = useGetOrdersQuery(currentTab.toUpperCase());
-
   const getStatusColor = (status: string) => {
     let color = '';
     switch (status) {
-      case 'PENDING':
+      case 'AWAITING_PAYMENT':
         color = 'orange';
         break;
       case 'COMPLETED':
@@ -54,6 +53,12 @@ const OrdersScreen = () => {
     }
 
     return color;
+  };
+  const tabNavigator = (tab, item) => {
+    switch (tab) {
+      case 'Pending':
+        navigate('OrderDetails', {tab: tab, item: item});
+    }
   };
 
   return (
@@ -134,10 +139,12 @@ const OrdersScreen = () => {
         </ScrollView>
         <Spacer />
         <FlatList
-          data={demoOrders}
+          data={data?.data}
           renderItem={({item}) => (
             <Pressable
-              onPress={() => navigate('OrderDetail', {orderId: '36r364'})}>
+              onPress={() => {
+                tabNavigator(currentTab, item);
+              }}>
               <FlexedView style={styles.item} justifyContent="space-between">
                 <View>
                   <Paragraph fontSize={17}>{item?.product_title}</Paragraph>
@@ -154,7 +161,7 @@ const OrdersScreen = () => {
                     textAlign="right"
                     mt={5}
                     color={getStatusColor(item?.status)}>
-                    {item?.status}
+                    {item?.status.replace('_', ' ')}
                   </Paragraph>
                 </View>
               </FlexedView>
@@ -192,12 +199,6 @@ const OrdersScreen = () => {
             </View>
           )}
         />
-        {/* <View>
-          {currentTab === 'Pending' && getView('Pending')}
-          {currentTab === 'Ongoing' && getView('Ongoing')}
-          {currentTab === 'Completed' && getView('Completed')}
-          {currentTab === 'Cancelled' && getView('Cancelled')}
-        </View> */}
       </ViewContainer>
     </SafeAreaView>
   );

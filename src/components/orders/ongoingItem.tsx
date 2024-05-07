@@ -39,7 +39,7 @@ const OngoingItem = ({
             <FlexedView>
               {order?.product?.images?.length != 0 && (
                 <Image
-                  source={{uri: order.product?.images?.[0]?.url}}
+                  source={{uri: order.preview_image}}
                   style={{
                     width: 90,
                     height: 90,
@@ -50,7 +50,7 @@ const OngoingItem = ({
 
               <View style={{flexDirection: 'column', marginLeft: 12}}>
                 <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                  {order.product?.store?.[0]?.name ?? 'N?A'}
+                  {order?.store?.name ?? 'N?A'}
                 </Paragraph>
                 <Paragraph
                   fontWeight="500"
@@ -59,7 +59,7 @@ const OngoingItem = ({
                     color: '#494949',
                     marginVertical: 5,
                   }}>
-                  {order.product?.title}
+                  {order?.product_title}
                 </Paragraph>
                 <FlexedView
                   style={{

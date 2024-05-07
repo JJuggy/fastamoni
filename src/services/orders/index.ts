@@ -32,6 +32,12 @@ export const orderApi = createApi({
         method: 'POST',
       }),
     }),
+    // ongoingOrders: build.query<Response, void>({
+    //   query: () => ({
+    //     url: '/orders/ongoing',
+    //     method: 'GET',
+    //   }),
+    // }),
   }),
 });
 

@@ -7,18 +7,18 @@ import {ViewContainer} from '@components/view';
 import Header from '@components/header';
 import {HomeScreenParam} from '@navigators/main/screens';
 import CompletedOrderDetails from './completedOrderDetails';
+import PendingTab from '../components/PendingTab';
 
 type route = RouteProp<HomeScreenParam, 'OrderDetail'>;
 
 export const OrderDetails = () => {
   const {params} = useRoute<route>();
-
   const getView = (tb: string) => {
     switch (tb) {
       case 'ongoing':
         return <CompletedOrderDetails />;
-      case 'pending':
-        return <CompletedOrderDetails />;
+      case 'Pending':
+        return <PendingTab item={params.item} />;
       case 'completed':
         return <CompletedOrderDetails />;
       case 'cancelled':
@@ -30,10 +30,8 @@ export const OrderDetails = () => {
   return (
     <SafeAreaView>
       <ViewContainer>
-        <Header title={`Order ${params.orderId}`} />
-        <View style={{paddingTop: 12}}>
-          {getView(params.orderId as string)}
-        </View>
+        <Header title={` ${params.tab}`} />
+        <View style={{paddingTop: 12}}>{getView(params.tab as string)}</View>
       </ViewContainer>
     </SafeAreaView>
   );

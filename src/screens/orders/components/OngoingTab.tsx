@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {
   Image,
   Pressable,
@@ -17,10 +16,13 @@ import OngoingItem from '@components/orders/ongoingItem';
 import {useCart} from '@store/cart/hook';
 import {AppButton} from '@components/button';
 import {useNavigation} from '@react-navigation/native';
+import {useGetOrdersQuery} from '@services/orders';
 
 const OngoingTab = ({changeCurrentTab}: any) => {
   const {orders}: any = data;
   const {navigate} = useNavigation();
+  // const {data: ongoingOrders} = useGetOrdersQuery('ONGOING');
+  // console.warn('ongoingOrders', ongoingOrders);
   const cart = useCart();
   return (
     <SafeAreaView>
