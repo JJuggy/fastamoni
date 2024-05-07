@@ -10,20 +10,18 @@ import {updateCart} from '@store/cart';
 import {NAIRA} from '@utility/naira';
 import {useUpdateCartItemMutation} from '@services/carts';
 import colors from '@utility/colors';
+import {useModal} from '@providers/DynamicModalProvider';
 
 const orderItem = ({orders}: {orders: Cartitem[]}) => {
   const dispatch = useDispatch();
-  const [saveCartToServer] = useUpdateCartItemMutation();
-
-  // console.log(orders, 'ORDERSSS');
-
+  const [saveCartToServer, error] = useUpdateCartItemMutation();
+  const {show, close} = useModal();
   const saveCartItems = (items: Cartitem[]) => {
     const dataToSubmit = items.map(c => ({
       productId: c.product?._id,
       quantity: c.quantity,
       product_title: c.product_title,
     }));
-
     console.log(dataToSubmit, 'hwats to submoit');
 
     saveCartToServer({
@@ -41,6 +39,22 @@ const orderItem = ({orders}: {orders: Cartitem[]}) => {
   };
 
   const updateItem = (type: 'inc' | 'dec', item: Cartitem) => {
+    if (type == 'inc' && item.product.stock <= item.quantity) {
+      show({
+        as: 'bottomSheet',
+        content: (
+          <View
+            style={{
+              backgroundColor: 'white',
+              paddingVertical: 26,
+              paddingLeft: 12,
+            }}>
+            <Paragraph>This is more than the stock quantity</Paragraph>
+          </View>
+        ),
+      });
+      return;
+    }
     let itemToEdit = {...item};
     let ordersClone = [...orders];
     if (type === 'dec' && itemToEdit.quantity === 1) {

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   BaseView,
   Divider,
@@ -26,12 +26,33 @@ import {useModal} from '@providers/DynamicModalProvider';
 import {windowHeight, writeToClipboard} from '@utility/helpers';
 import {HomeNavigatorParams} from 'src/types';
 import {useNavigation} from '@react-navigation/native';
+import {useCart} from '@store/cart/hook';
+import {Paystack, paystackProps} from 'react-native-paystack-webview';
+import {
+  useCreateOrderMutation,
+  useVerifyOrderPaymentQuery,
+} from '@services/orders';
 
 const Checkout = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [payMethod, setPayMethod] = useState('card');
-  const {close, show} = useModal();
+  const paystackWebViewRef = useRef<paystackProps.PayStackRef>();
+  const [createOrder, {data: paymentInformation, isLoading}] =
+    useCreateOrderMutation();
 
+  const {data, refetch} = useVerifyOrderPaymentQuery(
+    paymentInformation?.data.payment._id,
+  );
+
+  const {close, show} = useModal();
+  const {cart} = useCart();
+  const itemDiscount = 0;
+  const couponDiscount = 0;
+  let totalPrice: number = 0;
+  cart.reduce((total, product: any) => {
+    return (totalPrice = total + product?.product.price * product?.quantity);
+  }, 0);
+  const totalAfterDiscount = totalPrice - itemDiscount - couponDiscount;
   const TransferModalV = () => {
     return (
       <BaseView background={colors.white}>
@@ -87,20 +108,38 @@ const Checkout = () => {
       </BaseView>
     );
   };
-
   const pay = () => {
     if (payMethod === 'transfer') {
       show({
         as: 'fullscreen',
         content: <TransferModalV />,
       });
+    } else if (payMethod === 'card') {
+      createOrder();
     }
   };
+  useEffect(() => {
+    if (paymentInformation?.data.payment.reference) {
+      paystackWebViewRef.current?.startTransaction();
+    }
+  }, [paymentInformation?.data.payment.reference]);
 
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
         <Header title="Checkout" />
+        {paymentInformation?.data.payment.reference != undefined && (
+          <Paystack
+            paystackKey={'pk_test_9a0d8de922a74f89c633dfa2f555fba40099a97d'}
+            billingEmail="primebazaar@gmail.com"
+            amount={paymentInformation?.data.payment.amount}
+            onCancel={e => {
+              // handle response here
+            }}
+            onSuccess={res => {}}
+            ref={paystackWebViewRef as any}
+          />
+        )}
         <Spacer />
         <View style={{flex: 1}}>
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -114,13 +153,15 @@ const Checkout = () => {
               </Paragraph>
             </View>
             <Spacer />
-            <FlexedView justifyContent="space-between">
-              <FlexedView>
-                <Paragraph>1x</Paragraph>
-                <Paragraph>3.5kva Elepaq Generator</Paragraph>
+            {cart.map(item => (
+              <FlexedView justifyContent="space-between">
+                <FlexedView>
+                  <Paragraph>{item.quantity}x</Paragraph>
+                  <Paragraph>{item.product_title}</Paragraph>
+                </FlexedView>
+                <Paragraph>{`${NAIRA}${item?.product?.price}`}</Paragraph>
               </FlexedView>
-              <Paragraph>{`${NAIRA}150,000.00`}</Paragraph>
-            </FlexedView>
+            ))}
             <Spacer height={40} />
             <View>
               <Paragraph fontSize={18} fontWeight="600">
@@ -129,24 +170,24 @@ const Checkout = () => {
               <Spacer />
               <FlexedView justifyContent="space-between">
                 <Paragraph>Order Total</Paragraph>
-                <Paragraph>{`${NAIRA}150,000.00`}</Paragraph>
+                <Paragraph>{`${NAIRA}${totalPrice}`}</Paragraph>
               </FlexedView>
               <Spacer height={10} />
               <FlexedView justifyContent="space-between">
                 <Paragraph>Item discount</Paragraph>
-                <Paragraph>{`${NAIRA}0.00`}</Paragraph>
+                <Paragraph>{`${NAIRA}${itemDiscount}`}</Paragraph>
               </FlexedView>
               <Spacer height={10} />
               <FlexedView justifyContent="space-between">
                 <Paragraph>Coupon Discount</Paragraph>
-                <Paragraph>{`${NAIRA}0.00`}</Paragraph>
+                <Paragraph>{`${NAIRA}${couponDiscount}`}</Paragraph>
               </FlexedView>
               <Spacer height={27} />
               <Divider height={2} />
               <Spacer height={15} />
               <FlexedView justifyContent="space-between">
                 <Paragraph>Total</Paragraph>
-                <Paragraph>{`${NAIRA}150,000.00`}</Paragraph>
+                <Paragraph>{`${NAIRA}${totalAfterDiscount}`}</Paragraph>
               </FlexedView>
             </View>
             <Spacer height={30} />

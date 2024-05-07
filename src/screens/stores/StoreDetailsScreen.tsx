@@ -149,6 +149,7 @@ const StoreDetailsScreen = () => {
       <View style={{flex: 1, zIndex: 100}}>
         <Image style={styles.storeImg} source={{uri: storeDets?.logo?.url}} />
         <FlatList
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: 120,
           }}
@@ -157,8 +158,8 @@ const StoreDetailsScreen = () => {
           renderItem={({item}) => (
             <Pressable style={{flex: 1}}>
               <ProductCard
+                withStoreRating={false}
                 fullWidth={false}
-                storeName={item.store[0].name}
                 {...item}
               />
             </Pressable>

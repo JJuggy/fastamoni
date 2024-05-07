@@ -7,10 +7,10 @@ import SearchScreen from '@screens/home/SearchScreen';
 import FilterScreen from '@screens/filter';
 import ProductDetails from '@screens/product-details';
 import Checkout from '@screens/orders/Checkout';
-import ProfileDetails from '@screens/profile/ProfileDetails';
-import Cart from '@screens/profile/Cart';
+import Cart from '@screens/cart/Cart';
 import Sales from '@screens/profile/sales';
 import SaleDetail from '@screens/profile/sales/salesDetails';
+import OrderDetails from '@screens/orders/order-details';
 
 const {Navigator, Screen} = createStackNavigator<HomeScreenParam>();
 
@@ -30,6 +30,7 @@ const UserLoggedIn = () => {
       <Screen name="Cart" component={Cart} />
       <Screen name="Sales" component={Sales} />
       <Screen name="SaleDetail" component={SaleDetail} />
+      <Screen name="OrderDetail" component={OrderDetails} />
     </Navigator>
   );
 };

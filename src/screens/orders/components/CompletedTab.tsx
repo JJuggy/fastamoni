@@ -1,4 +1,6 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {FlexedView, Spacer} from '@components/view';
 import {Paragraph} from '@components/text/text';
@@ -11,6 +13,7 @@ import {AppButton} from '@components/button';
 import OngoingItem from '@components/orders/ongoingItem';
 import {SafeAreaView} from 'react-native';
 import {useCart} from '@store/cart/hook';
+import {HomeNavigatorParams} from 'src/types';
 
 interface ICompleteOrder {
   orderNumber: string;
@@ -22,7 +25,7 @@ interface ICompleteOrder {
 }
 const CompletedTab = () => {
   const cart = useCart();
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<HomeNavigatorParams>();
   const completeView = (details: ICompleteOrder, index: number) => {
     return (
       <FlexedView
@@ -59,7 +62,6 @@ const CompletedTab = () => {
           <Spacer />
           <Pressable
             onPress={() => {
-              // Navigate to TransactionDetail
               navigate('TransactionDetail');
             }}>
             <Paragraph color="#737373" fontSize={12} fontWeight="300">

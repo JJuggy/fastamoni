@@ -1,11 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Image, Pressable, ScrollView, StyleSheet, View} from 'react-native';
+import {Image, Pressable, ScrollView, View} from 'react-native';
 import React from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
-import colors from '@utility/colors';
 import Header from '@components/header';
 import {Paragraph} from '@components/text/text';
-import {heightPixel} from '@utility/pxToDpConvert';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from 'src/types';
 import {useClearCartMutation} from '@services/carts';

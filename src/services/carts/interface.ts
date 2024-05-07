@@ -2,7 +2,7 @@ import {Product} from '@services/products/interface';
 import {User} from '@store/auth';
 
 export interface Cartitem {
-  product?: Product;
+  product: Product;
   productId?: any;
   quantity: number;
   price?: number;

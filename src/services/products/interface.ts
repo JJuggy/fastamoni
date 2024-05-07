@@ -4,7 +4,7 @@ export interface Product {
   minPrice?: string;
   brand: string;
   model_no: string;
-  
+
   maxPrice?: string;
   description?: string;
   images?: string[];
@@ -15,10 +15,11 @@ export interface Product {
   store: {
     name: string;
     rating: number;
-    _id:string
+    _id: string;
   };
   grade: string;
-  stock?: string | number;
+  stock: number;
   thumbnail?: string;
   condition: string;
+  _id: string;
 }

@@ -50,7 +50,9 @@ const ProductCard = ({
       style={[
         styles.dealcardcontainer,
         {
-          width: fullWidth ? '100%' : width * 0.43,
+          width: fullWidth ? '95%' : width * 0.46,
+          borderWidth: 0.3,
+          alignSelf: 'center',
         },
       ]}>
       {images?.[0]?.url != undefined && (

@@ -50,6 +50,7 @@ const MyStore = () => {
   const storeInfo = storeResponse?.data;
   const metric = storeMetrics?.data;
   const products = storeProducts?.data?.products;
+  const store = storeProducts?.data?.store;
 
   console.log(storeProducts, 'storeProducts');
 
@@ -192,13 +193,19 @@ const MyStore = () => {
         </ImageBackground>
       </View>
       <View style={{zIndex: 100}}>
-        {/* <Image style={styles.storeImg} source={sharedImages.storeImg} /> */}
         <FlatList
-          contentContainerStyle={{paddingBottom: 100}}
+          contentContainerStyle={{paddingBottom: 300}}
           style={{zIndex: 1000}}
           data={products}
           numColumns={2}
-          renderItem={({item}) => <ProductCard fullWidth={false} {...item} />}
+          renderItem={({item}) => (
+            <ProductCard
+              storeName={item.store[0].name}
+              withStoreRating={true}
+              fullWidth={false}
+              {...item}
+            />
+          )}
           ListHeaderComponent={<ListHeader />}
         />
       </View>
