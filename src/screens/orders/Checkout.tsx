@@ -28,17 +28,26 @@ import {HomeNavigatorParams} from 'src/types';
 import {useNavigation} from '@react-navigation/native';
 import {useCart} from '@store/cart/hook';
 import {Paystack, paystackProps} from 'react-native-paystack-webview';
-import {useCreateOrderMutation} from '@services/orders';
+import {
+  useCreateOrderMutation,
+  useVerifyOrderPaymentQuery,
+} from '@services/orders';
 
 const Checkout = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [payMethod, setPayMethod] = useState('card');
   const paystackWebViewRef = useRef<paystackProps.PayStackRef>();
-  const [createOrder, {data: paymentInformation}] = useCreateOrderMutation();
+  const [createOrder, {data: paymentInformation, isLoading}] =
+    useCreateOrderMutation();
+
+  const {data, refetch} = useVerifyOrderPaymentQuery(
+    paymentInformation?.data.payment._id,
+  );
+
   const {close, show} = useModal();
   const {cart} = useCart();
-  const itemDiscount = 20000;
-  const couponDiscount = 8000;
+  const itemDiscount = 0;
+  const couponDiscount = 0;
   let totalPrice: number = 0;
   cart.reduce((total, product: any) => {
     return (totalPrice = total + product?.product.price * product?.quantity);
@@ -127,9 +136,7 @@ const Checkout = () => {
             onCancel={e => {
               // handle response here
             }}
-            onSuccess={res => {
-              navigate('OrdersScreen');
-            }}
+            onSuccess={res => {}}
             ref={paystackWebViewRef as any}
           />
         )}

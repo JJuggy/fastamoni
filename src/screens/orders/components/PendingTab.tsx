@@ -16,7 +16,7 @@ const PendingTab = ({item}: any) => {
   const {navigate} = useNavigation();
   const cart = useCart();
   const {data} = useGetOrdersQuery('PENDING');
-  const remainingPendingItems = data.data.filter(tm => tm._id != item._id);
+  // const remainingPendingItems = data.data.filter(tm => tm._id != item._id);
   return (
     <SafeAreaView>
       <ScrollView>

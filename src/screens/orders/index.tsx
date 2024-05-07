@@ -27,11 +27,13 @@ import sharedImages from '@utility/sharedImages';
 import {NAIRA} from '@utility/naira';
 import {demoOrders} from '../../data';
 import {HomeNavigatorParams} from 'src/types';
+import {useCart} from '@store/cart/hook';
 
 const OrdersScreen = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const [currentTab, setCurrentTab] = useState('Ongoing');
   const {data} = useGetOrdersQuery(currentTab.toUpperCase());
+  console.log(data);
   const getStatusColor = (status: string) => {
     let color = '';
     switch (status) {
@@ -53,12 +55,6 @@ const OrdersScreen = () => {
     }
 
     return color;
-  };
-  const tabNavigator = (tab, item) => {
-    switch (tab) {
-      case 'Pending':
-        navigate('OrderDetails', {tab: tab, item: item});
-    }
   };
 
   return (
@@ -143,7 +139,7 @@ const OrdersScreen = () => {
           renderItem={({item}) => (
             <Pressable
               onPress={() => {
-                tabNavigator(currentTab, item);
+                navigate('OrderDetails', {tab: currentTab, item: item});
               }}>
               <FlexedView style={styles.item} justifyContent="space-between">
                 <View>

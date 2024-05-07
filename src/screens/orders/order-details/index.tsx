@@ -8,6 +8,8 @@ import Header from '@components/header';
 import {HomeScreenParam} from '@navigators/main/screens';
 import CompletedOrderDetails from './completedOrderDetails';
 import PendingTab from '../components/PendingTab';
+import OngoingTab from '../components/OngoingTab';
+import MoreOngoingDets from '../components/moreOngoingDets';
 
 type route = RouteProp<HomeScreenParam, 'OrderDetail'>;
 
@@ -16,10 +18,10 @@ export const OrderDetails = () => {
   const getView = (tb: string) => {
     switch (tb) {
       case 'ongoing':
-        return <CompletedOrderDetails />;
+        return <MoreOngoingDets customerType="buyer" />;
       case 'Pending':
         return <PendingTab item={params.item} />;
-      case 'completed':
+      case 'Completed':
         return <CompletedOrderDetails />;
       case 'cancelled':
         return <CompletedOrderDetails />;
