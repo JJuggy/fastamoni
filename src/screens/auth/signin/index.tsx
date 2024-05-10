@@ -40,7 +40,7 @@ const SignIn: React.FC = () => {
       dispatch(setToken(resp.data?.accessToken));
     } catch (error) {
       notifyError('Error', error?.data?.message);
-      console.log(error?.data?.message, 'erroro');
+      console.log(error, 'erroro');
     }
   };
 

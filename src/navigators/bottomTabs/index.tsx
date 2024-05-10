@@ -168,7 +168,7 @@ const OrdersStack = () => {
         headerShown: false,
       }}>
       <Screen name="OrdersScreen" component={OrdersScreen} />
-      <Screen name="OrderDetails" component={OrderDetails} />
+
       <Screen name="TransactionDetail" component={TransactionDetail} />
     </Navigator>
   );

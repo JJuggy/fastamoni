@@ -30,19 +30,17 @@ import {useCart} from '@store/cart/hook';
 import {Paystack, paystackProps} from 'react-native-paystack-webview';
 import {
   useCreateOrderMutation,
-  useVerifyOrderPaymentQuery,
+  useVerifyOrderPaymentMutation,
 } from '@services/orders';
 
 const Checkout = () => {
-  const {navigate} = useNavigation<HomeNavigatorParams>();
+  const {navigate} = useNavigation();
   const [payMethod, setPayMethod] = useState('card');
   const paystackWebViewRef = useRef<paystackProps.PayStackRef>();
   const [createOrder, {data: paymentInformation, isLoading}] =
     useCreateOrderMutation();
 
-  const {data, refetch} = useVerifyOrderPaymentQuery(
-    paymentInformation?.data.payment._id,
-  );
+  const [verifyPay, refetch] = useVerifyOrderPaymentMutation();
 
   const {close, show} = useModal();
   const {cart} = useCart();
@@ -124,6 +122,15 @@ const Checkout = () => {
     }
   }, [paymentInformation?.data.payment.reference]);
 
+  const verifyPayment = () => {
+    verifyPay(paymentInformation?.data.payment._id)
+      .unwrap()
+      .then(() => {
+        navigate('Orders', {screen: 'OrdersScreen'});
+      })
+      .catch(() => {});
+  };
+
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
@@ -136,7 +143,10 @@ const Checkout = () => {
             onCancel={e => {
               // handle response here
             }}
-            onSuccess={res => {}}
+            onSuccess={res => {
+              console.log(res, 'THE RESPONSE FOR VERUFY');
+              verifyPayment();
+            }}
             ref={paystackWebViewRef as any}
           />
         )}
