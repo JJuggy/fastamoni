@@ -58,88 +58,97 @@ const OrdersScreen = () => {
   };
 
   return (
-    <SafeAreaView>
-      <ViewContainer>
+    <SafeAreaView style={{flex: 1}}>
+      <ViewContainer style={{flex: 1}}>
         <Header title="Orders" />
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          style={{marginTop: 15}}
-          horizontal={true}>
-          <PressableView
-            onPress={() => {
-              setCurrentTab('Ongoing');
-            }}
-            textStyle={{
-              color:
-                currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
-                  ? 'white'
-                  : '#707070',
-            }}
-            style={{
-              borderRadius: 18,
-              padding: 14,
-              backgroundColor:
-                currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
-                  ? colors.primary
-                  : '#D2D2D2',
-              marginRight: 5,
-            }}>
-            Ongoing
-          </PressableView>
-          <PressableView
-            onPress={() => {
-              setCurrentTab('Pending');
-            }}
-            textStyle={{color: currentTab === 'Pending' ? 'white' : '#707070'}}
-            style={{
-              borderRadius: 18,
-              padding: 14,
-              backgroundColor:
-                currentTab === 'Pending' ? colors.primary : '#D2D2D2',
-              marginRight: 5,
-            }}>
-            Pending
-          </PressableView>
-          <PressableView
-            textStyle={{
-              color: currentTab === 'Completed' ? 'white' : '#707070',
-            }}
-            onPress={() => {
-              setCurrentTab('Completed');
-            }}
-            style={{
-              borderRadius: 18,
-              padding: 14,
-              backgroundColor:
-                currentTab === 'Completed' ? colors.primary : '#D2D2D2',
-              marginRight: 5,
-            }}>
-            Completed
-          </PressableView>
-          <PressableView
-            onPress={() => {
-              setCurrentTab('Cancelled');
-            }}
-            textStyle={{
-              color: currentTab === 'Cancelled' ? 'white' : '#707070',
-            }}
-            style={{
-              borderRadius: 18,
-              padding: 14,
-              backgroundColor:
-                currentTab === 'Cancelled' ? colors.primary : '#D2D2D2',
-              marginRight: 5,
-            }}>
-            Cancelled
-          </PressableView>
-        </ScrollView>
+        <View>
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            style={{marginTop: 15}}
+            horizontal={true}>
+            <PressableView
+              onPress={() => {
+                setCurrentTab('Ongoing');
+              }}
+              textStyle={{
+                color:
+                  currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
+                    ? 'white'
+                    : '#707070',
+              }}
+              style={{
+                borderRadius: 18,
+                padding: 14,
+                backgroundColor:
+                  currentTab === 'Ongoing' || currentTab === 'MoreOngoingDets'
+                    ? colors.primary
+                    : '#D2D2D2',
+                marginRight: 5,
+              }}>
+              Ongoing
+            </PressableView>
+            <PressableView
+              onPress={() => {
+                setCurrentTab('Pending');
+              }}
+              textStyle={{
+                color: currentTab === 'Pending' ? 'white' : '#707070',
+              }}
+              style={{
+                borderRadius: 18,
+                padding: 14,
+                backgroundColor:
+                  currentTab === 'Pending' ? colors.primary : '#D2D2D2',
+                marginRight: 5,
+              }}>
+              Pending
+            </PressableView>
+            <PressableView
+              textStyle={{
+                color: currentTab === 'Completed' ? 'white' : '#707070',
+              }}
+              onPress={() => {
+                setCurrentTab('Completed');
+              }}
+              style={{
+                borderRadius: 18,
+                padding: 14,
+                backgroundColor:
+                  currentTab === 'Completed' ? colors.primary : '#D2D2D2',
+                marginRight: 5,
+              }}>
+              Completed
+            </PressableView>
+            <PressableView
+              onPress={() => {
+                setCurrentTab('Cancelled');
+              }}
+              textStyle={{
+                color: currentTab === 'Cancelled' ? 'white' : '#707070',
+              }}
+              style={{
+                borderRadius: 18,
+                padding: 14,
+                backgroundColor:
+                  currentTab === 'Cancelled' ? colors.primary : '#D2D2D2',
+                marginRight: 5,
+              }}>
+              Cancelled
+            </PressableView>
+          </ScrollView>
+        </View>
         <Spacer />
         <FlatList
+          contentContainerStyle={{paddingBottom: 70}}
           data={data?.data}
           renderItem={({item}) => (
             <Pressable
               onPress={() => {
-                navigate('OrderDetails', {tab: currentTab, item: item});
+                navigate('OrderDetail', {
+                  orderId: item?._id,
+                  status: item?.status,
+                  item: item,
+                });
               }}>
               <FlexedView style={styles.item} justifyContent="space-between">
                 <View>

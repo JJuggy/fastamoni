@@ -8,7 +8,11 @@ import sharedImages from '@utility/sharedImages';
 import {Paragraph} from '@components/text/text';
 import {NAIRA} from '@utility/naira';
 
-const CancelledOrderDetails = () => {
+interface IProp {
+  id: string;
+}
+
+const CancelledOrderDetails = ({id}: IProp) => {
   const transactionDetails = {
     'Order Number': '44433',
     'Payment Time': '25-02-2023, 13:22:16',
@@ -37,7 +41,7 @@ const CancelledOrderDetails = () => {
             style={{width: 50, height: 50}}
           />
           <Paragraph fontSize={14} style={{marginVertical: 8}} color="#474747">
-            Payment Success!
+            Order Cancelled!
           </Paragraph>
           <Paragraph style={{marginBottom: 12}} fontWeight="700" fontSize={25}>
             {NAIRA}150000

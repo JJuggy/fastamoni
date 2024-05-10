@@ -38,5 +38,5 @@ export type HomeScreenParam = {
   SaleDetail: {id: string | number};
   OrdersScreen: undefined;
   TransactionDetail: undefined;
-  OrderDetail: {orderId: string | number};
+  OrderDetail: {orderId: string | number; status: string; item: any};
 };

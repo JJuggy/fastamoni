@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {Linking, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Paragraph} from '@components/text/text';
@@ -15,7 +16,7 @@ const MoreOngoingDets = ({customerType = 'buyer'}) => {
   const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
   const {show, close} = useModal();
   return (
-    <View style={{marginTop:25}}>
+    <View style={{marginTop: 25}}>
       {
         <Paragraph fontSize={12}>
           Provide the Seller with the code after inspection and you're satisfied

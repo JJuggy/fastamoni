@@ -6,6 +6,7 @@ import {Response} from '@store/interfaces';
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: axiosBaseQuery({baseHeaders: {}}),
+  tagTypes: ['Auth'],
   endpoints: builder => ({
     login: builder.mutation<Response, LoginRequest>({
       query: credentials => ({

@@ -10,6 +10,9 @@ import CompletedOrderDetails from './completedOrderDetails';
 import PendingTab from '../components/PendingTab';
 import OngoingTab from '../components/OngoingTab';
 import MoreOngoingDets from '../components/moreOngoingDets';
+import PendingOrderDetails from './PendingOrderDetails';
+import OngoingOrderDetails from './OngoingOrderDetails';
+import CancelledOrderDetails from './CancelledOrderDetail';
 
 type route = RouteProp<HomeScreenParam, 'OrderDetail'>;
 
@@ -18,22 +21,24 @@ export const OrderDetails = () => {
   const getView = (tb: string) => {
     switch (tb) {
       case 'ongoing':
-        return <MoreOngoingDets customerType="buyer" />;
-      case 'Pending':
-        return <PendingTab item={params.item} />;
+        return <OngoingOrderDetails id={params?.orderId as string} />;
+      // case 'AWAITING_PAYMENT':
+      //   return <OngoingOrderDetails id={params?.orderId as string} />;
+      case 'AWAITING_PAYMENT':
+        return <PendingOrderDetails id={params?.orderId as string} />;
       case 'Completed':
-        return <CompletedOrderDetails />;
+        return <CompletedOrderDetails id={params?.orderId as string} />;
       case 'cancelled':
-        return <CompletedOrderDetails />;
+        return <CancelledOrderDetails id={params?.orderId as string} />;
       default:
-        return <CompletedOrderDetails />;
+        return;
     }
   };
   return (
-    <SafeAreaView>
-      <ViewContainer>
-        <Header title={` ${params.tab}`} />
-        <View style={{paddingTop: 12}}>{getView(params.tab as string)}</View>
+    <SafeAreaView style={{flex: 1}}>
+      <ViewContainer style={{flex: 1}}>
+        <Header title={'Order detail'} />
+        <View style={{paddingTop: 12, flex: 1}}>{getView(params.status)}</View>
       </ViewContainer>
     </SafeAreaView>
   );

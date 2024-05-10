@@ -20,7 +20,7 @@ export const orderApi = createApi({
         method: 'GET',
       }),
     }),
-    verifyOrderPayment: build.query<Response, string>({
+    verifyOrderPayment: build.mutation<Response, string>({
       query: (paymentId: string) => ({
         url: `/orders/verify-payment/${paymentId}`,
         method: 'GET',
@@ -32,12 +32,12 @@ export const orderApi = createApi({
         method: 'POST',
       }),
     }),
-    // ongoingOrders: build.query<Response, void>({
-    //   query: () => ({
-    //     url: '/orders/ongoing',
-    //     method: 'GET',
-    //   }),
-    // }),
+    getOrderDetailsRelated: build.query<Response, string>({
+      query: id => ({
+        url: `/orders/order-details-related/${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -45,5 +45,6 @@ export const {
   useGetOrdersQuery,
   useCreateOrderMutation,
   useGetOrderCodeQuery,
-  useVerifyOrderPaymentQuery,
+  useVerifyOrderPaymentMutation,
+  useGetOrderDetailsRelatedQuery,
 } = orderApi;
