@@ -32,6 +32,9 @@ import {
   useCreateOrderMutation,
   useVerifyOrderPaymentMutation,
 } from '@services/orders';
+import {useClearCartMutation} from '@services/carts';
+import {useDispatch} from 'react-redux';
+import {clearCart} from '@store/cart';
 
 const Checkout = () => {
   const {navigate} = useNavigation();
@@ -39,6 +42,7 @@ const Checkout = () => {
   const paystackWebViewRef = useRef<paystackProps.PayStackRef>();
   const [createOrder, {data: paymentInformation, isLoading}] =
     useCreateOrderMutation();
+  const dispatch = useDispatch();
 
   const [verifyPay, refetch] = useVerifyOrderPaymentMutation();
   const [isDoneVerifying, setIsDoneVerifying] = useState(false);
@@ -169,6 +173,7 @@ const Checkout = () => {
             }}
             onSuccess={res => {
               verifyPayment();
+              dispatch(clearCart());
             }}
             ref={paystackWebViewRef as any}
           />
