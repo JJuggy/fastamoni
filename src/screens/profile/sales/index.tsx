@@ -22,8 +22,8 @@ import {useNavigation} from '@react-navigation/native';
 
 const Sales = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
-
   const {orders}: any = data;
+  console.log(orders, 'orders');
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
@@ -50,7 +50,7 @@ const Sales = () => {
 
                     <View style={{flexDirection: 'column', marginLeft: 12}}>
                       <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                        {order?.product?.store?.[0]?.name ?? 'N?A'}
+                        {order?.store?.name ?? 'N?A'}
                       </Paragraph>
                       <Paragraph
                         fontWeight="500"

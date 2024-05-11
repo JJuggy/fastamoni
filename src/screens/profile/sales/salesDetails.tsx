@@ -9,10 +9,33 @@ import colors from '@utility/colors';
 import CodeInputField from '@components/code-field';
 import Header from '@components/header';
 import {AppButton} from '@components/button';
+import {useMarkAsPickedUpMutation} from '@services/stores';
+import {useModal} from '@providers/DynamicModalProvider';
+import {useRoute} from '@react-navigation/native';
 
 const SaleDetail = () => {
   const [inputCodeValue, setInputCodeValue] = React.useState(['', '', '', '']);
-  const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
+  const [markAsPickedUp] = useMarkAsPickedUpMutation();
+  const route = useRoute();
+  const {id} = route.params as {id: string};
+  const {show, close} = useModal();
+  const handleSubmit = () => {
+    markAsPickedUp({
+      orderId: id,
+      verificationNo: inputCodeValue.join(''),
+    })
+      .unwrap()
+      .then(res => {
+        show({
+          as: 'bottomSheet',
+          content: (
+            <View>
+              <Paragraph>Your sale has been confirmed.</Paragraph>
+            </View>
+          ),
+        });
+      });
+  };
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
@@ -32,7 +55,12 @@ const SaleDetail = () => {
 
           <CodeInputField setInputCode={setInputCodeValue} />
           <Spacer />
-          <AppButton text="Confirm" />
+          <AppButton
+            onPress={() => {
+              handleSubmit();
+            }}
+            text="Confirm"
+          />
         </View>
       </ViewContainer>
     </BaseView>

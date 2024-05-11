@@ -68,6 +68,15 @@ export const storesApi = createApi({
       }),
       invalidatesTags: ['Store'],
     }),
+    markAsPickedUp: build.mutation<
+      Response,
+      {orderId: any; verificationNo: any}
+    >({
+      query: ({orderId, verificationNo}) => ({
+        url: `/store/orders/mark-picked/${orderId}/${verificationNo}`,
+        method: 'PATCH',
+      }),
+    }),
   }),
 });
 export const {
@@ -79,4 +88,5 @@ export const {
   useDeleteStoreMutation,
   useGetStoreMetricQuery,
   useGetStoreProductsQuery,
+  useMarkAsPickedUpMutation,
 } = storesApi;

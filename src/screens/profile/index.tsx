@@ -34,12 +34,12 @@ const ProfileScreen = () => {
       label: 'My Cart',
       url: 'Cart',
     },
-
     {
-      icon: sharedImages.icons.wallet,
-      label: 'Wallet',
-      url: 'Wallet',
+      icon: sharedImages.icons.cart,
+      label: 'My Sales',
+      url: 'Sales',
     },
+
     {
       icon: sharedImages.icons.receipt,
       label: 'Transaction History',
