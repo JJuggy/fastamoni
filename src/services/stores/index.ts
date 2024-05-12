@@ -77,6 +77,8 @@ export const storesApi = createApi({
         method: 'PATCH',
       }),
     }),
+
+
   }),
 });
 export const {

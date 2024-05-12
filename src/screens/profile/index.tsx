@@ -38,6 +38,7 @@ const ProfileScreen = () => {
       icon: sharedImages.icons.cart,
       label: 'My Sales',
       url: 'Sales',
+      detail: userProfile?.data.store._id,
     },
 
     {
