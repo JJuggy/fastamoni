@@ -56,7 +56,7 @@ const Sales = () => {
 
                     <View style={{flexDirection: 'column', marginLeft: 12}}>
                       <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                        {storeDets.name ?? 'N?A'}
+                        {storeDets?.name ?? 'N?A'}
                       </Paragraph>
                       <Paragraph
                         fontWeight="500"

@@ -36,6 +36,7 @@ import EditStoreScreen from '@screens/profile/EditStoreScreen';
 import TransactionDetail from '@screens/profile/TransactionDetail';
 import MoreOngoingDets from '@screens/orders/components/moreOngoingDets';
 import OrderDetails from '@screens/orders/order-details';
+import SubscriptionScreen from '@screens/subscription';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -192,6 +193,7 @@ const ProfileStack = () => {
       <Screen name="ReadMoreFaq" component={ReadMoreFaq} />
       <Screen name="Wallet" component={Wallet} />
       <Screen name="RecentlySearched" component={RecentlySearched} />
+      <Screen name="SubscriptionScreen" component={SubscriptionScreen} />
     </Navigator>
   );
 };
