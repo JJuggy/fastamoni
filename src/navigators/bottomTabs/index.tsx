@@ -11,7 +11,6 @@ import ProfileScreen from '@screens/profile';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../utility/colors';
 import {Paragraph} from '@components/text/text';
-import {House, Storefront, Bag, User, Plus} from 'phosphor-react-native';
 import PlaceOrder from '@screens/place-order';
 import {BottomTabParams} from './screens';
 import sharedImages from '@utility/sharedImages';

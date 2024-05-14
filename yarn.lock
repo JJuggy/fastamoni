@@ -1719,11 +1719,6 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@phosphor-icons/core@^2.0.2":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@phosphor-icons/core/-/core-2.0.8.tgz#dfa056d6187409747ac54a62ca76bae543f803fe"
-  integrity sha512-I9MdTtqjqZDXwo6bbG5lRWZUJMWgXc70hZAVG1OVNVmb6j7039slVXLDH4VEok3U3h1Yhotxe8G5l4sPHJBDzQ==
-
 "@react-native-async-storage/async-storage@^1.19.3":
   version "1.19.3"
   resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.19.3.tgz#ad5fe3ed0a82d4624aa4500321c1e09c02daeb46"
@@ -2988,11 +2983,6 @@ caniuse-lite@^1.0.30001517:
   version "1.0.30001525"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001525.tgz#d2e8fdec6116ffa36284ca2c33ef6d53612fe1c8"
   integrity sha512-/3z+wB4icFt3r0USMwxujAqRvaD/B7rvGTsKhbhSQErVrJvkZCLhgNLJxU8MevahQVH6hCU9FsHdNUFbiwmE7Q==
-
-caniuse-lite@^1.0.30001518:
-  version "1.0.30001600"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001600.tgz#93a3ee17a35aa6a9f0c6ef1b2ab49507d1ab9079"
-  integrity sha512-+2S9/2JFhYmYaDpZvo0lKkfvuKIglrx68MwOBqMGHhQsNkLjB5xtc/TGoEPs+MxjSyN/72qer2g97nzR641mOQ==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -6406,14 +6396,6 @@ path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
-
-phosphor-react-native@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/phosphor-react-native/-/phosphor-react-native-2.0.0.tgz#9ca14b4bd3e29e33279bb703b0ab445475d7b8a7"
-  integrity sha512-Q1WtmdFKq5w0rJAZMvYDzUBAHzL1s41Rc3cn3uTutQcLAo81Vjv/X2Im0bxET7is+70R4WDCPf+ZQEoOhaC5Vw==
-  dependencies:
-    "@phosphor-icons/core" "^2.0.2"
-    caniuse-lite "^1.0.30001518"
 
 picocolors@^1.0.0:
   version "1.0.0"
