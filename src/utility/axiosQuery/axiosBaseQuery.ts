@@ -6,7 +6,7 @@ import appEnvironment from '../../../environ';
 
 export const axiosBaseQuery =
   ({
-    baseUrl = appEnvironment().baseUrl,
+    baseUrl = 'https://pb-backend-service-8xl3.onrender.com',
     baseHeaders = {},
   }: {
     baseUrl?: string;

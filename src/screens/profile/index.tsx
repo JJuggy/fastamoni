@@ -34,12 +34,13 @@ const ProfileScreen = () => {
       label: 'My Cart',
       url: 'Cart',
     },
-
     {
-      icon: sharedImages.icons.wallet,
-      label: 'Wallet',
-      url: 'Wallet',
+      icon: sharedImages.icons.shop,
+      label: 'My Sales',
+      url: 'Sales',
+      detail: userProfile?.data.store._id,
     },
+
     {
       icon: sharedImages.icons.receipt,
       label: 'Transaction History',
@@ -154,6 +155,9 @@ const ProfileScreen = () => {
           </ViewContainer>
           <ViewContainer>
             <AppButton
+              onPress={() => {
+                navigate('SubscriptionScreen');
+              }}
               text="Subscribe"
               style={{
                 width: '30%',

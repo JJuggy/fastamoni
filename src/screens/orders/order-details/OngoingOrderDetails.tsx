@@ -16,7 +16,10 @@ import {Paragraph} from '@components/text/text';
 import {NAIRA} from '@utility/naira';
 import {AppButton} from '@components/button';
 import colors from '@utility/colors';
-import {useGetOrderDetailsRelatedQuery} from '@services/orders';
+import {
+  useGetOrderCodeQuery,
+  useGetOrderDetailsRelatedQuery,
+} from '@services/orders';
 import {useNavigation} from '@react-navigation/native';
 import {HomeNavigatorParams} from 'src/types';
 
@@ -27,17 +30,13 @@ interface IProp {
 const OngoingOrderDetails = ({id}: IProp) => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
   const {data} = useGetOrderDetailsRelatedQuery(id);
-  const [code, setCode] = React.useState<string[]>(['8', '3', '9', '1']);
+  const {data: orderCode} = useGetOrderCodeQuery(id);
   const orderDetail = data?.data?.order;
   const relatedOrders = data?.data?.related;
-
-  // console.log(data, 'THE DATA OF ORDERS');
-
   return (
     <SafeAreaView>
       <ScrollView>
         <Spacer />
-
         <View>
           <View style={{flex: 1}}>
             <Paragraph fontSize={16}>
@@ -48,7 +47,7 @@ const OngoingOrderDetails = ({id}: IProp) => {
             <FlexedView
               style={{paddingHorizontal: 35}}
               justifyContent="space-between">
-              {code.map((cd, idx) => (
+              {orderCode?.data.code.split('').map((cd, idx) => (
                 <View
                   key={idx}
                   style={{
@@ -129,49 +128,55 @@ const OngoingOrderDetails = ({id}: IProp) => {
           </View>
           <View>
             <Spacer />
-            <Paragraph>Same products under this order</Paragraph>
+            <Paragraph fontSize={15} fontWeight="600">
+              Same products under this order
+            </Paragraph>
             <Spacer />
 
-            {relatedOrders?.length
-              ? relatedOrders?.map((or: any, ind: number) => (
-                  <FlexedView key={ind} justifyContent="space-between">
-                    <FlexedView>
-                      <Image
-                        source={{uri: or?.preview_image ?? ''}}
+            {relatedOrders?.length ? (
+              relatedOrders?.map((or: any, ind: number) => (
+                <FlexedView key={ind} justifyContent="space-between">
+                  <FlexedView>
+                    <Image
+                      source={{uri: or?.preview_image ?? null}}
+                      style={{
+                        width: 90,
+                        height: 90,
+                        borderRadius: 20,
+                      }}
+                    />
+
+                    <View style={{flexDirection: 'column', marginLeft: 12}}>
+                      <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
+                        {or?.store?.name ?? 'N?A'}
+                      </Paragraph>
+                      <Paragraph
+                        fontWeight="500"
+                        fontSize={15}
                         style={{
-                          width: 90,
-                          height: 90,
-                          borderRadius: 20,
+                          color: '#494949',
+                          marginVertical: 5,
+                        }}>
+                        {or?.product_title}
+                      </Paragraph>
+
+                      <Paragraph
+                        style={{
+                          color: '#1E89DD',
                         }}
-                      />
-
-                      <View style={{flexDirection: 'column', marginLeft: 12}}>
-                        <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                          {or?.store?.name ?? 'N?A'}
-                        </Paragraph>
-                        <Paragraph
-                          fontWeight="500"
-                          fontSize={15}
-                          style={{
-                            color: '#494949',
-                            marginVertical: 5,
-                          }}>
-                          {or?.product_title}
-                        </Paragraph>
-
-                        <Paragraph
-                          style={{
-                            color: '#1E89DD',
-                          }}
-                          fontSize={19}
-                          fontWeight="800">
-                          {`${NAIRA} ${or?.product_price}`}
-                        </Paragraph>
-                      </View>
-                    </FlexedView>
+                        fontSize={19}
+                        fontWeight="800">
+                        {`${NAIRA} ${or?.product_price}`}
+                      </Paragraph>
+                    </View>
                   </FlexedView>
-                ))
-              : null}
+                </FlexedView>
+              ))
+            ) : (
+              <>
+                <Paragraph>No Related orders</Paragraph>
+              </>
+            )}
           </View>
           {/* <ScrollView style={{height: '90%'}}>
                 {remainingPendingItems.map(() => (

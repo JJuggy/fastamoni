@@ -11,7 +11,6 @@ import ProfileScreen from '@screens/profile';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from '../../utility/colors';
 import {Paragraph} from '@components/text/text';
-import {House, Storefront, Bag, User, Plus} from 'phosphor-react-native';
 import PlaceOrder from '@screens/place-order';
 import {BottomTabParams} from './screens';
 import sharedImages from '@utility/sharedImages';
@@ -36,6 +35,7 @@ import EditStoreScreen from '@screens/profile/EditStoreScreen';
 import TransactionDetail from '@screens/profile/TransactionDetail';
 import MoreOngoingDets from '@screens/orders/components/moreOngoingDets';
 import OrderDetails from '@screens/orders/order-details';
+import SubscriptionScreen from '@screens/subscription';
 
 interface BottomTabProps extends PropsWithChildren {
   name: string;
@@ -192,6 +192,7 @@ const ProfileStack = () => {
       <Screen name="ReadMoreFaq" component={ReadMoreFaq} />
       <Screen name="Wallet" component={Wallet} />
       <Screen name="RecentlySearched" component={RecentlySearched} />
+      <Screen name="SubscriptionScreen" component={SubscriptionScreen} />
     </Navigator>
   );
 };

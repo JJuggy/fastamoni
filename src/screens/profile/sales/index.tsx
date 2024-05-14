@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
 import colors from '@utility/colors';
 import Header from '@components/header';
@@ -18,19 +18,25 @@ import {heightPixel} from '@utility/pxToDpConvert';
 import {NAIRA} from '@utility/naira';
 import sharedImages from '@utility/sharedImages';
 import {HomeNavigatorParams} from 'src/types';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useGetStoreProductsQuery} from '@services/stores';
 
 const Sales = () => {
   const {navigate} = useNavigation<HomeNavigatorParams>();
+  const [storeDets, setStoredets] = useState({});
+  const route = useRoute();
+  const {data: orders} = useGetStoreProductsQuery(route?.params?.detail);
+  useEffect(() => {
+    setStoredets(orders?.data.store);
+  }, []);
 
-  const {orders}: any = data;
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
         <Header title="My Sales" />
         <Spacer />
         <ScrollView>
-          {orders.map((order: any, index: number) => (
+          {orders?.data.products.map((order: any, index: number) => (
             <View key={index}>
               <Pressable
                 style={styles.container}
@@ -50,7 +56,7 @@ const Sales = () => {
 
                     <View style={{flexDirection: 'column', marginLeft: 12}}>
                       <Paragraph fontSize={12} style={{color: '#B1B1B1'}}>
-                        {order?.product?.store?.[0]?.name ?? 'N?A'}
+                        {storeDets?.name ?? 'N?A'}
                       </Paragraph>
                       <Paragraph
                         fontWeight="500"
@@ -59,7 +65,7 @@ const Sales = () => {
                           color: '#494949',
                           marginVertical: 5,
                         }}>
-                        {order?.product?.title}
+                        {order?.title}
                       </Paragraph>
                       <FlexedView
                         style={{
@@ -89,7 +95,7 @@ const Sales = () => {
                         }}
                         fontSize={19}
                         fontWeight="800">
-                        {`${NAIRA} ${order?.product?.price}`}
+                        {`${NAIRA} ${order?.price}`}
                       </Paragraph>
                     </View>
                   </FlexedView>

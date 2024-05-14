@@ -32,6 +32,9 @@ import {
   useCreateOrderMutation,
   useVerifyOrderPaymentMutation,
 } from '@services/orders';
+import {useClearCartMutation} from '@services/carts';
+import {useDispatch} from 'react-redux';
+import {clearCart} from '@store/cart';
 
 const Checkout = () => {
   const {navigate} = useNavigation();
@@ -39,11 +42,16 @@ const Checkout = () => {
   const paystackWebViewRef = useRef<paystackProps.PayStackRef>();
   const [createOrder, {data: paymentInformation, isLoading}] =
     useCreateOrderMutation();
+  const dispatch = useDispatch();
 
   const [verifyPay, refetch] = useVerifyOrderPaymentMutation();
-
+  const [isDoneVerifying, setIsDoneVerifying] = useState(false);
   const {close, show} = useModal();
   const {cart} = useCart();
+  const [verifyPollingId, setVerifyPollingId] = useState();
+  const [paymentId, setPaymentId] = useState(
+    paymentInformation?.data.payment._id,
+  );
   const itemDiscount = 0;
   const couponDiscount = 0;
   let totalPrice: number = 0;
@@ -95,6 +103,7 @@ const Checkout = () => {
           </ViewContainer>
           <Spacer height={windowHeight * 0.15} />
           <AppButton
+            isLoading={isLoading}
             variant="primary"
             text="I have paid"
             onPress={() => {
@@ -123,19 +132,38 @@ const Checkout = () => {
   }, [paymentInformation?.data.payment.reference]);
 
   const verifyPayment = () => {
-    verifyPay(paymentInformation?.data.payment._id)
-      .unwrap()
-      .then(() => {
-        navigate('Orders', {screen: 'OrdersScreen'});
-      })
-      .catch(() => {});
+    const maxAttempts = 10;
+    let attempts = 0;
+    const pollingInterval = setInterval(() => {
+      attempts++;
+      verifyPay(paymentInformation?.data.payment._id)
+        .unwrap()
+        .then(res => {
+          console.log(res, 'THE RESPONSE FOR VERIFY');
+          if (res.data.status !== 'AWAITING_PAYMENT') {
+            clearInterval(pollingInterval);
+            setIsDoneVerifying(true);
+            setPaymentId(undefined);
+            navigate('Orders', {screen: 'OrdersScreen'});
+          }
+        })
+        .catch(error => {
+          clearInterval(pollingInterval);
+          console.error('Error verifying payment:', error);
+        });
+
+      if (attempts >= maxAttempts) {
+        clearInterval(pollingInterval);
+        console.warn('Exceeded maximum polling attempts');
+      }
+    }, 5000);
   };
 
   return (
     <BaseView>
       <ViewContainer style={{flex: 1}}>
         <Header title="Checkout" />
-        {paymentInformation?.data.payment.reference != undefined && (
+        {paymentInformation?.data.payment._id != undefined && (
           <Paystack
             paystackKey={'pk_test_9a0d8de922a74f89c633dfa2f555fba40099a97d'}
             billingEmail="primebazaar@gmail.com"
@@ -144,8 +172,8 @@ const Checkout = () => {
               // handle response here
             }}
             onSuccess={res => {
-              console.log(res, 'THE RESPONSE FOR VERUFY');
               verifyPayment();
+              dispatch(clearCart());
             }}
             ref={paystackWebViewRef as any}
           />
